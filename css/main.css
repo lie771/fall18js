@@ -1,0 +1,571 @@
+html,body { width: 100%; height: 100%; }
+
+/* Changing fonts */
+	@font-face {font-family: "museosans-300"; src: url("../fonts/museosans-300.ttf"); }
+	@font-face {font-family: "museosans-100"; src: url("../fonts/museosans-100.ttf"); }
+	@font-face {font-family: "museosans-500"; src: url("../fonts/museosans-500.ttf"); }
+
+body{
+	margin:0;
+	font-family: museosans-100;
+}
+.content{
+	width:100%;
+}
+
+.nav{
+	position:fixed;
+	color:#848484;
+	font-size: 18px;
+	letter-spacing: 5px;
+	text-align:center;
+	font-family:museosans-300;
+	z-index: 2;
+}
+
+.nav:hover{
+	color:#ffd819;	
+	letter-spacing: 80px;
+	transition-duration: 0.3s;
+}
+
+.navbar .list{
+	position: fixed;
+	width:600px;
+	height:40px;
+	right:-200px;
+	margin-left: 57px;
+	top:430px;
+	transform: rotate(90deg);
+	opacity: 0;
+	z-index: 8;
+
+}
+.navbar:hover .list{
+	visibility:visible;
+}
+
+.home{
+	position:fixed;
+	z-index: 3;
+	left:50%;
+	transform:translate( -50% );
+}
+.home img{
+	width:60px;
+	top:20px;
+	opacity:1;
+}
+.home img:hover{
+	opacity: 0.5;
+}
+
+.projects{
+	bottom:20px;
+	width:100%;
+}
+
+.about{
+	transform:rotate(90deg) translate( -50% );
+	top:50%;
+	left:40px;
+	transform-origin: 0 0;
+}
+.connect{
+	transform:rotate(270deg) translate( -50% );
+	top:50%;
+	right:-83px;
+	transform-origin: 0 0;
+}
+.mainimg{
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	width:800px;
+}
+
+.about2{
+	letter-spacing: 80px;
+	color: #ffd819;
+}
+
+.contentbody{
+	position:absolute;
+	width:80%;
+	height:auto;
+	top:100px;
+	left:50%;
+	transform:translate(-50%,-50%);
+}
+.description{
+	position:absolute;
+	width:450px;
+	height:auto;
+	font-family:museosans-500;
+	text-align:center;
+	top:50%;
+	left:65%;
+	transform:translate(-50%,0%);
+	color:gray;
+	z-index:3;
+	font-kerning:normal; 
+}
+.mepic{
+	position:fixed;
+	top:50%;
+	left:35%;
+	transform:translate(-50%,-50%);
+	width:300px;
+	height:auto;
+	border-radius: 50%;
+
+}
+.portfolio{
+	position: absolute;
+	width:500px;
+	height:auto;
+	top:150px;
+	left:50%;
+	transform:translate(-50%);
+}
+.proj{
+	position: relative;
+	width:500px;
+	height:auto;
+	opacity: 1;
+	right:0px;
+}
+.proj:hover{
+	/*opacity: 0.5;*/
+	right:100px;
+	transition-duration: 0.3s;
+}
+
+@media (max-width: 900px) {
+	.mepic{
+		top:45%;
+		left:50%;
+		transform:translate(-50%,-50%);
+	}
+	.description{
+		top:70%;
+		left:50%;
+		transform:translate(-50%,0%);
+		transition-duration: 1s;
+	}
+	.proj{
+		opacity:1;
+		width:100%;
+		right:0px;
+	}
+	.proj:hover{
+		opacity:0.3;
+		right:0px;
+	}
+
+/*	.nav{
+		color:#848484;
+		font-size: 18px;
+		letter-spacing: 5px;
+		text-align:right;
+		font-family:museosans-300;
+		z-index: 2;
+	}
+	.nav:hover{
+		color:#ffd819;	
+		letter-spacing: 80px;
+		transition-duration: 0.3s;*/
+}
+}
+
+/*.ink{
+	width:100%;
+	height:auto;
+
+	opacity: 1;
+}
+.ink:hover{
+	opacity: 0.3;
+}
+.groupball{
+	position:absolute;
+	width:100%;
+	height:auto;
+}
+
+
+.nav{
+	font-family: FTB ;
+	font-size: 15px;
+	color:#848484;
+	display: inline-block;
+}
+.home{
+	position:fixed;
+	z-index: 3;
+	transform: scale(0.4);
+	margin:0;
+	left:-10px;
+	padding-right:10px;
+	top:120px;
+	font-size: 22px;
+	color:#848484;
+	z-index: 5;
+	transform: rotate(90deg);
+}
+.home:hover{
+	color:#c4c2c2;	
+}
+.about{
+	position:fixed;
+	float:left;
+	right:24px;
+	top:80px;
+	color:#848484;
+	z-index: 5;
+	display: inline-block;
+	margin-right:15px;
+	transform: rotate(90deg); 
+	padding-bottom: 5px;
+}
+.about:hover {
+  border-bottom: 2px solid #c4c2c2;
+  color:#c4c2c2;
+}
+.peninfo{
+	position:fixed;
+	color:#848484;
+	z-index: 5;
+	width:500px;
+	height:auto;
+	display: inline-block;
+	transform:rotate(90deg);
+	left:-190px;
+	font-size:13px; 
+	padding-right:10px;
+	bottom:290px;
+	color:#c4c2c2;
+	text-align: right; 
+}
+
+.collection{
+	position:fixed;
+	float:left;
+	right:22px;
+	top:180px;
+	color:#848484;
+	display: inline-block;
+	transform: rotate(90deg); 
+	padding-bottom: 5px;
+	z-index: 5;
+}
+.collection:hover {
+  border-bottom: 2px solid #c4c2c2;
+  color:#c4c2c2;
+}
+.homee{
+	padding-right:5px;
+	color:#c4c2c2;
+}
+.homee:hover{
+	color:#848484;
+}
+.dash{
+	padding-right:5px;
+	color:#848484;
+}
+.collectiongroup .list{
+	position: fixed;
+	width:600px;
+	height:40px;
+	right:-200px;
+	margin-left: 57px;
+	top:430px;
+	transform: rotate(90deg);
+	opacity: 0;
+	z-index: 8;
+
+}
+.collection:hover .list{
+	visibility:visible;
+}
+
+.title{
+	position:fixed;
+	left:-15px;
+	padding-right:10px;
+	bottom:115px;
+	font-size: 22px;
+	color:#848484;
+	z-index: 5;
+	transform: rotate(90deg);
+}
+.photohome{
+	position:absolute;
+	display: inline-block;
+	top:40px;
+	right:62px;
+	width:1300px;
+	height:auto;
+}
+
+
+.stroke{
+	position:absolute;
+	width:100px;
+	height:auto;
+	z-index: 3;
+	top:190px;
+	right:1220px;
+
+}
+.word{
+	padding-bottom:20px;
+}
+.aboutpara{
+	position: absolute;
+	bottom:100px;
+	text-align:center;
+	left:30%;
+	top:50%;
+	transform: translate( -50%);
+	font-size: 12px
+}
+
+.aboutparahaiku{
+	position: absolute;
+	font-family: FTB;
+	font-size:30px;
+	left:40%;
+	top:45%;
+}
+
+.aboutimage{
+	position:absolute;
+	width:300px;
+	height:auto;
+	bottom:40px;
+	left:180px;
+
+}
+
+.indivphoto{
+	position: fixed;
+	bottom:0;
+	top:0;
+	height:auto;
+	width:100%;
+	left:0;
+	object-fit: cover;
+	height: 100%;
+}
+
+.fit-top {
+	object-position: top;
+}
+
+.fit-bottom {
+	object-position: bottom;
+}
+.fit-left {
+	object-position: left;
+}
+.fit-right {
+	object-position: right;
+}
+
+.indivbody{
+	position: absolute;
+	font-family: FTB;
+	font-size:30px;
+	bottom:60px;
+	right:130px;
+}
+.indivbody2{
+	position: absolute;
+	font-family: FTB;
+	font-size:30px;
+	bottom:76%;
+	left:200px;
+}
+.indivbody3{
+	position: absolute;
+	font-family: FTB;
+	font-size:30px;
+	bottom:76%;
+	right:200px;
+}
+.indivbody4{
+	position: absolute;
+	font-family: FTB;
+	font-size:30px;
+	bottom:60px;
+	left:130px;
+}
+.arrowgroup{
+	position:fixed;
+	transform: scale(2);
+	width:10px;
+	height:60px;
+	right:50px;
+	bottom:85px;
+}
+
+.arrowdown{
+	position:absolute;
+	width: 0; 
+	height: 0; 
+	border-left: 4px solid transparent;
+	border-right: 4px solid transparent;
+	border-bottom: 8px solid #848484;
+	top:0px;
+}
+.arrowdown:hover{
+	border-bottom: 8px solid #c4c2c2;	
+}
+
+.arrowup{
+	position:absolute;
+	width: 0; 
+  	height: 0; 
+  	border-left: 4px solid transparent;
+  	border-right: 4px solid transparent;
+  	border-top: 8px solid #848484;
+  	bottom:0px;
+}
+.arrowup:hover{
+	border-top: 8px solid #c4c2c2;	
+}
+
+@media (max-width: 900px) {
+  .home{
+  	transform: rotate(0deg);
+  	top:40px;
+  	left:45px;
+	}
+  .content{
+  	transition-duration: 3s;
+  	width:1400px;
+  	right:-150px;
+  	left:auto;
+  }
+  .aboutparahaiku{
+  	position:absolute;
+  	left:5%;
+  	padding:5%;
+  }
+  .indivphoto{
+  	width:100%;
+  	height:auto;
+  	left:0;
+	top:140px;
+  	transition-duration: 1s;
+  }
+  .indivbody{
+	bottom:60px;
+  	font-size: 35px;
+  	padding:10%;
+  	padding-top:20px;
+  	left:3%;
+  	width:100%;
+	height:auto;
+  }
+
+  .indivbody2{
+  	font-size: 35px;
+  	padding:10%;
+  	padding-top:20px;
+  	bottom:60px;
+
+  	left:3%;
+  	width:100%;
+  	height:250px;
+  }
+  .indivbody3{
+	bottom:65px;
+  	font-size: 35px;
+  	padding:10%;
+  	padding-top:20px;
+  	padding-bottom:20px;
+  	width:100%;
+  	height:auto;
+  	left:3%;
+  }
+    .indivbody4{
+	bottom:60px;
+  	font-size: 35px;
+  	padding:10%;
+  	left:3%;
+  }
+
+  .about{
+  	transform: rotate(0deg);
+  	font-size: 20px;
+  	right:30px;
+  	text-align: right;
+	top:40px;
+  }
+
+  .collection{
+  	transform: rotate(0deg);
+  	right:45px;
+  	font-size: 20px;
+  	text-align: right;
+	top:72px;
+  }
+  .collectiongroup .list{
+  	transform: rotate(0deg);
+  	top:100px;
+  	width:100%;
+  	text-align:right;
+  	right:40px;
+  	padding-left:10%;
+  	padding-bottom: 10px;
+
+  }
+  .peninfo{
+  	margin-left: 0;
+  	left:0px;
+  	bottom:60px;
+  	width:100%;
+  	transform: rotate(0deg); 
+  	text-align: center;
+  }
+  .arrowgroup{
+	width:100px;
+	height:10px;
+	bottom:30px;
+	left:40%;
+
+  }
+  .arrowdown{
+  	transform: rotate(-90deg);
+  	bottom:10px;
+  	left:0;
+  }
+  .arrowup{
+  	transform: rotate(-90deg);
+  	right:0;
+  }
+}
+
+.left{
+	right:0;
+}
+
+.right{
+	left:0;
+	bottom:0;
+}
+
+.one{
+	bottom:0;
+	right:10px;
+}
+.two{
+	right:0;
+	bottom:0;
+}*/
+
+
