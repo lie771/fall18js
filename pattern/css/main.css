@@ -1,0 +1,31 @@
+html, body {width:100%, height:100%;}
+
+
+html, body{
+	/*background-color: #ff1a8c;*/
+	margin:0;
+	padding:0;
+	cursor:url(https://portfolio.newschool.edu/lie771/files/2018/05/Artboard-3-copy-18-15khlt3.png), auto;
+
+/*	cursor: pointer;*/
+}
+
+/*#one {
+			position: fixed;
+			float:left;
+            background-color: lavender;
+            color: #fff;
+            width: 50px;
+			height:50px;
+			cursor:pointer;
+       }*/
+/*.two {
+			position: relative;
+			float:left;
+            background-color: salmon;
+            color: #fff;
+            width: 50px;
+			height:50px;
+			z-index: 3;
+			cursor:pointer;
+       }*/

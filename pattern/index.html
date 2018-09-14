@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./css/main.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<title>Pattern</title>
+	<style type="text/css">
+
+		html, body{
+			background-color:gray;
+			width:100%;
+			height:100%;
+			font-family: 'Roboto', sans-serif;
+		}
+		.one{
+			color:pink;
+			transform: rotate(90deg);
+		}
+		.two{
+			color:yellow;
+		}
+
+
+	</style>
+</head>
+<body>
+	<div id="wrapper"></div>
+
+<script type="text/javascript">
+
+var myArray = [
+	[10, "I AM LOST"], 
+	[2, "&nbsp;&#9674;&nbsp;"],
+	[3, "&nbsp;&#8707;"],
+	[5, "&#8756;"]
+	]
+var result = '';
+
+	for(var l = 0; l < myArray.length; l++){
+		for ( var a = 0; a <= 10; a++ ) {
+			var element = document.createElement("div");
+		    element.className = "pattern"
+
+		    //attempted modules
+			    // if(l % 3 == 0){
+			    // 	result += '<span class="one">'+myArray[i]+'</span>'
+			    // } else{
+			    // 	result += '<span class="two">'+myArray[i]+'</span>'
+			    // }
+
+		    // if number is smaller than 6 color is pink, else white
+				// if (myArray.length[0] < 6) {
+				// 	myArray.style="color:pink"
+				// }else{
+				// 	style="color:white;"
+				// }
+
+
+		    element.innerHTML = `
+		    	<h1 style="font-size:${myArray[l][0]}rem;color:white">${myArray[l][1]}</h1>
+		    `
+		    document.getElementById('wrapper').appendChild(element);
+		}
+		document.write("<br>");
+	}
+
+
+</script>
+
+</body>
+</html>
