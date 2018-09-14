@@ -13,6 +13,11 @@ body{
 	width:100%;
 }
 
+.projname{
+	position:relative;
+	margin-bottom:10px;
+}
+
 .nav{
 	position:fixed;
 	color:#848484;
