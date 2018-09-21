@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		
+		html{
+			background-color: lightblue;
+		}
+
+		.newHeader{
+			color: green;
+			font-weight: 300;
+			font-family: monospace;
+		}
+
+		.blue{
+			background-color: blue;
+		}
+
+
+	</style>
+
+
+</head>
+<body>
+
+	<div id="wrapper"></div>
+
+
+	<script type="text/javascript">
+		
+		var myArray = [
+			["hello", 16],
+			["goodbye", "blue"],
+			["class", 50],
+			["random words", 100],
+		];
+
+ 
+		// want to loop to go 50 times, when reach  length of  array i want to go back to 0 
+			//(array has 4 items, 4 x 13 rounded = 50 )
+		// have it set two values so that it won't run forever
+		for (var k = 0; k <13; k++){
+			for (var i = 0; i < myArray.length; i++) {
+
+				var element = document.createElement("div")
+				element.className = "newHeader"
+				element.style.backgroundColor = "red"
+
+				var arrayValue = myArray[i];
+				var arrayValueOne = arrayValue[1];
+
+
+				var style = "";
+
+				if (typeof arrayValueOne == "number" ) {
+					style = 'style="font-size: ' + arrayValueOne + 'px;"'
+				}else{
+					style = 'class="' + arrayValueOne + '"'
+				}
+
+				element.innerHTML = `
+
+					<h1 ${style} >${arrayValue[0]}</h1>
+					<h2 test </h2>
+
+				`				
+				
+				document.getElementById("wrapper").appendChild(element)
+
+			}
+		}
+
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

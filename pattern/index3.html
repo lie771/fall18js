@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Pattern</title>
+	<style type="text/css">
+
+		html, body, div{
+		}
+
+		/*limits webpage*/
+		#wrapper{
+			width: 100vw;
+		}
+		/*individual container to hold each circle*/
+		.container{
+			/*stack next to each other*/
+			position: relative;
+			display: inline-block;
+			width: 11.11vw;
+			height: 11.11vw;
+		}
+
+		.circle{
+			position: absolute;
+			background-color: white;
+			border-radius: 50%;
+			/*push it 50% and transform to minus the radius*/
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+		}
+
+
+	</style>
+</head>
+<body>
+	<!-- id is used to target specific elements & class used to repeat -->
+	<div id="wrapper"></div>
+
+<script type="text/javascript">
+
+	//external variable that starts independent of the for loop - how big the circle
+	var circleDiameter = 0;
+	// incrementing the diamter
+	var direction = false;
+	var totalLength = 100;
+
+
+	// goes/iterate until 100 times 
+	for (var i = 0; i <totalLength; i++) {
+
+		//create an element called container
+		var container = document.createElement("div");
+		// give it a className; important for structure; know refering to .container in css
+		container.className = "container";
+
+		//circleDiameter++; will make the diameter bigger inifinite amount; need counter to limit 
+		//incrementing the diamter
+			// circleDiameter++; 
+
+		//OPT 1 RESET DIAM: if circlediameter is equal to 10 reset to 0
+			// if(circleDiameter == 10){
+			// 	circleDiameter = 0; 
+			// }
+
+		// OPT 2 RESE DIAM: if i circleDiameter 
+			// if (i % 5 == 0){
+			// 	circleDiameter = 1;
+			// }
+
+			//if direction is false, increase circleDiameter, else decrease circleDiameter
+			// haha reaches to 5 then runs this toggle to reset to diameter of 1 
+			if (i % 5 == 0){
+				if (direction){
+					// 
+					direction = false; 
+				}else{
+					direction = true;
+					circleDiameter = 1;
+				}
+			}
+
+			//if else (to inc and dec circleDiameter)
+			if(!direction){
+				//if direction = false --> inc diameter
+				circleDiameter--;
+			}else{
+				// if direction = true --> dec diameter 
+				circleDiameter++;
+			}
+
+			// percentage for opacity
+			var percentage = circleDiameter / 5;
+
+			//percentage of progress through array producing the percentage of i 
+			//by end of forloop, it produces 100%, beginning was 0%
+			var progress = i/totalLength;
+			// starting point for red is 255(total amount want to subtract) then subtract more 
+				// doesn't go all the way to blue if less than 255 in progress*255
+			var red = 255 - (progress*255);
+			// starting point for blue is 0 multiply  by its value (gets larger into producing 255)
+			var blue = progress*255;
+				//or you could write depending on machine
+					//var red = Math.ceil(255 - (progress*255));
+					//var blue = Math.ceil(progress*255);
+			//produce a string, place into inline style
+			var color = "rgb(" + red + ", 0, " + blue + ")";
+			// rgb (255, 255, 255) is the limit 
+			// rgb (0, 0, 255) blue
+			// rgb (255, 0, 0)
+
+
+		// template literal with diameter injected as inline css
+			// standard css layout 	<div style="___:${variable}unit"></div>
+		container.innerHTML = `
+
+			<div style="background-color:${color}; opacity:${percentage}; width:${circleDiameter}vw; height:${circleDiameter}vw; " class= "circle"></div>
+
+		`
+		//get "wrapper" from body & container within the wrapper
+		document.getElementById("wrapper").appendChild(container)
+	}
+
+
+
+</script>
+
+</body>
+</html>

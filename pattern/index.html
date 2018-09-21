@@ -31,7 +31,7 @@
 <script type="text/javascript">
 
 var myArray = [
-	[10, "I AM LOST"], 
+	[10, "LOST"], 
 	[2, "&nbsp;&#9674;&nbsp;"],
 	[3, "&nbsp;&#8707;"],
 	[5, "&#8756;"]
@@ -43,27 +43,13 @@ var result = '';
 			var element = document.createElement("div");
 		    element.className = "pattern"
 
-		    //attempted modules
-			    // if(l % 3 == 0){
-			    // 	result += '<span class="one">'+myArray[i]+'</span>'
-			    // } else{
-			    // 	result += '<span class="two">'+myArray[i]+'</span>'
-			    // }
-
-		    // if number is smaller than 6 color is pink, else white
-				// if (myArray.length[0] < 6) {
-				// 	myArray.style="color:pink"
-				// }else{
-				// 	style="color:white;"
-				// }
-
+		 
 
 		    element.innerHTML = `
 		    	<h1 style="font-size:${myArray[l][0]}rem;color:white">${myArray[l][1]}</h1>
 		    `
 		    document.getElementById('wrapper').appendChild(element);
 		}
-		document.write("<br>");
 	}
 
 

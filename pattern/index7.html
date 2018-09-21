@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Pattern</title>
+	<style type="text/css">
+
+		html, body, div{
+			background-color: black;
+		}
+
+		/*limits webpage*/
+		#wrapper{
+			width: 100vw;
+		}
+		/*individual container to hold each circle*/
+		.container{
+			/*stack next to each other*/
+			position: relative;
+			display: inline-block;
+			width: 11.11vw;
+			height: 11.11vw;
+			background-color: white;
+		}
+
+		.circle{
+			position: absolute;
+			background-color: white;
+			text-align:center;
+			font-family: Arial;
+			font-color:black;
+			border-radius: 50%;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+
+	</style>
+</head>
+<body>
+	<!-- id is used to target specific elements & class used to repeat -->
+	<div id="wrapper"></div>
+
+<script type="text/javascript">
+
+	//external variable that starts independent of the for loop - how big the circle
+	var circleDiameter = 0;
+	// incrementing the diamter
+	var direction = false;
+	var totalLength = 100;
+
+
+
+
+	for (var i = 0; i <totalLength; i++) {
+
+		var container = document.createElement("div");
+		container.className = "container";
+
+			var myArray = ["A", "B", "C", "D"];
+			var mySecondArray = ["1", "2", "3", "4"];
+
+			if(circleDiameter < 0.5){
+				document.write(myArray[i] + " " + mySecondArray[i]);
+			}else{
+				document.write(myArray[2] + " " + mySecondArray[1]);
+
+			}
+
+			if (i % 5 == 0){
+				if (direction){
+					// 
+					direction = false; 
+					
+				}else{
+					direction = true;
+					circleDiameter = 1;
+					
+				}
+			}
+
+			if(!direction){
+				circleDiameter--;
+				
+			}else{
+				circleDiameter++;
+				
+			}
+			
+			var percentage = circleDiameter / 5;
+
+			var progress = i/totalLength;
+			var red = 255 - (progress*255);
+			var blue = progress*255;
+			var color = "rgb(" + red + ", 0, " + blue + ")";
+
+		container.innerHTML = `
+
+			<div style="background-color:${color}; opacity:${percentage}; width:${circleDiameter}vw; height:${circleDiameter}vw; " class= "circle"></div>
+
+
+		`
+				document.getElementById("wrapper").appendChild(container);
+	}
+
+
+
+</script>
+
+</body>
+</html>
