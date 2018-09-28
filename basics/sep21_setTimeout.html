@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<title>Sep21</title>
+
+	<style type="text/css">
+
+		html, body, div{
+			padding:0;
+			margin:0;
+			font-size:15px;
+			text-align:center; 
+		}
+
+		.weather{
+			font-size:20px;
+		}
+		
+	</style>
+</head>
+<body>
+	<div id="wrapper"></div>
+
+<script type="text/javascript">
+
+	//setTimeout basic
+		setTimeout(function(){
+			console.log("hello")
+		//delay time of output;milisecond unit
+		},3000);
+
+
+	//Random & rounded numbers
+		//random 
+			//produces a number from 0 to 1 (without value in the bracket)
+		var randomNum = Math.random() * 100;
+			// e.g; * 100 produce a number from 0-100
+			// e.g; 50 + Math.random() * 100; produces a number from 50-100
+		//rounded number 
+		var roundedNum = Math.round(randomNum); 
+			// var roundedNum = Math.round(3.5); 
+			console.log(randomNum, roundedNum)
+		var roundedDown = Math.floor();
+		var roundedUpNum = Math.ceil();
+
+
+	//1 Additional interval after for loop
+		var interval = 0;
+		var counter = 0;
+
+		//reads the for loop 50 times (how many setTimeout)
+			//specific increment in each 
+		for (var i = 0; i < 50; i++) {
+			setTimeout(function(){
+				console.log('pop up after 2 seconds', counter)
+
+				counter++; 
+				//increase the console log counter by one until it reaches 50
+
+			},interval);
+
+			// additional 100 interval after the setTimeout above = 50	
+			interval +=100;
+			//abreviation for interval = interval + 100
+		}
+
+
+
+
+	//2 outputing random interval within setTimeout
+		var interval = Math.round(Math.random()*1000);
+		var counter = 0;
+
+		for (var i = 0; i < 50; i++) {
+			setTimeout(function(){
+				console.log('pop up after 2 seconds', counter)
+
+				counter++; 
+				//increase the console log counter by one until it reaches 50
+
+			},interval);
+
+			interval = Math.round(Math.random()*1000);
+		}
+
+
+	//3 class example (emoji)
+		var interval = 0;
+		var counter = 0;
+
+		for (var i = 0; i < 100; i++) {
+			setTimeout(function(){
+
+
+				var weather = docmument.createElement("div");
+				weather.className = "weather";
+
+				var snow = "";
+				//empty string will be filled out underneath
+
+				for (var s = 0; s <10; s++){
+					//want to compile snow/rain string
+
+					var snowOrRain = Math.ceil(Math.random()*100);
+						//random numbers output
+
+					//if snow or rain produces a number less than 33, take variable of snow and add a space
+					if(snowOrRain <= 33){
+						snow += "💧"; 
+					}else if( snowOrRain > 33 & snowOrRain <= 66 ){
+						snow +="";
+					}else (snowOrRain > 66){
+						snow +="❄️"; 
+					}
+				}
+
+				console.log(snow)
+
+				weather.innerHTML = snow;
+				document.getElementById("wrapper").appendChild(weather); 
+
+				//tell the window to scroll to the height of the document  
+				window.scrollTo(0, document.body.scrollHeight);
+
+				counter++; 
+			},interval);
+
+			interval +=100;
+		}
+
+
+</script>
+
+</body>
+</html>
