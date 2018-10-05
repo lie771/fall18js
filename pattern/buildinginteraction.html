@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Building Interaction</title>
+	<style type="text/css">
+
+		html, body{
+			/*background-color: black;*/
+		}
+
+		#wrapper{
+			width: 100vw;
+			
+		}
+		.container{
+			position: relative;
+			display: inline-block;
+			width: 10vw;
+			height: 10vw;
+		}
+/*		.circle{
+			position: absolute;
+			background-color: white;
+			width: 0;
+			height: 0;
+			border-left: 20px solid grey;
+			border-right: 20px solid beige;
+			border-bottom: 40px solid darkgray;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}*/
+
+		.squares{
+			position: absolute;
+			background-color: white;
+			width: 0;
+		    height: 0;
+		    margin: 10px;
+/*		    float: left;*/
+		    border: 2px solid blue;
+		    top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+		.blue {
+   			background: blue;
+  		}
+
+	
+
+	</style>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	
+	
+
+</head>
+<body>
+<!-- OPTION 1 -->
+		<!-- <div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+
+	<script type ="text/javascript">
+		var mywrapper = document.getElementById("wrapper");
+		$( "body" ).find( "div" ).eq( 3 ).addClass( "blue" );
+
+	</script> -->
+
+
+
+<!-- OPTION 2 not working -->
+<!-- 		<div class="squares"></div>
+		<div class="squares"></div>
+		<div class="squares"></div>
+		<div class="squares"></div>
+		<div class="squares"></div>
+		<div class="squares"></div>
+
+	<script type ="text/javascript">
+
+	$( "body" ).find( ".squares" ).eq( 3 ).addClass( "blue" );
+
+	var totalLength = 100;
+	var counter = 0;
+	var interval = 0;
+	var circleDiameter = 0;
+	var direction = false;
+
+	for (var i = 0; i <totalLength; i++) {
+		var squares = document.createElement("div");
+
+
+
+		squares.className = "squares"
+
+	}
+		
+	</script> -->
+
+
+<!-- OPTION 3 -->
+		<div class="wrapper"></div>
+		<script type="text/javascript">
+
+			var circleDiameter = 0;
+			var direction = false;
+			var totalLength = 100;
+
+			for (var i = 0; i <totalLength; i++) {
+				var container = document.createElement("div");
+				container.className = "container";
+
+
+				if (i % 5 == 0){
+					if (direction){
+						direction = false; 
+					}else{
+						direction = true;
+						circleDiameter = 1;
+					}
+				}
+
+				if(!direction){
+					circleDiameter--;
+				}else{
+					circleDiameter++;
+				}
+
+				var percentage = circleDiameter / 5;
+				var progress = i/totalLength;
+				var red = 255 - (progress*255);
+				var blue = progress*255;
+				var color = "rgb(" + red + ", 200, " + blue + ")";
+
+				container.innerHTML = `
+					<div style="background-color:${color}; opacity:${percentage}; width:${circleDiameter}vw; height:${circleDiameter}vw; " class= "squares"></div>
+				`
+			document.getElementById("wrapper").appendChild(container)
+		}
+
+		</script>
+
+
+
+
+
+<!-- ORIGINAL
+	<!-- <script type="text/javascript">
+		var circleDiameter = 0;
+		var direction = false;
+		var totalLength = 500;
+		var counter = 0;
+		var interval = 0;
+
+	 
+		for (var i = 0; i <totalLength; i++) {
+			setTimeout(function(){ 		
+
+			var container = document.createElement("div");
+
+			container.className = "container";
+
+				if (counter % 5 == 0){
+					if (direction){
+						direction = false; 
+					}else{
+						direction = true;
+						circleDiameter = 1;
+					}
+				}
+
+				if(!direction){
+					circleDiameter--;
+
+				}else{
+					circleDiameter++;
+				}
+
+
+				var percentage = circleDiameter / 7;
+				var progress = counter/totalLength;
+
+				var red = 255 - (progress*255);
+				var blue = progress*255;
+				var color = "rgb(" + red + ", 200, " + blue + ")";
+
+
+			container.innerHTML = `
+
+				<div style="background-color:${color}; opacity:${percentage}; width:${circleDiameter}vw; height:${circleDiameter}vw; " class= "circle">
+				</div>
+
+			`
+
+			var child = document.getElementsByClassName('container')[0]
+				console.log(child)
+
+				// if(circleDiameter < 2 ){
+				// 	child.remove()
+				// }
+
+
+			document.getElementById("wrapper").appendChild(container)
+			window.scrollTo(0,document.body.scrollHeight);
+			counter++;
+			}, interval)
+
+			interval += 50;
+
+
+		}
+
+
+		//link to scroll top of page
+			// var timeOut;
+			// 	function scrollToTop() {
+			// 		if (totalLength=100){
+			// 			window.scrollBy(0,-50);
+			// 			timeOut=setTimeout('scrollToTop()',10);
+			// 		}
+			// 		else clearTimeout(timeOut);
+			// 	}
+
+
+	</script> -->
+
+</body>
+</html>

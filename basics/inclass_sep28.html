@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Sep28</title>
+	<style type="text/css">
+
+		html, body, #wrapper{
+			width:100%;
+		}
+
+		
+	</style>
+</head>
+<body>
+	<div id="wrapper"></div>
+
+<script type="text/javascript">
+	//INPUT --> function() --> output
+	
+
+	//1 basic function calling
+		var myVar = "hello";
+		//declaring the function
+		var myFunction = function(){
+			//do something
+			console.log("eeeeek it works")
+		}
+		//call out the function
+		myFunction();
+
+	//2 insert an input to call it out in console
+		var myVar = "hello";
+		var mySecondVar= "hello again";
+		var myFunction = function(input){
+			console.log(input)
+		}
+		myFunction();
+
+	//3 Output something specific
+		var myVar = 3;
+		var mySecondVar= 4;
+		var myFunction = function(number1, number2){
+			// console.log(number1 + number2)
+			var sum = number1 + number2;
+			return sum;
+		}
+		//myFunction's output is defined
+		var thisInstance = myFunction(myVar, mySecondvar);
+		console.log(thisInstance)
+
+		var anotherInstance = myFunction(thisInstance, thisInstance);
+		console.log(anotherInstance)
+		
+	///////////
+
+	//basic array
+		var myArray = [
+			"hello",
+			"bye"
+			32,
+			12
+			]
+
+			//access array
+			myArray[0]
+
+	// nesting array
+	var myObject = {
+		//value (right) assigned to the (left)
+		"people" : "Susan",
+		"city" : ["hong kong", "toronto", "new york", "tokyo"],
+		"bird" : 1000,
+		"pigeons" : {	"spotted" : 250,
+						"cute" : "all", 
+						"scared" : ["Bernice", "Izzy"]
+					},
+		//store function inside an array
+		"extraFunction" : function(input){
+			console.log(input)
+		}
+	}
+
+
+	console.log(myObject.city[1]) // to grab something from a variable and the specific element in an array
+	myObject.bird = 1200;
+
+	myObject.extraFunction("extraFunction is out guyz")
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Jquery Sep28</title>
+	<style type="text/css">
+
+		html, body, #wrapper{
+			width:100%;
+		}
+		.testClass{
+			background-color:blue;
+		}
+		.altTestClass{
+			background-color:lightblue;
+
+		}
+
+		.clicked{
+			font-family: cursive;
+			font-size: 50px;
+		}
+
+		.pattern{
+			display:inline-block;
+			width:40px;
+			height:40px;
+			background-color: green;
+			margin:40px;
+		}
+
+
+		
+	</style>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+	<script type ="text/javascript">
+
+		// get element --> call out jquery
+		var mywrapper = document.getElementById("wrapper");
+		$("#wrapper").html("Helloguys");
+
+	//grab two things w/o redudancy 
+		$("#wrapper, .content").html("two things");
+
+
+	//////////////////////////////////////////////////////////////////////////////
+
+	$(document).ready(function(){
+
+
+		myVar = "Greetings";
+		$("#wrapper, .content").html("<h1>" + myVar + "</h1>");
+
+		var color = "#008080";
+
+		//variable swapping
+		$("#wrapper").css({	"background-color"	: "salmon",
+							"color"				: color
+						});
+
+		$(".anotherClass").each(function(){
+
+			// $(this).html($(this).index())
+
+			//pattern interval
+			if($(this).index() % 2){
+				$(this).html("hello!")
+				$(".anotherClass").addClass("altTestClass")
+			}else{
+				$(this).html("secondhello!")
+				$(".anotherClass").addClass("TestClass")
+			}
+		})
+
+		//FUNCTIONS
+
+			//callout the function and remove class
+			$(".anotherClass").removeClass()
+			//add a class
+			$(".anotherClass").addClass()
+
+			//$(".anotherClass").toggleClass("altTestClass")
+			//after
+				$(".anotherClass").append("<h2>append!</h2>")
+			//before
+				$(".anotherClass").prepend("<h2>prepend!</h2>")
+
+			
+			//anytime another Class is clicked
+			$(".anotherClass").click(function(){
+				//calling class "clicked" within toggle
+				//for this specific instant apply this
+					$(this).toggleClass("clicked")
+			})
+
+			//mousemoving
+			$(".anotherClass").mousmove(function(){
+					$(this).addClass("clicked")
+			})
+
+			//mouseenter
+			$(".anotherClass").mouseenter(function(){
+					$(this).toggleClass("clicked")
+			})
+
+			//mouseleave
+			$(".anotherClass").mouseleave(function(){
+					$(this).toggleClass("clicked")
+			})
+
+			//hover
+			$(".anotherClass").hover(function(){
+					$(this).toggleClass("clicked")
+			})
+
+
+		var outside = 100; 
+		for (var i = 0; i < 100; i++) {
+
+			$("body").append("<div class='pattern></div>")
+		}
+
+	})
+
+
+
+	</script>
+
+
+</head>
+<body>
+	<div id="wrapper" class="aClass"></div>
+	<div class="anotherClass"></div>
+
+
+
+
+</body>
+</html>
