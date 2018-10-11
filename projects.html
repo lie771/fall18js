@@ -9,8 +9,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="main.js"></script>
   <style>
-    /* Your optional CSS styles go here */
+.proj{
+  position: relative;
+  width:500px;
+  height:auto;
+  opacity: 1;
+  right:0px;
+}
+.proj:hover{
+  /*opacity: 0.5;*/
+  left:100px;
+  transition-duration: 2s;
+}
+.projectname{
+  font-family: museosans-100;
+
+}
   </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
+  </script>
+
 </head>
 <body>
   <div id="wrapper">
@@ -18,20 +36,19 @@
         <a href="projects.html" class="projects about2 nav">PROJECTS</a>
         <a href="about.html" class="about nav">ABOUT</a>
         <a href="connect.html" class="connect nav">CONNECT</a>
-        
-    </div>
     <div class="content">
-        <div class="portfolio">
-          <a href="https://fall18js/pattern/index.html" class="projname">Pattern: Assignment2</a>
-          <br>
-          <a href="https://fall18js/pattern/index.html" class="projname">Pattern2: Assignment2</a>
-           <img class="proj" src="./img/a.jpg">
-           <img class="proj" src="./img/b.jpg">
-           <img class="proj" src="./img/c.jpg">
-           <img class="proj" src="./img/d.jpg">
-           <img class="proj" src="./img/e.jpg">
+        <div class="projectname">
+          <a href="https://fall18js/pattern/index.html">Pattern</a><!-- 
+            <img class="proj" src="./img/a.jpg"> -->
         </div>
     </div>
   </div>
+
+<!--   <script type="text/javascript">
+    $(".projectname").hover(function(){
+        $("#wrapper").css('background-color', 'white');
+        $(this).addClass("animateHover")
+      })
+  </script> -->
 </body>
 </html>
