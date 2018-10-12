@@ -201,11 +201,13 @@
 
 			//DEFINE FUNCTION
 			function animateSquares(){
+				//newq = randomized placement
 				var newq = NewPlacement();
+				//oldq = original placement
 				var oldq = $('.square').offset();
 				//calculate speed of new and oldq
 				var speedPlacement = calcSpeed([oldq.top, oldq.left], newq);
-				//calling out jquery and animate the position + speed
+				//animate the position + speed
 				$('.square').animate({ top: newq[0], left: newq[1] }, speedPlacement, function(){
 				animateSquares();        
 				});
@@ -283,7 +285,6 @@
 			    else{
 			    	$(".arrowright").removeClass("keypressed");
 			    	key_pressed = true;
-
 			    }
 
 			}
