@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title> UnTitled </title>
+  <title>EMLI</title>
     <meta charset="utf-8">  
     <link href='./css/reset.css' media='all' rel='stylesheet' type='text/css' />
     <link href='./css/main.css' media='all' rel='stylesheet' type='text/css' />
@@ -9,22 +9,46 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="main.js"></script>
   <style>
-.proj{
-  position: relative;
-  width:500px;
-  height:auto;
-  opacity: 1;
-  right:0px;
-}
-.proj:hover{
-  /*opacity: 0.5;*/
-  left:100px;
-  transition-duration: 2s;
-}
-.projectname{
-  font-family: museosans-100;
+    html{
+      width:100%;
+      height:auto;
+    }
+    .proj{
+      position: relative;
+      width:500px;
+      height:auto;
+      opacity: 1;
+      right:0px;
+    }
+    .proj:hover{
+      /*opacity: 0.5;*/
+      left:100px;
+      transition-duration: 2s;
+    }
+    .content{
+      position: absolute;
+      width:60vw;
+      height:50%;
+      left:50%;
+      top:50%;
+      text-align: center;
+      transform: translate(-50%, -50%);
+    }
+    .projectname{
+      position: absolute;
+      font-family: museosans-500;
+      position: relative;
+      margin-top:5vw;
+    }
+    a{
+      font-size:1.5em; 
+      color:gray;
+      opacity: 1;
+    }
+    a:hover{
+      opacity: 0.3;
+    }
 
-}
   </style>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
   </script>
@@ -37,10 +61,11 @@
         <a href="about.html" class="about nav">ABOUT</a>
         <a href="connect.html" class="connect nav">CONNECT</a>
     <div class="content">
-        <div class="projectname">
-          <a href="https://fall18js/pattern/index.html">Pattern</a><!-- 
-            <img class="proj" src="./img/a.jpg"> -->
-        </div>
+        <div class="projectname"><a href="pattern.html">PATTERN</a></div>
+        <br>
+        <div class="projectname"><a href="instrument.html">INSTRUMENT</a></div>
+        <br>
+        <div class="projectname"><a href="final.html">FINAL</a></div>
     </div>
   </div>
 

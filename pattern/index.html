@@ -7,13 +7,8 @@
 	<style type="text/css">
 
 		html, body{
-			overflow: hidden;
 			width: 100vw;
 			margin: 0;
-			/*height: 500vw;*/
-/*			margin-left:-5vw;
-			margin-top:-5vw;*/
-/*			background-color: #000;*/
 		}
 
 		#wrapper{
@@ -36,49 +31,19 @@
 			width: 2vw;
 			height:2vw;
 			z-index: 4;
-			opacity:1;
-		}
-
-/*		.nightDay{
-			position: fixed;
-			right:5vw;
-			top:5vw;
-			border-radius: 50%;
-			width: 2vw;
-			height:2vw;
 			opacity: 1;
-			background-color:black;
-		}*/
-
+		}
 		.square{
-			position: absolute;
+			position: relative;
 			width: 0;
 			color:;
 			height: 0;
-/*			border-left: 0.5vw solid gray;
-			border-bottom: 0.5vw solid gray;*/
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
 			opacity: 0.4;
-			box-shadow: /*3px 3px red,*/ -0.15em 0.1em .1em gray;
-
-
+			box-shadow:-0.15em 0.1em .1em gray;
 		}
-/*		.rotateLeftOne{
-			transform: rotate(-45deg);
-			transition: all 5.0s linear;
-		}
-		.rotateRightOne{
-			transform: scale(2);
-			transition: all 1.0s linear;
-		}*/
-/*		.animateHover{
-			transform: scale(1.1);
-			  transform-style: preserve-3d;
-			  transition: all 1.0s linear;
-			  transform-origin: 0 100%;
-		}*/
   		.animateHover{
   			transform: scale(4);
   			transition: all 1s ease-in;
@@ -91,39 +56,77 @@
   			transform: scale(1);
   			transition: all 0.9s ease-out;
   			animation-duration: 4s;
-  			box-shadow: /*3px 3px red,*/ -0.15em 0.1em .1em gray;
-
-  			/*box-shadow: 0.1em 0 .9em gray;*/
+  			box-shadow:-0.15em 0.1em .1em gray;
   			opacity:1;
   			z-index: 1;
   		}
-
-		/* option 1 scroll around
-			/*		#leftArrow {
-					width:40px;
-					height:40px;
-					position:absolute;
-					left:0px;
-						border-right: 1vw solid #848484;
-				border-top: 1vw solid transparent;
-				border-bottom: 1vw solid transparent;
-					}
-
-					#rightArrow {
-
-					position:absolute;
-					right:0px;
-					border-left: 1vw solid #848484;
-					border-top: 1vw solid transparent;
-					border-bottom: 1vw solid transparent;
-			}*/
-
-			#droneView {
+		#droneView {
    		 	position:absolute;
     		width:100vw; 
     		height:0;
-			}
-		
+		}
+		.blinkarrow{
+			position: fixed;
+			bottom:3vw;
+			right:5vw;
+			width:10vw;
+			height:11vw;
+			z-index: 4;
+			opacity: 1;
+		}
+		.arrowdown{
+			position: absolute;
+			left:50%;
+			transform: translateX(-50%);
+			bottom:0;
+			width: 0; 
+			height: 0; 
+			border-left: 0.9vw solid transparent;
+  			border-right: 0.9vw solid transparent;
+  			border-top: 1.5vw solid #848484;
+  			opacity: 1;
+/*  			animation: fadeOut 5s;
+  			opacity:1;*/
+		}
+		.arrowup{
+			position: relative;
+			top:0;
+			left:50%;
+			transform: translateX(-50%);
+			width: 0; 
+			height: 0;
+			border-left: 0.9vw solid transparent;
+			border-right: 0.9vw solid transparent;
+			border-bottom: 1.5vw solid #848484;
+			opacity: 1;
+		}
+		.arrowleft{
+			position: relative;
+			left:0;
+			top:50%;
+			transform: translateY(-15%);
+			width: 0; 
+			height: 0;
+			border-top: 0.9vw solid transparent;
+			border-bottom: 0.9vw solid transparent;
+			border-right: 1.5vw solid #848484;
+			opacity: 1;
+		}
+		.arrowright{
+			position: absolute;
+			right:0;
+			top:50%;
+			transform: translateY(-15%);
+			width: 0; 
+			height: 0;
+			border-top: 0.9vw solid transparent;
+			border-bottom: 0.9vw solid transparent;
+			border-left: 1.5vw solid #848484;
+			opacity: 1;
+		}
+		.keypressed{
+			opacity:0.3;
+		}
 	</style>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
@@ -134,7 +137,14 @@
 
 	<div id="droneView"></div>
 	<div class="dayNight"></div>
+	<div class="blinkarrow">
+		<div class="arrowleft"></div>
+		<div class="arrowright"></div>
+		<div class="arrowup"></div>
+		<div class="arrowdown"></div>
+	</div>
 	<div id="wrapper"></div>
+
 
 	<script type="text/javascript">
 
@@ -143,12 +153,12 @@
 		var direction = false;
 		var totalLength = 150;
 
-
+		//1. 150 pattern
 		for (var i = 0; i <totalLength; i++) {
 			var container = document.createElement("div");
 			container.className = "container";
 
-		//1. generating random width and height
+			//generating random width and height
 			$('.square').css('height', function() {
 	 			 return Math.floor(Math.random() * 80) + 20;
 			});
@@ -157,25 +167,36 @@
 			});
 
 
-		//2. generate random colors
+			//generate random colors
 			var progress = i/totalLength*1.3;
 			var blue = progress*255;
 			var color = "rgb(" + 100 + ", 200, " + blue + ")";
 
+			//inner.html
+			container.innerHTML = `
 
-		//3. function for animateSquares
+				<div style="background-color:${color};  width:${squareDiameter}vw; height:${squareDiameter}vw;" class= "square">
+					<div style=" font-size:${fontSize*5}vw;" class="text"></div>
+				</div>
+
+			`
+			document.getElementById("wrapper").appendChild(container)
+		}
+
+
+		//2. function for animateSquares
 			$(document).ready(function(){
-			    	animateSquares();  
+				    	animateSquares();  
 			});
 
 			//generating new values to create new hieght and wedth
 			function NewPlacement(){
-			    // Get viewport dimensions (remove the dimension of the div)
-			    var h = 50;
-			    var w = 50;
-			    var newh = Math.floor(Math.random() * h);
-			    var neww = Math.floor(Math.random() * w);
-			    return [newh,neww];    
+				    // Get viewport dimensions (remove the dimension of the div)
+				var h = 50;
+				var w = 50;
+				var newh = Math.floor(Math.random() * h);
+				var neww = Math.floor(Math.random() * w);
+				return [newh,neww];    
 			}
 
 			//defining function of animate squares 
@@ -188,47 +209,92 @@
 				$('.square').animate({ top: newq[0], left: newq[1] }, speedPlacement, function(){
 				animateSquares();        
 				});
-				    
+					    
 			};
 
 			//speed of random movement from 0 to 1
 			function calcSpeed(prev, next) {
-			    var x = Math.abs(prev[1] - next[1]);
-			    var y = Math.abs(prev[0] - next[0]);
-			    
-			    var max = x > y ? x : y;
-			    var speedFactor = 0.03;
-			    var speed = Math.ceil(max/speedFactor);
-			    return speed;
+				   var x = Math.abs(prev[1] - next[1]);
+				   var y = Math.abs(prev[0] - next[0]);
+				    
+				   var max = x > y ? x : y;
+				   var speedFactor = 0.03;
+				   var speed = Math.ceil(max/speedFactor);
+				   return speed;
 			}
 
 
 
-		//4. keyup & keydwon to move div 
+		//3. keyup & keydwon to move div 
 			var droneView = $('#droneView'),
-			    contain = $('.container'),
-			    w = droneView.width() - contain.width(),
-			    d = {},
-			    x = 3;
+				contain = $('.container'),
+				   w = droneView.width() - contain.width(),
+				   d = {},
+				   x = 3;
 
 			function newView(v,a,b) {
-			    var n = parseInt(v, 10) - (d[a] ? x : 0) + (d[b] ? x : 0);
-			    return n < 0 ? 0 : n > w ? w : n;
+				   var n = parseInt(v, 10) - (d[a] ? x : 0) + (d[b] ? x : 0);
+				   return n < 0 ? 0 : n > w ? w : n;
 			}
 
-			$(window).keydown(function(e) { d[e.which] = true; });
-			$(window).keyup(function(e) { d[e.which] = false; });
-				
+			$(window).keydown(function(e) { 
+				d[e.which] = true; 
+			});
+			$(window).keyup(function(e) { 
+				d[e.which] = false; 
+			});
+					
 
 			//arrow keys value 37,39, 38, 40
 			setInterval(function() {
-			    contain.css({
-			        left: function(i,v) { return newView(v, 37, 39); },
-			        top: function(i,v) { return newView(v, 38, 40); }
-			    });
-			}, 10);
+				contain.css({
+					left: function(i,v) { return newView(v, 37, 39); },
+				    top: function(i,v) { return newView(v, 38, 40); }
+				});
+			}, 50);
 
-			// function when mouse enters ".squares"
+			document.onkeydown = checkKey;
+			var key_pressed = false;
+
+			function checkKey(e) {
+
+			    e = e || window.event;
+
+			    if (e.keyCode == '38') {
+			        // up arrow
+			        $(".arrowup").addClass("keypressed");
+			        key_pressed = false;
+			    }
+			    else if (e.keyCode == '40') {
+			        // down arrow
+			        $(".arrowdown").addClass("keypressed");
+			        key_pressed = false;
+			    }
+			    else if (e.keyCode == '37') {
+			       // left arrow
+			       $(".arrowleft").addClass("keypressed");
+			        key_pressed = false;
+			    }
+			    else if (e.keyCode == '39') {
+			       // right arrow
+			       $(".arrowright").addClass("keypressed");
+			        key_pressed = false;
+			    }
+			    else{
+			    	$(".arrowright").removeClass("keypressed");
+			    	key_pressed = true;
+
+			    }
+			    // else{
+			   	// 	$(".arrowright").removeClass("keypressed");
+			   	// 	$(".arrowleft").removeClass("keypressed");
+			   	// 	$(".arrowdown").removeClass("keypressed");
+			   	// 	$(".arrowup").removeClass("keypressed");
+			    // }
+
+			}
+
+		//4. function when mouse enters ".squares"
 			$(".square").mouseenter(function(){
 				$(this).addClass("animateHover")
 			})
@@ -239,45 +305,17 @@
 		//5. toggle day and night
 			var clicked = false;
 			$(".dayNight").click(function(){
-			    if(clicked){
-			        $("#wrapper").css('background-color', 'white');
-			        $(this).css('background-color', 'yellow');
-			        clicked  = true;
-			        console.log(clicked)
-			    } else {
-			        $("#wrapper").css('background-color', 'black');
-			        $(this).css('background-color', 'lightgray');
-			        clicked  = false;
-			    }   
+				   if(clicked){
+				       $("#wrapper").css('background-color', 'white');
+				       $(this).css('background-color', 'yellow');
+				       clicked  = false;
+				       console.log(clicked)
+				   } else {
+				       $("#wrapper").css('background-color', 'black');
+				       $(this).css('background-color', 'lightgray');
+				       clicked  = true;
+				   }   
 			});
-
-		//inner.html
-			container.innerHTML = `
-
-				<div style="background-color:${color};  width:${squareDiameter}vw; height:${squareDiameter}vw;" class= "square">
-					<div style=" font-size:${fontSize*5}vw;" class="text"></div>
-				</div>
-
-			`
-			document.getElementById("wrapper").appendChild(container)
-	}
-
-
-	 			// var percentage = squareDiameter / 5;
-			// var progress = i/totalLength;
-
-			//generate random color option
-			// var color = '#'+Math.floor(Math.random()*16773).toString(19);
-
-			//option 2
-				// var red = 255 - (progress*255);
-
-			//option 3
-				// var color = "hsl(" + 360 * Math.random() + ',' +
-		  //                (105 + 70 * Math.random()) + '%,' + 
-		  //                (85 + 10 * Math.random()) + '%)';
-			
-
 
 		//Option 1: scroll left right 
 			// var view = $("#wrapper");
