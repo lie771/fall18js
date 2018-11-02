@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>You Got This!</title>
+	<style type="text/css">
+
+		@font-face {font-family: "Roboto-Medium"; src: url("../instrument/Roboto/Roboto-Medium.ttf"); }
+		@font-face {font-family: "Roboto-Light"; src: url("../instrument/Roboto/Roboto-Light.ttf"); }
+		@font-face {font-family: "Roboto-Regular"; src: url("../instrument/Roboto/Roboto-Regular.ttf"); }
+		@font-face {font-family: "Roboto-Thin"; src: url("../instrument/Roboto/Roboto-Thin.ttf"); }
+		@font-face {font-family: "Roboto-Regular"; src: url("../instrument/Roboto/Roboto-Regular.ttf"); }
+
+		html,body {
+			width: 100vw;
+			height: 100%;
+			margin: 0;
+			margin-bottom: 0;
+			background-color: #0055ff;
+		}
+
+		#wrapper{
+			position: relative;
+			width:100vw;
+			height: 100%;
+		}
+		.enterPressed{
+
+		}
+		.landing{
+			position: relative;
+			font-family: Roboto-Medium;
+			font-size: 2em;
+			color: #FFFF69;
+			margin:0;
+			width:45vw;
+			left: 30%;
+			top:40%;
+			transform: translate(-50%, -50%);
+		}
+		.intro{
+			position: relative;
+			top:75%;
+		}
+		#fillIn{
+			position: relative;
+			width:45vw;
+			height:6vw;
+			background-color: transparent;
+			color:#FA91F8;
+			font-size:1.5em;
+			font-family: Roboto-Regular;
+			border-top:#FFFF69;
+			border-left:#FFFF69;
+			border-right:#FFFF69;
+			border-bottom: 10px solid #FA91F8;
+		}
+
+		.svgContainer{
+			position: absolute;
+			width:45vw;
+			height:100%;
+			overflow-y: hidden;
+			top:0;
+			right:2vw;
+		}
+		.line{
+			position: relative;
+			animation-duration:40s;
+			animation-name: moving;
+			animation-iteration-count: infinite;
+    		animation-direction: alternate;
+
+		}
+		@keyframes moving {
+    		from {
+        		bottom: 0%;
+    		}
+    		to {
+       			bottom: 100%;
+    		}
+		}
+
+/*		button{
+			position: relative;
+			border-bottom:1px solid black;
+		}*/
+
+/*		#paperjsCanvas{
+			position: fixed;
+			top: 0px;
+			left: 0px;
+			width: 100%;
+			height: 100vh;
+		}*/
+
+
+
+
+	</style>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
+	</script>
+
+	<script type="text/javascript" src="assets/paper-full.min.js"></script>
+
+
+<!-- 	<script type="text/paperscript" canvas="paperjsCanvas" >
+
+var path = new Path();
+path.strokeColor = '#FA91F8';
+path.strokeWidth = '2';
+path.add(new Point(30, 75)); 
+path.add(new Point(30, 25)); 
+path.add(new Point(80, 25));
+path.add(new Point(80, 75));
+path.closed = true;
+function onFrame(event) {
+    // Your animation code goes in here
+    if (event.count < 30) {
+        path.segments[1].point += new Point(1, 0);
+    }
+}
+
+	</script> -->
+
+</head>
+<body>
+
+	<div id="wrapper">
+		<div class="landing">
+			<h1 class="intro"></h1>
+			<div class='countdown'>
+	            <div class='times'><span class='inputData'>Hours: </span>
+	                <input id="inputHour" class='hours' type="number" min='0'/> 
+	            </div>
+
+	            <div class='times'> <span class='inputData'>Minutes: </span>
+	                <input id="inputMinutes" class='mins' type="number"  min='0' max='59' /> 
+	            </div>
+
+	            <div class='times'><span class='inputData'>Seconds: </span>
+	                <input id="inputSeconds" class='secs' type="number" min='0' max='59' /> 
+	            </div>
+
+	            <div id="timer" class='count'>
+	              <span id="hourCount"></span><span></span>
+	              <span id="minuteCount"></span><span></span>
+	              <span id="secondCount"></span>
+	       		</div>
+
+	       		<div class="startButton">start</div><!-- 
+	       		<div class="stopButton">i need a break!</div> -->
+				
+
+				<!-- 1. start and stop 
+				<input type="number" id="input" />
+				<input id="stop" type="button" value="stop"/>
+				<input id="start" type="button" value="start"/>-->        
+				</div>
+
+	        	<input id="fillIn" maxlength="200" name="fillIn"  type="text">
+				<!-- <button onclick="myFunction()">Try it</button> -->
+
+			</div>
+
+		<div id="container"></div> 
+
+		<canvas id="paperjsCanvas" resize="true"></canvas>
+		
+	</div>
+		<div class = "svgContainer">
+			<img class="line" src="./img/svgone.svg"/>
+		</div>
+
+	<script type="text/javascript">
+
+	document.getElementById("fillIn").value =
+	document.getElementById("fillIn").defaultValue = window.location.href.substring(91);
+
+	$(".intro").text("What would you like to accomplish today?");
+	$(".intro").show();
+	$(".countdown").hide();
+
+	$("input").keydown(function(event) {
+		if (event.keyCode == 13) {
+			$(".intro").hide();
+			$(".countdown").show();
+			var x = "hi there";
+	    	var timeText = document.getElementByClass(".intro");
+	    	timeText.innerHTML = x;
+
+	    	console.log("enterpressed");
+		}
+	});
+
+
+	//resets after 59?
+	// var myVar = setTime();
+
+	function setTime(){
+		var hour = document.getElementById("inputHour").value;
+		var minutes = document.getElementById("inputMinutes").value;
+	 	var seconds = document.getElementById("inputSeconds").value;
+		initiateTimer(hour, minutes, seconds);
+	}
+
+	// function stopTime(){
+	// 	clearInterval(myVar);
+	// }
+
+
+	function initiateTimer(hour,minutes,seconds){
+		document.getElementById('hourCount').innerHTML =hour;
+		document.getElementById('minuteCount').innerHTML =minutes;
+		document.getElementById('secondCount').innerHTML =seconds;
+	  	startTimer();
+	}
+
+	function startTimer() {
+
+
+
+		var h = parseInt(document.getElementById("hourCount").innerHTML);
+		var m = checkMinute(parseInt(document.getElementById("minuteCount").innerHTML));
+		var s = checkSecond((parseInt(document.getElementById("secondCount").innerHTML)) - 1);
+		if(s==59){
+			m=m-1
+		};
+		if(m==59&&s==58){
+			h=h-1
+		};
+		if(h<0){
+			return 0;
+		}
+
+
+	  
+		document.getElementById("hourCount").innerHTML = "";
+		document.getElementById("hourCount").innerHTML = h; document.getElementById("minuteCount").innerHTML = "";
+	  	document.getElementById("minuteCount").innerHTML = m;
+	  	document.getElementById("secondCount").innerHTML = "";
+	  	document.getElementById("secondCount").innerHTML = s;
+	  	setTimeout(startTimer, 1000);
+	}
+
+	function checkSecond(sec) {
+		if (sec < 10 && sec >= 0) {sec = "0" + sec};
+		if (sec < 0) {sec = "59"};
+		return sec;
+	}
+
+	function checkMinute(minute) {
+		if (minute < 0) {minute = "59"};
+		return minute;
+	}
+
+
+	// var currentTime = 0
+	// var myTimer
+	// function timerTick(){
+	//     currentTime--
+	//     $('#timer').html(currentTime)
+	//     if(currentTime == 0){
+	//         stopTimer()
+	//         alert("time's Up")
+	//     }
+	// }
+
+
+
+
+
+//1. stop start button > still won't stop 
+	// var timer = null, 
+	//     interval = 1000,
+	//     value = 0;
+
+	// $("#start").click(function() {
+	//   if (timer !== null) return;
+	// 	setTime();
+	// });
+
+	// $("#stop").click(function() {
+	//   clearInterval(timer);
+	//   timer = null
+	// });
+
+
+
+
+$(".svgContainer").hide();
+//2. stop start button > it would not stop!!
+	var allButton = true;
+
+	$(".startButton").click(function(){
+		if(allButton){
+			$(".startButton").text("i need a break");
+			$("#wrapper").css({"background-color": "salmon" });
+			$("#fillIn").css({"color": "#0055ff", "border": "0" });
+			$(".intro").css({"color": "#FFFF69" });
+			$(".inputData").css({"color": "#FFFF69" });
+			$(".svgContainer").show();
+			setTime();
+			allButton = true;
+
+		}else{
+			// return setTime();
+			$(".startButton").text("start");
+			$(".svgContainer").hide();
+			console.log("is it working?");
+			stop.setTime();
+			allButton = false;
+		}
+
+	});
+
+
+
+
+
+
+	</script>
+
+
+</body>
+</html>
+
+
+

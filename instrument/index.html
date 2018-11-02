@@ -63,7 +63,7 @@
 			height:100%;
 			overflow-y: hidden;
 			top:0;
-			right:0;
+			right:2vw;
 		}
 		.line{
 			position: relative;
@@ -103,27 +103,16 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
 	</script>
 
-	<script type="text/javascript" src="assets/paper-full.min.js"></script>
+	<script src="fabric.js">
 
+		//   var canvas = new fabric.Canvas('canvas');
+  // canvas.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 100, left: 100 }));
+  // canvas.hoverCursor = 'pointer';
+  // this.__canvases.push(canvas);
 
-<!-- 	<script type="text/paperscript" canvas="paperjsCanvas" >
+	</script>
 
-var path = new Path();
-path.strokeColor = '#FA91F8';
-path.strokeWidth = '2';
-path.add(new Point(30, 75)); 
-path.add(new Point(30, 25)); 
-path.add(new Point(80, 25));
-path.add(new Point(80, 75));
-path.closed = true;
-function onFrame(event) {
-    // Your animation code goes in here
-    if (event.count < 30) {
-        path.segments[1].point += new Point(1, 0);
-    }
-}
-
-	</script> -->
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
 </head>
 <body>
@@ -131,186 +120,196 @@ function onFrame(event) {
 	<div id="wrapper">
 		<div class="landing">
 			<h1 class="intro"></h1>
-		<div class='countdown'>
-            <div class='times'><span class='inputData'>Hours: </span>
-                <input id="inputHour" class='hours' type="number" min='0'/> 
-            </div>
+			<div class='countdown'>
+				<div class='times'>
+					<span class='inputData'> Hours: </span>
+					<input type="text" id="hrs" name="hrs" value="0" size="3" maxlength="3" />
+				</div>
+				<div class='times'>
+					<span class='inputData'> Minutes: </span>
+					<input type="text" id="mns" name="mns" value="0" size="3" maxlength="3" /> 
+				</div>
+				<div class='times'>
+					<span class='inputData'> Seconds: </span>
+					<input type="text" id="scs" name="scs" value="0" size="2" maxlength="2" />
+				</div>
 
-            <div class='times'> <span class='inputData'>Minutes: </span>
-                <input id="inputMinutes" class='mins' type="number"  min='0' max='59' /> 
-            </div>
+				<span id="showHrs">00</span>:<span id="showMins">00</span>:<span id="showSecs">00</span>
 
-            <div class='times'><span class='inputData'>Seconds: </span>
-                <input id="inputSeconds" class='secs' type="number" min='0' max='59' /> 
-            </div>
+				<div class="startButton"></div>
+				<div class="pauseButton" onclick="clicks++"></div>
 
-            <div id="timer" class='count'>
-              <span id="hourCount"></span><span></span>
-              <span id="minuteCount"></span><span></span>
-              <span id="secondCount"></span>
-       		</div>
-
-       		<div class="startButton">start</div><!-- 
-       		<div class="stopButton">i need a break!</div> -->
-			
-
-			<!-- 1. start and stop 
-			<input type="number" id="input" />
-			<input id="stop" type="button" value="stop"/>
-			<input id="start" type="button" value="start"/>-->        
 			</div>
+			<input id="fillIn" maxlength="200" name="fillIn"  type="text">
 
-        	<input id="fillIn" maxlength="200" name="fillIn"  type="text">
-			<!-- <button onclick="myFunction()">Try it</button> -->
+
 
 		</div>
-
-		<div id="container"></div> 
-
-		<canvas id="paperjsCanvas" resize="true"></canvas>
-		
 	</div>
+
+
 	<div class = "svgContainer">
-		<img class="line" src="./img/line.svg"/>
+			<img class="line" src="./img/svgone.svg"/>
 	</div>
+
+	<canvas id="canvas" resize="true"></canvas>
 
 	<script type="text/javascript">
 
-	document.getElementById("fillIn").value =
-	document.getElementById("fillIn").defaultValue = window.location.href.substring(91);
+		document.getElementById("fillIn").value =
+		document.getElementById("fillIn").defaultValue = window.location.href.substring(91);
 
-	$(".intro").text("What would you like to accomplish today?");
-	$(".intro").show();
-	$(".countdown").hide();
+		$(".intro").text("What would you like to accomplish today?");
+		$(".intro").show();
+		$(".countdown").hide();
 
-	$("input").keydown(function(event) {
-		if (event.keyCode == 13) {
-			$(".intro").hide();
-			$(".countdown").show();
-			var x = "hi there";
-	    	var timeText = document.getElementByClass(".intro");
-	    	timeText.innerHTML = x;
-
-	    	console.log("enterpressed");
-		}
-	});
+		$("input").keydown(function(event) {
+			if (event.keyCode == 13) {
+				$(".intro").hide();
+				$(".countdown").show();
 
 
-	//resets after 59?
-	function setTime(){
-		var hour = document.getElementById("inputHour").value;
-		var minutes = document.getElementById("inputMinutes").value;
-	 	var seconds = document.getElementById("inputSeconds").value;
-		initiateTimer(hour, minutes, seconds);
-	}
-
-
-	function initiateTimer(hour,minutes,seconds){
-		document.getElementById('hourCount').innerHTML =hour;
-		document.getElementById('minuteCount').innerHTML =minutes;
-		document.getElementById('secondCount').innerHTML =seconds;
-	  	startTimer();
-	}
-
-	function startTimer() {
-		var h = parseInt(document.getElementById("hourCount").innerHTML);
-		var m = checkMinute(parseInt(document.getElementById("minuteCount").innerHTML));
-		var s = checkSecond((parseInt(document.getElementById("secondCount").innerHTML)) - 1);
-		if(s==59){
-			m=m-1
-		};
-		if(m==59&&s==58){
-			h=h-1
-		};
-		if(h<0){
-			return 0;
-		}
-	  
-		document.getElementById("hourCount").innerHTML = "";
-		document.getElementById("hourCount").innerHTML = h; document.getElementById("minuteCount").innerHTML = "";
-	  	document.getElementById("minuteCount").innerHTML = m;
-	  	document.getElementById("secondCount").innerHTML = "";
-	  	document.getElementById("secondCount").innerHTML = s;
-	  	setTimeout(startTimer, 1000);
-	}
-
-	function checkSecond(sec) {
-		if (sec < 10 && sec >= 0) {sec = "0" + sec};
-		if (sec < 0) {sec = "59"};
-		return sec;
-	}
-
-	function checkMinute(minute) {
-		if (minute < 0) {minute = "59"};
-		return minute;
-	}
-
-	// var currentTime = 0
-	// var myTimer
-	// function timerTick(){
-	//     currentTime--
-	//     $('#timer').html(currentTime)
-	//     if(currentTime == 0){
-	//         stopTimer()
-	//         alert("time's Up")
-	//     }
-	// }
+		    	console.log("enterpressed");
+			}
+		});
 
 
 
+	var mins = 0;
+	var secs = 0;
+	var hrs = 0;
+	var startchr = 0;
+	var countDown = countdownTimer();
 
+function countdownTimer() {
+	if(startchr == 0 && document.getElementById('hrs') &&document.getElementById('mns') && document.getElementById('scs')) {
+    // uses integer numbers
+    hrs = parseInt(document.getElementById('mns').value) + 0;
+    mins = parseInt(document.getElementById('mns').value) + 0;
+    secs = parseInt(document.getElementById('scs').value) * 1;
 
-//1. stop start button > still won't stop 
-	// var timer = null, 
-	//     interval = 1000,
-	//     value = 0;
+    // if data not a number, sets the value to 0
+    if(isNaN(hrs)) hrs = 0;
+    if(isNaN(mins)) mins = 0;
+    if(isNaN(secs)) secs = 0;
 
-	// $("#start").click(function() {
-	//   if (timer !== null) return;
-	// 	setTime();
-	// });
+    // rewrite data for input to contain integer number
+    document.getElementById('hrs').value = mins;
+    document.getElementById('mns').value = mins;
+    document.getElementById('scs').value = secs;
+    startchr = 1;
+    // document.getElementById('btnct').setAttribute('disabled', 'disabled');     // disable the button
+  }
 
-	// $("#stop").click(function() {
-	//   clearInterval(timer);
-	//   timer = null
-	// });
+// if = 0, set $startchr to 0, & return false
+  if(hrs==0 && mins==0 && secs==0) {
+    startchr = 0;
+  	
+ return false;
+  }
+  else {
+    // minus seconds, and decrease minutes if seconds reach to 0
+    secs--;
+    if(secs < 0) {
+      if(mins > 0) {
+        secs = 59;
+        mins--;
+      }
+      else {
+        secs = 0;
+        mins = 0;
+      }
 
+    mins--;
+    if (mins < 0) {
+    	if(hrs > 0){
+    		mins = 59;
+    		hrs--;
+    	}
+    }else{
+    	mins = 0;
+    	hrs = 0;
+    }
+    }
+  }
 
+    // display the time in page, and auto-calls this function after 1 seccond
+  document.getElementById('showHrs').innerHTML = hrs;
+  document.getElementById('showMins').innerHTML = mins;
+  document.getElementById('showSecs').innerHTML = secs;
 
+  setTimeout('countdownTimer()', 1000);
+}
 
-//2. stop start button > it would not stop!!
-	var allButton = true;
-	// var setTimeVar = setTime();
-	
-	$(".svgContainer").hide();
+$(".svgContainer").hide();
+// $("#canvas").hide();
+$(".startButton").text("start");
+
 	$(".startButton").click(function(){
-
+		var allButton = true;
 		if(allButton){
-
-			$(".startButton").text("i need a break");
+			console.log("clicked start");
+			// $(".startButton").text("i need a break");
 			$("#wrapper").css({"background-color": "salmon" });
 			$("#fillIn").css({"color": "#0055ff", "border": "0" });
 			$(".intro").css({"color": "#FFFF69" });
 			$(".inputData").css({"color": "#FFFF69" });
 			$(".svgContainer").show();
-			setTime();
+			countdownTimer();
+			$(".pauseButton").text("i need a break");
 			allButton = true;
-
+		//else statement not working?
 		}else{
-
+			console.log("is it working?");
+			// return setTime();
 			$(".startButton").text("start");
 			$(".svgContainer").hide();
-			// setTimeVar.stop();
 			allButton = false;
 		}
 
 	});
 
+	$(".pauseButton").click(function(){
+		
+		console.log("pause");
+
+		// clearTimeout(countDown);
+		$("#wrapper").css({"background-color": "#0055ff" });
+		$(".svgContainer").hide();
+		$("#fillIn").css({"color": "#FA91F8", "border": "0" });
+var clickCount = parseInt($.cookie('clickCount'), 10);
+
+   clickCount++;
+
+   if (clickCount >= 3) {
+       $('div').show();
+   }
+
+   $.cookie('clickCount', clickCount, { path: '/' });
+
+		// $("#canvas").hide();
+	});
+
+	
+
+	// function breakPage (){
+ //        var canvas = new fabric.Canvas('canvas');
+ //        canvas.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 100, left: 100 }));
+
+ //        canvas.selectionColor = 'rgba(0,255,0,0.3)';
+ //        canvas.selectionBorderColor = 'red';
+ //        canvas.selectionLineWidth = 5;
+	// }
 
 
+// 	$(document).ready(function(){
+// 		var canvas = new fabric.Canvas('canvas');
+//         canvas.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 100, left: 100 }));
 
-
-
+//         canvas.selectionColor = 'rgba(0,255,0,0.3)';
+//         canvas.selectionBorderColor = 'red';
+//         canvas.selectionLineWidth = 5;
+// });
 	</script>
 
 
