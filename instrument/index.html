@@ -137,7 +137,7 @@
 				<span id="showHrs">00</span>:<span id="showMins">00</span>:<span id="showSecs">00</span>
 
 				<div class="startButton"></div>
-				<div class="pauseButton" onclick="clicks++"></div>
+				<div class="pauseButton"></div>
 
 			</div>
 			<input id="fillIn" maxlength="200" name="fillIn"  type="text">
@@ -177,24 +177,24 @@
 
 	var mins = 0;
 	var secs = 0;
-	var hrs = 0;
+	var hors = 0;
 	var startchr = 0;
 	var countDown = countdownTimer();
 
 function countdownTimer() {
 	if(startchr == 0 && document.getElementById('hrs') &&document.getElementById('mns') && document.getElementById('scs')) {
     // uses integer numbers
-    hrs = parseInt(document.getElementById('mns').value) + 0;
+    hrs = parseInt(document.getElementById('hrs').value) + 0;
     mins = parseInt(document.getElementById('mns').value) + 0;
     secs = parseInt(document.getElementById('scs').value) * 1;
 
     // if data not a number, sets the value to 0
-    if(isNaN(hrs)) hrs = 0;
+    if(isNaN(hors)) hors = 0;
     if(isNaN(mins)) mins = 0;
     if(isNaN(secs)) secs = 0;
 
     // rewrite data for input to contain integer number
-    document.getElementById('hrs').value = mins;
+    document.getElementById('hrs').value = hors;
     document.getElementById('mns').value = mins;
     document.getElementById('scs').value = secs;
     startchr = 1;
@@ -202,9 +202,8 @@ function countdownTimer() {
   }
 
 // if = 0, set $startchr to 0, & return false
-  if(hrs==0 && mins==0 && secs==0) {
+  if(hors==0 && mins==0 && secs==0) {
     startchr = 0;
-  	
  return false;
   }
   else {
@@ -222,13 +221,13 @@ function countdownTimer() {
 
     mins--;
     if (mins < 0) {
-    	if(hrs > 0){
+    	if(hors > 0){
     		mins = 59;
-    		hrs--;
+    		hors--;
     	}
     }else{
     	mins = 0;
-    	hrs = 0;
+    	hors = 0;
     }
     }
   }
@@ -269,28 +268,37 @@ $(".startButton").text("start");
 
 	});
 
-	$(".pauseButton").click(function(){
-		
-		console.log("pause");
 
-		// clearTimeout(countDown);
+	$(".pauseButton").click(function(){
+		//clear setTimeout to stop time !! not working
+		// clearTimeout(countdownTimer());
+		console.log("pause");
 		$("#wrapper").css({"background-color": "#0055ff" });
 		$(".svgContainer").hide();
 		$("#fillIn").css({"color": "#FA91F8", "border": "0" });
-var clickCount = parseInt($.cookie('clickCount'), 10);
 
-   clickCount++;
 
-   if (clickCount >= 3) {
-       $('div').show();
-   }
+		//get current time - set global variable
+		var today = new Date(); 
+		var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+		//use set interval to update global variable
+		var myVar = setInterval (currentTime, 1000);
 
-   $.cookie('clickCount', clickCount, { path: '/' });
+		//  updating (call the value of cookie later)
+		//set cookies
+		var currentTime = today;
+		Cookies.set('currentTime', currentTime, { expires: 7 });
+		console.log(currentTime);
 
-		// $("#canvas").hide();
 	});
 
-	
+// function timerEnd (){
+// 	if(){
+
+// 	}else{
+
+// 	}
+// }
 
 	// function breakPage (){
  //        var canvas = new fabric.Canvas('canvas');
