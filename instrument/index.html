@@ -24,10 +24,9 @@
 			position: relative;
 			width:100vw;
 			height: 100%;
+			/*overflow-y: auto;*/
 		}
-		.enterPressed{
 
-		}
 		.landing{
 			position: relative;
 			font-family: Roboto-Medium;
@@ -82,12 +81,12 @@
 	    		}
 			}
 
-		#paperjsCanvas{
+		canvas{
 			position: absolute;
 			top:0;
 			right: 0;
-			width: 50%;
-			height: 100vh;
+/*			width: 800px;
+			height: 1000px;*/
 		}
 
 		#showCookies{
@@ -112,18 +111,20 @@
 <body>
 
 	<div id="wrapper">
-
 		<div class="landing">
 			<h1 class="intro"></h1>
 			<div class='countdown'>
+
 				<div class='times'>
 					<span class='inputData'> Hours: </span>
 					<input type="text" id="hrs" name="hrs" value="0" size="3" maxlength="3" />
 				</div>
+
 				<div class='times'>
 					<span class='inputData'> Minutes: </span>
 					<input type="text" id="mns" name="mns" value="0" size="3" maxlength="3" /> 
 				</div>
+
 				<div class='times'>
 					<span class='inputData'> Seconds: </span>
 					<input type="text" id="scs" name="scs" value="0" size="2" maxlength="2" />
@@ -134,6 +135,7 @@
 				<div class="startButton"></div>
 				<div class="pauseButton"></div>
 			</div>
+			
 			<input id="fillIn" maxlength="200" name="fillIn"  type="text">
 			<!-- <a href="breakpage.html">break</a> -->
 			<span id="showCookies"></span>
@@ -141,10 +143,15 @@
 		</div>
 	</div>
 
+<!-- 	<canvas id="paperjsCanvas"></canvas> -->
+	<canvas id="paperjsCanvas" width = 500px height = 1000px></canvas>
+
 	<div class = "svgContainer">
-		<img class="line" src="./img/svgone.svg"/>
+		<img class="line" src="./img/line.svg"/>
 	</div>
-	<canvas id="paperjsCanvas" ></canvas>
+
+	
+
 
 <script type="text/javascript">
 
@@ -196,7 +203,7 @@
 	  }
 
 
- 	 // try substituting the hors, mins, secs with their inline value (i.e. showMins, etc)
+ 	// try substituting the hors, mins, secs with their inline value (i.e. showMins, etc)
 	// if = 0, set $startchr to 0, & return false
   	if(hors==0 && mins==0 && secs==0 && timerStarted == true) {
     	startchr = 0;
@@ -270,6 +277,8 @@
 			countdownTimer();
 			$(".pauseButton").text("i need a break");
 			allButton = true;
+			$("#showCookies").hide();
+			
 		//change button text and function with second click (not working)
 		}else{
 			console.log("is it working?");
@@ -290,7 +299,7 @@
 		$("#paperjsCanvas").show();
 		$(".svgContainer").hide();
 		$("#fillIn").css({"color": "#FA91F8", "border": "0" });
-
+		$("#showCookies").show();
 
 		//get current time - set global variable
 		var today = new Date(); 
