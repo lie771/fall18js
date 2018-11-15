@@ -73,51 +73,46 @@
     		animation-direction: alternate;
 
 		}
-		@keyframes moving {
-    		from {
-        		bottom: 0%;
-    		}
-    		to {
-       			bottom: 100%;
-    		}
+			@keyframes moving {
+	    		from {
+	        		bottom: 0%;
+	    		}
+	    		to {
+	       			bottom: 100%;
+	    		}
+			}
+
+		#paperjsCanvas{
+			position: absolute;
+			top:0;
+			right: 0;
+			width: 50%;
+			height: 100vh;
 		}
 
-/*		button{
+		#showCookies{
 			position: relative;
-			border-bottom:1px solid black;
-		}*/
-
-/*		#paperjsCanvas{
-			position: fixed;
-			top: 0px;
-			left: 0px;
-			width: 100%;
-			height: 100vh;
-		}*/
-
-
-
+			width:20vw;
+			height:auto;
+			color:#11017c;
+			font-size:0.6em;
+		}
 
 	</style>
 
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
-	</script>
-
-	<script src="fabric.js">
-
-		//   var canvas = new fabric.Canvas('canvas');
-  // canvas.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 100, left: 100 }));
-  // canvas.hoverCursor = 'pointer';
-  // this.__canvases.push(canvas);
-
-	</script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+	<script type="text/javascript" src="assets/paper-full.min.js"></script>
+
+	
 
 </head>
 <body>
 
 	<div id="wrapper">
+
 		<div class="landing">
 			<h1 class="intro"></h1>
 			<div class='countdown'>
@@ -138,118 +133,136 @@
 
 				<div class="startButton"></div>
 				<div class="pauseButton"></div>
-
 			</div>
 			<input id="fillIn" maxlength="200" name="fillIn"  type="text">
-
-
+			<!-- <a href="breakpage.html">break</a> -->
+			<span id="showCookies"></span>
 
 		</div>
 	</div>
 
-
 	<div class = "svgContainer">
-			<img class="line" src="./img/svgone.svg"/>
+		<img class="line" src="./img/svgone.svg"/>
 	</div>
+	<canvas id="paperjsCanvas" ></canvas>
 
-	<canvas id="canvas" resize="true"></canvas>
+<script type="text/javascript">
 
-	<script type="text/javascript">
+	//set elements on landing page
+	var onBreak = false;
+	$("#paperjsCanvas").hide();
+	document.getElementById("fillIn").value =
+	document.getElementById("fillIn").defaultValue = window.location.href.substring(91);
+	$(".intro").text("What would you like to accomplish today?");
+	$(".intro").show();
+	$(".countdown").hide();
 
-		document.getElementById("fillIn").value =
-		document.getElementById("fillIn").defaultValue = window.location.href.substring(91);
+	//when enter key is pressed, hide .intro and show .countdown timer
+	$("input").keydown(function(event) {
+		if (event.keyCode == 13) {
+			$(".intro").hide();
+			$(".countdown").show();
+		    console.log("enterpressed");
+		}
+	});
 
-		$(".intro").text("What would you like to accomplish today?");
-		$(".intro").show();
-		$(".countdown").hide();
-
-		$("input").keydown(function(event) {
-			if (event.keyCode == 13) {
-				$(".intro").hide();
-				$(".countdown").show();
-
-
-		    	console.log("enterpressed");
-			}
-		});
-
-
-
+	//setting start value of countdown timer
 	var mins = 0;
 	var secs = 0;
 	var hors = 0;
 	var startchr = 0;
 	var countDown = countdownTimer();
+	var timerStarted = false;
 
-function countdownTimer() {
-	if(startchr == 0 && document.getElementById('hrs') &&document.getElementById('mns') && document.getElementById('scs')) {
-    // uses integer numbers
-    hrs = parseInt(document.getElementById('hrs').value) + 0;
-    mins = parseInt(document.getElementById('mns').value) + 0;
-    secs = parseInt(document.getElementById('scs').value) * 1;
+	//countdown Timer begins
+	function countdownTimer() {
+		if(startchr == 0 && document.getElementById('hrs') &&document.getElementById('mns') && document.getElementById('scs')) {
+	    //uses integer numbers
+	    hors = parseInt(document.getElementById('hrs').value) + 0;
+	    mins = parseInt(document.getElementById('mns').value) + 0;
 
-    // if data not a number, sets the value to 0
-    if(isNaN(hors)) hors = 0;
-    if(isNaN(mins)) mins = 0;
-    if(isNaN(secs)) secs = 0;
+	    secs = parseInt(document.getElementById('scs').value) * 1;
 
-    // rewrite data for input to contain integer number
-    document.getElementById('hrs').value = hors;
-    document.getElementById('mns').value = mins;
-    document.getElementById('scs').value = secs;
-    startchr = 1;
-    // document.getElementById('btnct').setAttribute('disabled', 'disabled');     // disable the button
-  }
+	    // if data's not a number, sets the value to 0
+	    if(isNaN(hors)) hors = 0;
+	    if(isNaN(mins)) mins = 0;
+	    if(isNaN(secs)) secs = 0;
 
-// if = 0, set $startchr to 0, & return false
-  if(hors==0 && mins==0 && secs==0) {
-    startchr = 0;
- return false;
-  }
-  else {
-    // minus seconds, and decrease minutes if seconds reach to 0
-    secs--;
-    if(secs < 0) {
-      if(mins > 0) {
-        secs = 59;
-        mins--;
-      }
-      else {
-        secs = 0;
-        mins = 0;
-      }
+	    // rewrite data for input to contain integer number
+	    document.getElementById('hrs').value = hors;
+	    document.getElementById('mns').value = mins;
+	    document.getElementById('scs').value = secs;
+	    startchr = 1;
+	  }
 
-    mins--;
-    if (mins < 0) {
-    	if(hors > 0){
-    		mins = 59;
-    		hors--;
-    	}
-    }else{
-    	mins = 0;
-    	hors = 0;
-    }
-    }
-  }
 
-    // display the time in page, and auto-calls this function after 1 seccond
-  document.getElementById('showHrs').innerHTML = hrs;
-  document.getElementById('showMins').innerHTML = mins;
-  document.getElementById('showSecs').innerHTML = secs;
+ 	 // try substituting the hors, mins, secs with their inline value (i.e. showMins, etc)
+	// if = 0, set $startchr to 0, & return false
+  	if(hors==0 && mins==0 && secs==0 && timerStarted == true) {
+    	startchr = 0;
+    	console.log("HELLO ITS OVER!!")
+	 	return false;
 
-  setTimeout('countdownTimer()', 1000);
-}
+	  	}else if(onBreak){
+	  		//resize paper canvas
+		  	// $('canvas').width($(document).width())
+		  	// $('canvas').height($(document).height())
+	 	}else {
+	    // minus seconds, and decrease minutes if seconds reach to 0
+	    secs--;
 
-$(".svgContainer").hide();
-// $("#canvas").hide();
-$(".startButton").text("start");
+   	
+	    if(secs < 0) { // if we run out of seconds
+			if(mins > 0) { // check if we still have minutes
+				secs = 59; // if yes, begin seconds countdown
+				mins--; // if yes, substract a minute
+			}else {
+				secs = 0; // else if no minutes are left, timer is finished
+				mins = 0; // else if no minutes are left, minute is over
+			}
+		 
+	    }
 
+	    if (mins < 0) { // if run out of minutes
+	    	if(hors > 0){ // check if still have hours
+	    		mins = 59; // if yes begin minutes countdown
+	    		hors--; // if yes, substract an hour
+	    	}else{
+		    	console.log('hours is 0')
+		    	hors = 0; // else if no minutes are left, hour is over
+		    }
+	    }
+
+  	}
+
+	  // display the time in page, and auto-calls function after 1 sec
+	  document.getElementById('showHrs').innerHTML = hors;
+	  //console.log("mins: ", mins)
+	  document.getElementById('showMins').innerHTML = mins;
+	  document.getElementById('showSecs').innerHTML = secs;
+
+	  setTimeout('countdownTimer()', 1000);
+	}
+
+
+	//initially hiding .svgContainer
+	$(".svgContainer").hide();
+
+
+// instead of immediatly hiding the canvas, try creating the canvas dynamically. 
+// $(".wrapper").append("<canvas id="" resize="true"></canvas>")
+
+	//start button click function
+	$(".startButton").text("start");
+	$(".startButton").css({"color": "white"});
 	$(".startButton").click(function(){
+		//timerStarted yes; onBreak no
+		timerStarted = true;
+		onBreak = false;
 		var allButton = true;
 		if(allButton){
 			console.log("clicked start");
-			// $(".startButton").text("i need a break");
-			$("#wrapper").css({"background-color": "salmon" });
+			$("#wrapper").css({"background-color": "#f46542" });
 			$("#fillIn").css({"color": "#0055ff", "border": "0" });
 			$(".intro").css({"color": "#FFFF69" });
 			$(".inputData").css({"color": "#FFFF69" });
@@ -257,10 +270,9 @@ $(".startButton").text("start");
 			countdownTimer();
 			$(".pauseButton").text("i need a break");
 			allButton = true;
-		//else statement not working?
+		//change button text and function with second click (not working)
 		}else{
 			console.log("is it working?");
-			// return setTime();
 			$(".startButton").text("start");
 			$(".svgContainer").hide();
 			allButton = false;
@@ -269,11 +281,13 @@ $(".startButton").text("start");
 	});
 
 
+	//pause button click function
+	$(".pauseButton").css({"color": "white"});
 	$(".pauseButton").click(function(){
-		//clear setTimeout to stop time !! not working
-		// clearTimeout(countdownTimer());
+		onBreak = true;
 		console.log("pause");
 		$("#wrapper").css({"background-color": "#0055ff" });
+		$("#paperjsCanvas").show();
 		$(".svgContainer").hide();
 		$("#fillIn").css({"color": "#FA91F8", "border": "0" });
 
@@ -284,42 +298,49 @@ $(".startButton").text("start");
 		//use set interval to update global variable
 		var myVar = setInterval (currentTime, 1000);
 
+
 		//  updating (call the value of cookie later)
-		//set cookies
+		//set cookies & creating an array of breaks 
 		var currentTime = today;
-		Cookies.set('currentTime', currentTime, { expires: 7 });
+		var arrayOfBreaks = [];
+		if(Cookies.getJSON('currentTime')){
+			arrayOfBreaks = Cookies.getJSON('currentTime')
+		}
+
+		//pushing currentTime, emptying cookies
+		arrayOfBreaks.push(currentTime.toLocaleTimeString() + " ")
+		Cookies.set('currentTime', arrayOfBreaks, { expires: 7 });
 		console.log(currentTime);
+		$('#showCookies').empty()
+		for (var i = arrayOfBreaks.length - 1; i >= 0; i--) {
+			var time = arrayOfBreaks[i]
+			var newDate = arrayOfBreaks[i];
+			// newDate.setTime(unixtime*1000);
+			var dateString = arrayOfBreaks[i];
+			$('#showCookies').append(dateString)
+		}
 
 	});
 
-// function timerEnd (){
-// 	if(){
-
-// 	}else{
-
-// 	}
-// }
-
-	// function breakPage (){
- //        var canvas = new fabric.Canvas('canvas');
- //        canvas.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 100, left: 100 }));
-
- //        canvas.selectionColor = 'rgba(0,255,0,0.3)';
- //        canvas.selectionBorderColor = 'red';
- //        canvas.selectionLineWidth = 5;
-	// }
-
-
-// 	$(document).ready(function(){
-// 		var canvas = new fabric.Canvas('canvas');
-//         canvas.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 100, left: 100 }));
-
-//         canvas.selectionColor = 'rgba(0,255,0,0.3)';
-//         canvas.selectionBorderColor = 'red';
-//         canvas.selectionLineWidth = 5;
-// });
 	</script>
 
+
+	<script type="text/paperscript" canvas="paperjsCanvas" >
+
+		tool.maxDistance = 60;
+
+		function onMouseMove(event) {
+		var circle = new Path.Circle({
+			center: event.middlePoint,
+			radius: event.delta.length / 2
+		});
+		circle.strokeColor = 'white';
+		circle.opactiy = 0.1;
+		circle.strokeWidth = 2;
+		circle.strokeCap = 'round';
+		}
+
+	</script>
 
 </body>
 </html>

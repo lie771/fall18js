@@ -13,13 +13,12 @@
 			width: 100vw;
 		}
 
-		.circle{
+		.cookieTime{
         display: inline-block;
         margin: 10px;
         width: 40px;
         height: 40px;
-        border-radius: 20px;
-        background-color: teal;
+
     }       
 
 	</style>
@@ -37,41 +36,60 @@
 </head>
 <body>
 
-	<div class="container"></div>
-	<a href="cookie_draft.html">cookied raft</a>
+	<div class="container">
+		<div class='cookieTime'></div>
+	</div>
 
 	<script type="text/javascript">
 	
 	//empty array [], 
-		var allCircles = [],
-			circle = "<div class='circle'></div>";
+		var allCookieTime = [],
+			cookieTime = "<div class='cookieTime'>currentTime</div>";
 			//checking if cookie is there
-			if (Cookies.getJSON('allCircles')) {
+			if (Cookies.getJSON('allCookieTime')) {
 
 				console.log("there are cookies");
-				allCircles= Cookies.getJSON('allCircles');
+				allCookieTime= Cookies.getJSON('allCookieTime');
 
 				// var ourCookie = Cookies.getJSON('allCircles');
 
-				for (var i = 0; i < allCircles.length; i++){
+				for (var i = 0; i < allCookieTime.length; i++){
 				
-				$(".container").append(allCircles[i]);
+				$(".container").append(allCookieTime[i]);
 
 				}
 
 			}
 
 		$("body").click(function(){
+		//get current time - set global variable
+		var today = new Date(); 
+		var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+		//use set interval to update global variable
+		var myVar = setInterval (currentTime, 1000);
+
+		var currentTime = today;
+		Cookies.set('currentTime', currentTime, { expires: 7 });
+		console.log(currentTime);
 
 			console.log("click cookieeee");
 			//calling out container to get circle 
-			$(".container").append(circle);
+			$(".container").append(cookieTime);
 			//update the cookie with a new array
-			allCircles.push(circle);
+			allCookieTime.push(cookieTime);
 				//calling out all Circles (div)
 					//console.log(allCircles);
-			Cookies.set('allCircles', allCircles, {expires:10});
+			Cookies.set('allCookieTime', allCookieTime, {expires:10});
 		})
+
+
+		
+
+		//  updating (call the value of cookie later)
+		//set cookies
+
+		// document.getElementById('showCookies').innerHTML = currentTime;
+	
 
 	//setting cooking (name, [values], expiration)
 		// Cookies.set('ourCircles', ["value1", "value2", "value3"], { expires:10 });
