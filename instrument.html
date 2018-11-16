@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EMLI</title>
+    <meta charset="utf-8">  
+    <link href='./css/reset.css' media='all' rel='stylesheet' type='text/css' />
+    <link href='./css/main.css' media='all' rel='stylesheet' type='text/css' />
+    <link rel="icon" href="./img/homebutton1.png" type="image/x-icon" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+  <style>
+    html{
+      width:100%;
+      height:auto;
+    }
+    .proj{
+      position: relative;
+      width:500px;
+      height:auto;
+      opacity: 1;
+      right:0px;
+    }
+    .proj:hover{
+      /*opacity: 0.5;*/
+      left:100px;
+      transition-duration: 2s;
+    }
+    .content{
+      position: absolute;
+      width:60vw;
+      height:100%;
+      left:50%;
+      top:25%;
+      transform: translateX(-55%);
+      margin-bottom:20vw;
+    }
+    iframe{
+      left:-5%;
+      position: relative;
+      width: 120%;
+      height:50vw;
+      box-shadow: -0.15em 0.1em .1em lightgray;
+
+    }
+
+    .number{
+      font-size:4em; 
+      color:gray;
+      text-align: center;
+      width:60vw;
+    }
+    .number:hover{
+      color:#ffd819
+    }
+
+    .projectname{
+      position: relative;
+      left:50%;
+      transform: translateX(-50%);
+      font-family: museosans-500;
+      position: relative;
+      padding-bottom: 5vw;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
+  </script>
+
+</head>
+<body>
+  <div id="wrapper">
+    <a href="index.html" class="home"><img src="./img/homebutton1.png"></a>
+    <a href="projects.html" class="projects about2 nav">PROJECTS</a>
+    <a href="about.html" class="about nav">ABOUT</a>
+    <a href="connect.html" class="connect nav">CONNECT</a>
+    
+    <div class="content">
+        <div class="projectname">
+           <a class="number" href="https://lie771.github.io/fall18js/instrument/index.html">You Got This!</a> 
+          <iframe src="https://lie771.github.io/fall18js/instrument/index.html"></iframe>
+        </div>
+
+    </div>
+  </div>
+
+<!--   <script type="text/javascript">
+    $(".projectname").hover(function(){
+        $("#wrapper").css('background-color', 'white');
+        $(this).addClass("animateHover")
+      })
+  </script> -->
+</body>
+</html>
