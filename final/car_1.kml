@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Directions from ABC Kitchen, East 18th Street, New York, NY, USA to 6 W 13th St, New York, NY 10011, USA</name>
+    <Style id="icon-1899-DB4436-nodesc-normal">
+      <IconStyle>
+        <color>ff3644db</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-DB4436-nodesc-highlight">
+      <IconStyle>
+        <color>ff3644db</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-DB4436-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-DB4436-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-DB4436-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-1267FF-5000-nodesc-normal">
+      <LineStyle>
+        <color>ffff6712</color>
+        <width>5</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-1267FF-5000-nodesc-highlight">
+      <LineStyle>
+        <color>ffff6712</color>
+        <width>7.5</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-1267FF-5000-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-1267FF-5000-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-1267FF-5000-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Placemark>
+      <name>Directions from ABC Kitchen, East 18th Street, New York, NY, USA to 6 W 13th St, New York, NY 10011, USA</name>
+      <styleUrl>#line-1267FF-5000-nodesc</styleUrl>
+      <LineString>
+        <tessellate>1</tessellate>
+        <coordinates>
+          -73.9897,40.73762,0
+          -73.98904,40.73734,0
+          -73.98864,40.73718,0
+          -73.98886,40.73686,0
+          -73.98907,40.73658,0
+          -73.98913,40.73649,0
+          -73.98931,40.73625,0
+          -73.98945,40.73607,0
+          -73.98951,40.73599,0
+          -73.98954,40.73594,0
+          -73.98995,40.73538,0
+          -73.99003,40.73529,0
+          -73.99012,40.7352,0
+          -73.99024,40.73512,0
+          -73.99029,40.73507,0
+          -73.99035,40.73504,0
+          -73.99038,40.73502,0
+          -73.99041,40.735,0
+          -73.99057,40.73491,0
+          -73.99067,40.73487,0
+          -73.99069,40.73485,0
+          -73.99071,40.73483,0
+          -73.99073,40.7348,0
+          -73.99077,40.73474,0
+          -73.99078,40.73472,0
+          -73.9908,40.7347,0
+          -73.9908,40.73467,0
+          -73.99093,40.7341,0
+          -73.99094,40.73399,0
+          -73.99227,40.73454,0
+          -73.99413,40.73532,0
+          -73.99456,40.7355,0
+        </coordinates>
+      </LineString>
+    </Placemark>
+    <Placemark>
+      <name>ABC Kitchen, East 18th Street, New York, NY, USA</name>
+      <styleUrl>#icon-1899-DB4436-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          -73.9897046,40.7376195,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>6 W 13th St, New York, NY 10011, USA</name>
+      <styleUrl>#icon-1899-DB4436-nodesc</styleUrl>
+      <Point>
+        <coordinates>
+          -73.9945625,40.735504,0
+        </coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>

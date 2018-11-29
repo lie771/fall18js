@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>the life</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+
+  <style type="text/css">
+    
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+
+  </style>
+
+  <script type="text/javascript" src="assets/jquery-3.3.1.min.js"></script>
+
+</head>
+<body>
+  <div id="map"></div>
+    <script>
+      
+
+      // var pplArray = new Array();
+
+      // pplArray[0] = new Image();
+      // pplArray[0].src = 'jpeg/ppl_1.svg';
+
+      // pplArray[1] = new Image();
+      // pplArray[1].src = 'jpeg/ppl_2.svg';
+
+      // pplArray[2] = new Image();
+      // pplArray[2].src = 'jpeg/ppl_3.svg';
+
+      // pplArray[3] = new Image();
+      // pplArray[3].src = 'jpeg/ppl_4.svg';
+
+
+      var people = {
+        unionS: {
+          center: {lat: 40.736381, lng: -73.990427}
+        },
+        madisonP: {
+          center: {lat: 40.741828, lng: -73.988131}
+        },
+        gramercyP: {
+          center: {lat: 40.737644, lng: -73.985737}
+        },
+        hanD: {
+          center: {lat: 40.732473, lng: -73.988287}
+        }
+      };
+
+
+      //placing carDots on the map
+      var carDots = {
+        unionS: {
+          center: {lat: 40.736381, lng: -73.990427},
+          population: 10
+        },
+        madisonP: {
+          center: {lat: 40.741828, lng: -73.988131},
+          population: 30
+        },
+        gramercyP: {
+          center: {lat: 40.737644, lng: -73.985737},
+          population: 5
+        },
+        hanD: {
+          center: {lat: 40.732473, lng: -73.988287},
+          population: 2
+        }
+      };
+
+      //pull map out & styling
+      var map, infoWindow;
+      function initMap() {
+          var newYork = {lat: 40.7128, lng: 74.0060};
+          map = new google.maps.Map(document.getElementById('map'), {
+          center: newYork,
+          zoom: 14,
+          styles: [
+            {
+                "featureType": "administrative",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#444444"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "color": "#f2f2f2"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "saturation": -100
+                    },
+                    {
+                        "lightness": 45
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "visibility": "simplified"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#ffffff"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.arterial",
+                "elementType": "labels.icon",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "color": "#dde6e8"
+                    },
+                    {
+                        "visibility": "on"
+                    }
+                ]
+            }
+          ]
+
+        });
+      
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            // infoWindow.setPosition(pos);
+            // infoWindow.setContent('Location found.');
+            // infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+
+        var pplOne = 'jpeg/ppl_1.svg';
+        for (var location in people) {
+          var pplOneMarker = new google.maps.Marker({
+            position: {lat: 40.741828, lng: -73.988131},
+            map: map,
+            //ERROR scaling
+              // scaledSize: new google.maps.Size(10, 10),
+            maxWidth: 50,
+            animation: google.maps.Animation.DROP,
+            icon: pplOne
+          });
+          pplOneMarker.addListener('click', toggleBounce);
+        }
+
+        function toggleBounce() {
+          if (pplOneMarker.getAnimation() !== null) {
+            pplOneMarker.setAnimation(null);
+          } else {
+            pplOneMarker.setAnimation(google.maps.Animation.BOUNCE);
+          }
+        }
+
+        //carDots styling
+        for (var location in carDots) {
+          // adding the carCircle
+          var carCircle = new google.maps.Circle({
+            strokeColor: 'navy',
+            strokeOpacity: 1,
+            strokeWeight: 2,
+            fillColor: 'navy',
+            fillOpacity: 1,
+            map: map,
+            center: carDots[location].center,
+            radius: 5
+          });
+        }
+
+        // //Adding KML file to map
+        // map.addLayer(new OpenLayers.Layer.GML("KML", "car_1.kml", 
+        //        {
+        //         format: OpenLayers.Format.KML, 
+        //         formatOptions: {
+        //           extractStyles: true, 
+        //           extractAttributes: true,
+        //           maxDepth: 2
+        //         }
+        //        }));
+
+        var ctaLayer = new google.maps.KmlLayer({
+          src: 'car_1.kml',
+          map: map
+        });
+
+      }
+
+      // function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+      //   infoWindow.setPosition(pos);
+      //   infoWindow.setContent(browserHasGeolocation ?
+      //                         'Error: The Geolocation service failed.' :
+      //                         'Error: Your browser doesn\'t support geolocation.');
+      //   infoWindow.open(map);
+      // }
+
+
+
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRjjJm4QxHyNT9Ji7CUsCDA94jo_XZvco&callback=initMap">
+    </script>
+
+
+<!--     <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+    </script> -->
+    
+</body>
+</html>
