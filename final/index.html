@@ -10,7 +10,7 @@
       #map {
         height: 100%;
       }
-      /* Optional: Makes the sample page fill the window. */
+
       html, body {
         height: 100%;
         margin: 0;
@@ -24,24 +24,10 @@
 
 </head>
 <body>
-  <div id="map"></div>
+  <div id="map">
+    
+  </div>
     <script>
-      
-
-      // var pplArray = new Array();
-
-      // pplArray[0] = new Image();
-      // pplArray[0].src = 'jpeg/ppl_1.svg';
-
-      // pplArray[1] = new Image();
-      // pplArray[1].src = 'jpeg/ppl_2.svg';
-
-      // pplArray[2] = new Image();
-      // pplArray[2].src = 'jpeg/ppl_3.svg';
-
-      // pplArray[3] = new Image();
-      // pplArray[3].src = 'jpeg/ppl_4.svg';
-
 
       var people = {
         unionS: {
@@ -81,104 +67,508 @@
 
       //pull map out & styling
       var map, infoWindow;
+
+      //Center NYC Control
+      var chicago = {lat: 41.85, lng: -87.65};
+      function CenterControl(controlDiv, map) {
+        // CSS for the control border
+        var controlUI = document.createElement('div');
+        controlUI.style.backgroundColor = '#fff';
+        controlUI.style.border = '2px solid #fff';
+        controlUI.style.borderRadius = '3px';
+        controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+        controlUI.style.cursor = 'pointer';
+        controlUI.style.marginBottom = '22px';
+        controlUI.style.textAlign = 'center';
+        controlUI.title = 'Click to recenter the map';
+        controlDiv.appendChild(controlUI);
+
+        // css style for the control interior.
+        var controlText = document.createElement('div');
+        controlText.style.color = 'rgb(25,25,25)';
+        controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+        controlText.style.fontSize = '16px';
+        controlText.style.lineHeight = '38px';
+        controlText.style.paddingLeft = '5px';
+        controlText.style.paddingRight = '5px';
+        controlText.innerHTML = 'Center Map';
+        controlUI.appendChild(controlText);
+
+        // setup the click event listeners: switch visualization
+        controlUI.addEventListener('click', function() {
+          map.setCenter(chicago);
+        });
+
+      }
+
+      //initiate Map
       function initMap() {
-          var newYork = {lat: 40.7128, lng: 74.0060};
-          map = new google.maps.Map(document.getElementById('map'), {
+        // (day)standard map
+        var newYork = {lat: 40.7128, lng: 74.0060};
+        map = new google.maps.Map(document.getElementById('map'), {
           center: newYork,
-          zoom: 14,
+          zoom: 16,
+          streetViewControl: false,
+          mapTypeControl: true,
+          fullscreenControl: false,
+          zoomControl: false,
+          mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+            mapTypeIds: ['roadmap', 'styled_map']
+          },
           styles: [
             {
                 "featureType": "administrative",
                 "elementType": "labels.text.fill",
                 "stylers": [
-                    {
-                        "color": "#444444"
-                    }
+                    { "color": "#444444" }
                 ]
             },
             {
                 "featureType": "landscape",
                 "elementType": "all",
                 "stylers": [
-                    {
-                        "color": "#f2f2f2"
-                    }
+                    { "color": "#f2f2f2" }
                 ]
             },
             {
                 "featureType": "poi",
                 "elementType": "all",
                 "stylers": [
-                    {
-                        "visibility": "off"
-                    }
+                    { "visibility": "off" }
                 ]
             },
             {
                 "featureType": "road",
                 "elementType": "all",
                 "stylers": [
-                    {
-                        "saturation": -100
-                    },
-                    {
-                        "lightness": 45
-                    }
+                    { "saturation": -100 },
+                    { "lightness": 45 }
                 ]
             },
             {
                 "featureType": "road.highway",
                 "elementType": "all",
                 "stylers": [
-                    {
-                        "visibility": "simplified"
-                    }
+                    { "visibility": "simplified" }
                 ]
             },
             {
                 "featureType": "road.highway",
                 "elementType": "geometry.fill",
                 "stylers": [
-                    {
-                        "color": "#ffffff"
-                    }
+                    { "color": "#ffffff" }
                 ]
             },
             {
                 "featureType": "road.arterial",
                 "elementType": "labels.icon",
                 "stylers": [
-                    {
-                        "visibility": "off"
-                    }
+                    { "visibility": "off" }
                 ]
             },
             {
                 "featureType": "transit",
                 "elementType": "all",
                 "stylers": [
-                    {
-                        "visibility": "off"
-                    }
+                    { "visibility": "off" }
                 ]
             },
             {
                 "featureType": "water",
                 "elementType": "all",
                 "stylers": [
-                    {
-                        "color": "#dde6e8"
-                    },
-                    {
-                        "visibility": "on"
-                    }
+                    { "color": "#dde6e8" },
+                    { "visibility": "on" }
                 ]
             }
           ]
 
-        });
+      });
       
+      //nightmode styled map
+      var styledMapType = new google.maps.StyledMapType(
+        [ 
+          {
+              "featureType": "all",
+              "elementType": "geometry",
+              "stylers": [
+                  {
+                      "visibility": "simplified"
+                  }
+              ]
+          },
+          {
+              "featureType": "all",
+              "elementType": "labels.text",
+              "stylers": [
+                  {
+                      "color": "#ffffff"
+                  },
+                  {
+                      "visibility": "simplified"
+                  }
+              ]
+          },
+          {
+              "featureType": "all",
+              "elementType": "labels.icon",
+              "stylers": [
+                  {
+                      "visibility": "simplified"
+                  },
+                  {
+                      "hue": "#ff0000"
+                  }
+              ]
+          },
+          {
+              "featureType": "administrative",
+              "elementType": "labels",
+              "stylers": [
+                  {
+                      "visibility": "simplified"
+                  }
+              ]
+          },
+          {
+              "featureType": "landscape",
+              "elementType": "geometry",
+              "stylers": [
+                  {
+                      "color": "#545b6b"
+                  }
+              ]
+          },
+          {
+              "featureType": "landscape",
+              "elementType": "geometry.stroke",
+              "stylers": [
+                  {
+                      "visibility": "simplified"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi",
+              "elementType": "labels.icon",
+              "stylers": [
+                  {
+                      "visibility": "simplified"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.attraction",
+              "elementType": "all",
+              "stylers": [
+                  {
+                      "visibility": "off"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.business",
+              "elementType": "all",
+              "stylers": [
+                  {
+                      "visibility": "off"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.business",
+              "elementType": "labels.text",
+              "stylers": [
+                  {
+                      "visibility": "simplified"
+                  },
+                  {
+                      "color": "#ffffff"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.business",
+              "elementType": "labels.icon",
+              "stylers": [
+                  {
+                      "visibility": "off"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.government",
+              "elementType": "all",
+              "stylers": [
+                  {
+                      "visibility": "off"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.medical",
+              "elementType": "all",
+              "stylers": [
+                  {
+                      "visibility": "off"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.medical",
+              "elementType": "geometry",
+              "stylers": [
+                  {
+                      "color": "#232e34"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.medical",
+              "elementType": "labels.text",
+              "stylers": [
+                  {
+                      "color": "#ffffff"
+                  },
+                  {
+                      "visibility": "simplified"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.park",
+              "elementType": "geometry",
+              "stylers": [
+                  {
+                      "invert_lightness": true
+                  },
+                  {
+                      "color": "#333138"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.park",
+              "elementType": "labels.text",
+              "stylers": [
+                  {
+                      "color": "#ffffff"
+                  },
+                  {
+                      "visibility": "simplified"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.place_of_worship",
+              "elementType": "all",
+              "stylers": [
+                  {
+                      "visibility": "off"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.school",
+              "elementType": "all",
+              "stylers": [
+                  {
+                      "visibility": "off"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.school",
+              "elementType": "geometry",
+              "stylers": [
+                  {
+                      "color": "#302f3a"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.school",
+              "elementType": "labels.text",
+              "stylers": [
+                  {
+                      "color": "#ffffff"
+                  },
+                  {
+                      "visibility": "simplified"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.sports_complex",
+              "elementType": "all",
+              "stylers": [
+                  {
+                      "visibility": "off"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.sports_complex",
+              "elementType": "geometry",
+              "stylers": [
+                  {
+                      "color": "#302f3a"
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.sports_complex",
+              "elementType": "labels.text",
+              "stylers": [
+                  {
+                      "color": "#ffffff"
+                  }
+              ]
+          },
+          {
+              "featureType": "road",
+              "elementType": "geometry",
+              "stylers": [
+                  {
+                      "color": "#414959"
+                  },
+                  {
+                      "visibility": "on"
+                  }
+              ]
+          },
+          {
+              "featureType": "road",
+              "elementType": "labels.text",
+              "stylers": [
+                  {
+                      "visibility": "simplified"
+                  },
+                  {
+                      "color": "#ffffff"
+                  }
+              ]
+          },
+          {
+              "featureType": "road",
+              "elementType": "labels.icon",
+              "stylers": [
+                  {
+                      "visibility": "on"
+                  }
+              ]
+          },
+          {
+              "featureType": "road.highway",
+              "elementType": "labels.icon",
+              "stylers": [
+                  {
+                      "visibility": "on"
+                  }
+              ]
+          },
+          {
+              "featureType": "road.local",
+              "elementType": "geometry.fill",
+              "stylers": [
+                  {
+                      "lightness": "2"
+                  }
+              ]
+          },
+          {
+              "featureType": "road.local",
+              "elementType": "labels.text",
+              "stylers": [
+                  {
+                      "lightness": "19"
+                  }
+              ]
+          },
+          {
+              "featureType": "road.local",
+              "elementType": "labels.text.fill",
+              "stylers": [
+                  {
+                      "lightness": "-40"
+                  },
+                  {
+                      "saturation": "-8"
+                  }
+              ]
+          },
+          {
+              "featureType": "transit.station",
+              "elementType": "all",
+              "stylers": [
+                  {
+                      "visibility": "off"
+                  }
+              ]
+          },
+          {
+              "featureType": "transit.station.airport",
+              "elementType": "all",
+              "stylers": [
+                  {
+                      "visibility": "off"
+                  }
+              ]
+          },
+          {
+              "featureType": "transit.station.airport",
+              "elementType": "labels.text",
+              "stylers": [
+                  {
+                      "color": "#ffffff"
+                  },
+                  {
+                      "visibility": "simplified"
+                  }
+              ]
+          },
+          {
+              "featureType": "water",
+              "elementType": "geometry",
+              "stylers": [
+                  {
+                      "color": "#2e3545"
+                  }
+              ]
+          },
+          {
+              "featureType": "water",
+              "elementType": "labels.text",
+              "stylers": [
+                  {
+                      "visibility": "simplified"
+                  },
+                  {
+                      "color": "#ffffff"
+                  }
+              ]
+          }
+        ],
+        {name: 'Night Mode'});
+        
+        //setting style map in mapTypes
+        map.mapTypes.set('styled_map', styledMapType);
+        map.setMapTypeId('styled_map');
         infoWindow = new google.maps.InfoWindow;
+
+
+
+        // Create the DIV to hold the control and call the CenterControl()
+        // constructor passing in this DIV.
+        var centerControlDiv = document.createElement('div');
+        var centerControl = new CenterControl(centerControlDiv, map);
+
+        centerControlDiv.index = 1;
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(centerControlDiv);
+
+
+
 
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -188,9 +578,6 @@
               lng: position.coords.longitude
             };
 
-            // infoWindow.setPosition(pos);
-            // infoWindow.setContent('Location found.');
-            // infoWindow.open(map);
             map.setCenter(pos);
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
@@ -200,45 +587,315 @@
           handleLocationError(false, infoWindow, map.getCenter());
         }
 
+        // $(map).click(function() {
+        //   styles: [
+        //     {
+        //         "featureType": "administrative",
+        //         "elementType": "labels.text.fill",
+        //         "stylers": [
+        //             { "color": "#444444" }
+        //         ]
+        //     },
+        //     {
+        //         "featureType": "landscape",
+        //         "elementType": "all",
+        //         "stylers": [
+        //             { "color": "#f2f2f2" }
+        //         ]
+        //     },
+        //     {
+        //         "featureType": "poi",
+        //         "elementType": "all",
+        //         "stylers": [
+        //             { "visibility": "off" }
+        //         ]
+        //     },
+        //     {
+        //         "featureType": "road",
+        //         "elementType": "all",
+        //         "stylers": [
+        //             { "saturation": -100 },
+        //             { "lightness": 45 }
+        //         ]
+        //     },
+        //     {
+        //         "featureType": "road.highway",
+        //         "elementType": "all",
+        //         "stylers": [
+        //             { "visibility": "simplified" }
+        //         ]
+        //     },
+        //     {
+        //         "featureType": "road.highway",
+        //         "elementType": "geometry.fill",
+        //         "stylers": [
+        //             { "color": "#ffffff" }
+        //         ]
+        //     },
+        //     {
+        //         "featureType": "road.arterial",
+        //         "elementType": "labels.icon",
+        //         "stylers": [
+        //             { "visibility": "off" }
+        //         ]
+        //     },
+        //     {
+        //         "featureType": "transit",
+        //         "elementType": "all",
+        //         "stylers": [
+        //             { "visibility": "off" }
+        //         ]
+        //     },
+        //     {
+        //         "featureType": "water",
+        //         "elementType": "all",
+        //         "stylers": [
+        //             { "color": "#dde6e8" },
+        //             { "visibility": "on" }
+        //         ]
+        //     }
+        //   ]
 
-        var pplOne = 'jpeg/ppl_1.svg';
+        // });
+
+        //src svg
+        var pplTom = 'jpeg/ppl_1.svg';
+        var pplSusan = 'jpeg/ppl_2.svg';
+        var pplJim = 'jpeg/ppl_3.svg';
+        var pplKatie = 'jpeg/ppl_4.svg';
+        //placing the people svg
         for (var location in people) {
           var pplOneMarker = new google.maps.Marker({
-            position: {lat: 40.741828, lng: -73.988131},
+            position: {lat: 40.735495, lng: -73.993906},
             map: map,
-            //ERROR scaling
-              // scaledSize: new google.maps.Size(10, 10),
-            maxWidth: 50,
             animation: google.maps.Animation.DROP,
-            icon: pplOne
+            icon: pplTom
           });
-          pplOneMarker.addListener('click', toggleBounce);
-        }
-
-        function toggleBounce() {
-          if (pplOneMarker.getAnimation() !== null) {
-            pplOneMarker.setAnimation(null);
-          } else {
-            pplOneMarker.setAnimation(google.maps.Animation.BOUNCE);
-          }
-        }
-
-        //carDots styling
-        for (var location in carDots) {
-          // adding the carCircle
-          var carCircle = new google.maps.Circle({
-            strokeColor: 'navy',
-            strokeOpacity: 1,
-            strokeWeight: 2,
-            fillColor: 'navy',
-            fillOpacity: 1,
+          var pplTwoMarker = new google.maps.Marker({
+            position: {lat: 40.737076, lng: -73.995618},
             map: map,
-            center: carDots[location].center,
-            radius: 5
+            animation: google.maps.Animation.DROP,
+            icon: pplSusan
           });
+          var pplThreeMarker = new google.maps.Marker({
+            position: {lat: 40.736381, lng: -73.990427},
+            map: map,
+            animation: google.maps.Animation.DROP,
+            icon: pplJim
+          });
+          var pplFourMarker = new google.maps.Marker({
+            position: {lat: 40.732473, lng: -73.988287},
+            map: map,
+            animation: google.maps.Animation.DROP,
+            icon: pplKatie
+          });
+          pplOneMarker.addListener('click', function() {
+            infowindowTommy.open(map, pplOneMarker);
+          });
+          pplThreeMarker.addListener('click', function() {
+            infowindowJim.open(map, pplThreeMarker);
+          });
+          pplFourMarker.addListener('click', function() {
+            infowindowKatie.open(map, pplFourMarker);
+          });
+          pplTwoMarker.addListener('click', function() {
+            infowindowSusan.open(map, pplTwoMarker);
+          });
+          // pplOneMarker.addListener('click', toggleBounce);
         }
 
-        // //Adding KML file to map
+        //add content for quotes ((infowindow))
+          var contentStringTommy = '<div id="content">'+
+              '<div id="quote">'+
+              '</div>'+
+              '<h1 id="Heading" class="Heading">This is Tommy</h1>'+
+              '<div id="bodyContent">'+
+              '<p><b>He stands by Taco Bell greeting customers, wishing them a good day andsimultaneously hoping to receive some spare change.</b>'
+              ;
+
+           var contentStringJim = '<div id="content">'+
+              '<div id="quote">'+
+              '</div>'+
+              '<h1 id="Heading" class="Heading">This is Jim</h1>'+
+              '<div id="bodyContent">'+
+              '<p><b>He comes to Union Square every day and practice his skateboard tricks, giving everyone around him a heart attack.</b>'
+              ;
+
+            var contentStringKatie = '<div id="content">'+
+              '<div id="quote">'+
+              '</div>'+
+              '<h1 id="Heading" class="Heading">Say hello to Katie!</h1>'+
+              '<div id="bodyContent">'+
+              '<p><b>She wakes up at 5:40am every morning to do her morning strestch next to her blossom tree.</b>'
+              ;
+
+            var contentStringSusan = '<div id="content">'+
+              '<div id="quote">'+
+              '</div>'+
+              '<h1 id="Heading" class="Heading">This is Susan, people adore her.</h1>'+
+              '<div id="bodyContent">'+
+              '<p><b>She often drops by Dainobu to get chicken teriyaki with rice.</b>'
+              ;
+
+
+        //housing the quotes ((infowindow))
+          var infowindowTommy = new google.maps.InfoWindow({
+            content: contentStringTommy,
+            maxWidth: 200
+          });
+
+          var infowindowJim = new google.maps.InfoWindow({
+            content: contentStringJim,
+            maxWidth: 200
+          });
+
+          var infowindowKatie = new google.maps.InfoWindow({
+            content: contentStringKatie,
+            maxWidth: 200
+          });
+
+          var infowindowSusan = new google.maps.InfoWindow({
+            content: contentStringSusan,
+            maxWidth: 200
+          });
+
+        //bounce animation
+        // function toggleBounce() {
+        //   if (pplOneMarker.getAnimation() !== null) {
+        //     pplOneMarker.setAnimation(null);
+        //   } else {
+        //     pplOneMarker.setAnimation(google.maps.Animation.BOUNCE);
+        //   }
+        // }
+
+
+
+        // //carDots styling
+        // for (var location in carDots) {
+        //   // adding the carCircle
+        //   var carCircle = new google.maps.Circle({
+        //     strokeColor: 'navy',
+        //     strokeOpacity: 1,
+        //     strokeWeight: 2,
+        //     fillColor: 'navy',
+        //     fillOpacity: 1,
+        //     map: map,
+        //     center: carDots[location].center,
+        //     radius: 5
+        //   });
+        // }
+
+
+      // Define the symbol ('CIRCLE')
+        var carSymbol = {
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 6,
+          strokeColor: 'purple'
+        };
+
+        var carHomeToABC = [
+          {lat: 40.741865, lng: -73.986307},
+          {lat: 40.742158, lng: -73.987052},
+          {lat: 40.743383, lng: -73.986180},
+          {lat: 40.743383, lng: -73.986180},
+          {lat: 40.744075, lng: -73.987755},
+          {lat: 40.742387, lng: -73.988957},
+          {lat: 40.739182, lng: -73.989752},
+          {lat: 40.738344, lng: -73.987789},
+          {lat: 40.737772, lng: -73.988212},
+          {lat: 40.738248, lng: -73.989372}
+        ];
+
+        var carPath = new google.maps.Polyline({
+          path: carHomeToABC,
+          geodesic: true,
+          strokeColor: 'navy',
+          strokeOpacity: 1.0,
+          strokeWeight: 3,
+          icons: [{
+            icon: carSymbol,
+            offset: '100%'
+          }]
+        });
+
+
+
+        carPath.setMap(map);
+        animateCar(carPath);
+        // setInterval() to change the offset of the symbol at fixed intervals.
+        function animateCar(line) {
+            var count = 0;
+            window.setInterval(function() {
+              count = (count + 1) % 200;
+
+              var icons = carPath.get('icons');
+              icons[0].offset = (count / 2) + '%';
+              carPath.set('icons', icons);
+          }, 80);
+        }
+
+
+
+
+       // BikePath
+        var bikeDash = {
+          path: 'M 0,-1 0,1',
+          strokeOpacity: 1,
+          scale: 4
+        };
+
+        // Repeat the symbol at intervals of 20 pixels to create the dashed effect.
+        var bikePath = new google.maps.Polyline({
+          path: [
+            {lat: 40.739672, lng: -73.994636},
+            {lat: 40.738492, lng: -73.991822},
+            {lat: 40.737312, lng: -73.992682},
+            {lat: 40.736578, lng: -73.990784},
+            {lat: 40.735915, lng: -73.991248},
+            {lat: 40.735377, lng: -73.989923},
+            {lat: 40.733531, lng: -73.989910}
+          ],
+          strokeOpacity: 0,
+          icons: [{
+            icon: bikeDash,
+            offset: '0',
+            repeat: '20px'
+          }],
+          map: map
+        });
+
+        bikePath.setMap(map);
+        animateBike(bikePath);
+        // setInterval() to change the offset of the symbol at fixed intervals.
+        function animateBike(line) {
+            var count = 0;
+            window.setInterval(function() {
+              count = (count + 1) % 200;
+
+              var icons = bikePath.get('icons');
+              icons[0].offset = (count / 2) + '%';
+              bikePath.set('icons', icons);
+          }, 80);
+        }
+
+
+
+
+        //ERROR generate random placement and quantity of trees
+        var trees = 'jpeg/tree_1.svg';
+
+        //constraint with long and lat
+
+        //math random trees
+        // var lat = y_min + (Math.random() * (y_max - y_min));
+        // var lng = x_min + (Math.random() * (x_max - x_min));
+
+
+
+
+
+
+        // //Adding car routes (KML file) to map
         // map.addLayer(new OpenLayers.Layer.GML("KML", "car_1.kml", 
         //        {
         //         format: OpenLayers.Format.KML, 
@@ -249,12 +906,21 @@
         //         }
         //        }));
 
-        var ctaLayer = new google.maps.KmlLayer({
-          src: 'car_1.kml',
-          map: map
-        });
+
+
+        //ERROR kmlLayer
+        // var ctaLayer = new google.maps.KmlLayer({
+        //   url: 'https://github.com/lie771/fall18js/final/car_1.kml',
+        //   map: map
+        // });
+
 
       }
+
+
+
+
+
 
       // function handleLocationError(browserHasGeolocation, infoWindow, pos) {
       //   infoWindow.setPosition(pos);
