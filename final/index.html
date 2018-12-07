@@ -209,15 +209,45 @@
       var populationmap = {
         eastvillage: {
           center: {lat: 40.725932, lng: -73.979407},
-          population: 10,
+          population: 3,
           name: "East Village",
           info: "stuff for infowindow"
         },
         washington: {
           center: {lat: 40.730876, lng: -73.996917},
-          population: 30,
+          population: 10,
           name: "Washington Sq Park",
           info: "stuff for infowindow"          
+        },
+        tribeca: {
+          center: {lat: 40.719288, lng: -74.008322},
+          population: 5,
+          name: "Tribeca",
+          info: "stuff for infowindow"
+        },
+        rockefeller: {
+          center: {lat: 40.758303, lng: -73.979980},
+          population: 15,
+          name: "Rock",
+          info: "Midtown"          
+        },
+        stuy: {
+          center: {lat: 40.731478, lng: -73.977853},
+          population: 13,
+          name: "Stuyvesant",
+          info: "stuff for infowindow"          
+        },
+        kips: {
+          center: {lat: 40.750450, lng: -73.972180},
+          population: 5,
+          name: "Kips Bay",
+          info: "stuff for infowindow"
+        },
+        chelsea: {
+          center: {lat: 40.744369, lng: -74.000054},
+          population: 7,
+          name: "Chelsea",
+          info: "stuff for infowindow"
         }
       };
 
@@ -306,6 +336,38 @@
           ],
 
         });
+
+
+
+   // Bounds for New York
+   var allowedBounds = new google.maps.LatLngBounds(
+     new google.maps.LatLng(40.731695, -74.029834), 
+     new google.maps.LatLng(40.803189, -73.926703));
+
+   // Listen for the dragend event
+   google.maps.event.addListener(map, 'dragend', function() {
+     if (allowedBounds.contains(map.getCenter())) return;
+
+     // Out of bounds - Move the map back within the bounds
+
+     var c = map.getCenter(),
+         x = c.lng(),
+         y = c.lat(),
+         maxX = allowedBounds.getNorthEast().lng(),
+         maxY = allowedBounds.getNorthEast().lat(),
+         minX = allowedBounds.getSouthWest().lng(),
+         minY = allowedBounds.getSouthWest().lat();
+
+     if (x < minX) x = minX;
+     if (x > maxX) x = maxX;
+     if (y < minY) y = minY;
+     if (y > maxY) y = maxY;
+
+     map.setCenter(new google.maps.LatLng(y, x));
+   });
+
+
+
 
       //nightmode styled map
       var styledMapType = new google.maps.StyledMapType(
@@ -685,7 +747,7 @@
           var cityCircle = new google.maps.Circle({
             strokeColor: 'teal',
             strokeOpacity: 0.8,
-            strokeWeight: 2,
+            strokeWeight: 3,
             fillColor: 'pink',
             fillOpacity: 0.35,
             map: map,
@@ -844,10 +906,10 @@
 
       //people discoveries icons
         //src svg
-        var pplTom = 'jpeg/ppl_1.svg';
-        var pplSusan = 'jpeg/ppl_2.svg';
-        var pplJim = 'jpeg/ppl_3.svg';
-        var pplKatie = 'jpeg/ppl_4.svg';
+        var pplTom = 'jpeg/ppl_2.svg';
+        var pplSusan = 'jpeg/people_3.svg';
+        var pplJim = 'jpeg/people_4.svg';
+        var pplKatie = 'jpeg/people_1.svg';
 
         //create markers and pair it with infowindow content
         var marker, i;
@@ -856,7 +918,12 @@
             ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Tommy</h1>He stands by Taco Bell greeting customers, wishing them a good day andsimultaneously hoping to receive some spare change.</div></b>', 40.735495, -73.993906, pplTom],
             ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Susan</h1>She often drops by Dainobu to get chicken teriyaki with rice.</b></div>', 40.737076, -73.995618, pplSusan],
             ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Jim</h1>He comes to Union Square every day and practice his skateboard tricks, giving everyone around him a heart attack.</b>', 40.736381, -73.990427, pplJim],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hi to Katie!</h1>She wakes up at 5:40am every morning to do her morning strestch next to her blossom tree.</b></div>', 40.732473, -73.988287, pplKatie]
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hi to Katie!</h1>She wakes up at 5:40am every morning to do her morning strestch next to her blossom tree.</b></div>', 40.747259, -73.979892, pplKatie],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Stephanie</h1>She often take trips to Chinatown for food adventures.</b>', 40.717564, -73.998614, pplJim],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hello to Rachel</h1>She pops by and meets up with Stephanie for dessert.</b>', 40.720401, -73.995322, pplSusan],
+             ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Leo.</h1>He lives above one of the oldest Duane Reede store, watching the dogs by his window.</b>', 40.727300, -73.980021, pplTom],
+              ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Isabelle here!</h1>People adore her and her laugh. You will be able to spot her from a mile away.</b>', 40.730138, -74.005331, pplKatie],
+
         ];
 
         //add content for quotes ((infowindow))
@@ -892,8 +959,38 @@
           '<p><b>She often drops by Dainobu to get chicken teriyaki with rice.</b>'
           ;
 
+       var contentStringSteph = '<div id="content">'+
+          '<div id="quote">'+
+          '</div>'+
+          '<h1 id="Heading" class="Heading">This is Stephanie</h1>'+
+          '<div id="bodyContent">'+
+          '<p><b>She often take trips to Chinatown for food adventures.</b>'
+          ;
+
+       var contentStringRachel = '<div id="content">'+
+          '<div id="quote">'+
+          '</div>'+
+          '<h1 id="Heading" class="Heading">Say hello to Rachel!</h1>'+
+          '<div id="bodyContent">'+
+          '<p><b>She always walks along this street pops to meet up with Stephanie for dessert.</b>'
+          ;
+        var contentStringLeo = '<div id="content">'+
+          '<div id="quote">'+
+          '</div>'+
+          '<h1 id="Heading" class="Heading">This is Leo</h1>'+
+          '<div id="bodyContent">'+
+          '<p><b>He lives above one of the oldest Duane Reede store, watching the dogs by his window.</b>'
+          ;
+         var contentStringIs = '<div id="content">'+
+          '<div id="quote">'+
+          '</div>'+
+          '<h1 id="Heading" class="Heading">Isabelle here!</h1>'+
+          '<div id="bodyContent">'+
+          '<p><b>Seople adore her and her laugh. You will be able to spot her from a mile away.</b>'
+          ;
+
         var infoArray = [
-          contentStringTommy, contentStringJim, contentStringKatie, contentStringSusan
+          contentStringTommy, contentStringJim, contentStringKatie, contentStringSusan, contentStringRachel, contentStringSteph, contentStringLeo, contentStringIs
         ];
         var infowindowArray = new google.maps.InfoWindow({
             content: infoArray
@@ -945,16 +1042,19 @@
 
 
 
-        var flag = 'jpeg/flag_small.svg';
+        var flag = 'jpeg/flag_2.svg';
         var markerFlag, k;
         var markerFlags = [];
         var locationsFlag = [
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">craving something healthy but also comforting?</h1></div>', 40.753184, -73.985548, flag],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">did somebody say mac & cheese?</h1></div>', 40.741126, -73.979632, flag],
+          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">craving something healthy but also comforting?</h1></div>', 40.753184, -73.985548, flag, 'https://www.jean-georges.com/restaurants/united-states/new-york/abc-kitchen'],
+          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">did somebody say mac & cheese?</h1></div>', 40.741126, -73.979632, flag, 'https://thesmithrestaurant.com/'],
+           ['<div style="width: 200px;"><h3 id="Heading" class="Heading">pho real?</h1></div>', 40.761996, -73.991368, flag, 'https://www.obaony.com/'],
+          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">hazelnut + chocolate is the best combo</h1></div>', 40.737116, -73.991678, flag, 'https://www.yelp.com/biz/nutella-cafe-new-york-3'],
+          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">hazelnut + chocolate is the best combo</h1></div>', 40.740012, -74.007478, flag, 'sugarfactory.com'],
         ]
 
         var contentFlagOne =
-        '<div id="content"><h2 id="Heading" class="Heading">craving something healthy but also comforting?</h1></div>';
+        '<div id="content"><h2 id="Heading" class="Heading">craving something healthy but also comforting?</h1></div>' ;
         
         var contentFlagTwo =
         '<div id="content"><h2 id="Heading" class="Heading">did somebody say mac & cheese?</h1></div>';
@@ -980,6 +1080,12 @@
               return function() {
                   infowindowArrayFlag.setContent(locationsFlag[k][0]);
                   infowindowArrayFlag.open(map, markerFlag);
+
+              }
+              })(markerFlag, k));
+               google.maps.event.addListener(markerFlag, 'click', (function(markerFlag, k) {
+              return function() {
+                  window.location.href = locationsFlag[k][4];
 
               }
               })(markerFlag, k));
@@ -1040,6 +1146,15 @@
           {lat: 40.738248, lng: -73.989372}
         ];
 
+        var carMad = [
+          {lat: 40.750474, lng: -73.999122},
+          {lat: 40.750231, lng: -73.998589},
+          {lat: 40.753441, lng: -73.988836},
+          {lat: 40.757276, lng: -73.986091},
+          {lat: 40.755540, lng: -73.981721}
+        ];
+
+
         var carPath = new google.maps.Polyline({
           path: carHomeToABC,
           geodesic: true,
@@ -1054,9 +1169,30 @@
           }]
         });
 
+         var carPathTwo = new google.maps.Polyline({
+          path: carMad,
+          geodesic: true,
+          strokeColor: 'navy',
+          strokeOpacity: 1.0,
+          strokeWeight: 3,
+          center: new google.maps.LatLng(440.753441, -73.988836),
+          info: 'dude we are going to be late!',
+          icons: [{
+            icon: carSymbol,
+            offset: '100%'
+          }]
+        });
+
         google.maps.event.addListener(carPath, 'mouseover', function(evt) {
               infowindowCar.setContent(carPath.info);
               infowindowCar.setPosition(carPath.center);
+              infowindowCar.open(map);
+               console.log('mouseover!')
+        });
+
+        google.maps.event.addListener(carPathTwo, 'mouseover', function(evt) {
+              infowindowCar.setContent(carPathTwo.info);
+              infowindowCar.setPosition(carPathTwo.center);
               infowindowCar.open(map);
                console.log('mouseover!')
         });
@@ -1069,6 +1205,8 @@
         //       infowindow.open(map);
         //     });
 
+        carPathTwo.setMap(map);
+        animateCar(carPathTwo);
         carPath.setMap(map);
         animateCar(carPath);
         // setInterval() to change the offset of the symbol at fixed intervals.
@@ -1080,7 +1218,10 @@
               var icons = carPath.get('icons');
               icons[0].offset = (count / 2) + '%';
               carPath.set('icons', icons);
-
+             
+              var iconsTwo = carPathTwo.get('icons');
+              iconsTwo[0].offset = (count / 2) + '%';
+              carPathTwo.set('icons', iconsTwo);
           }, 80);
         }
 
@@ -1093,9 +1234,7 @@
                   strokeOpacity: 1,
                   scale: 4
                 };
-        // Construct the circle for each value in citymap.
-          // Note: We scale the area of the circle based on the population.
-          
+        // Construct the circle for each value in citymap
         var bikePathTwo = new google.maps.Polyline({
               path: [
                 {lat: 40.750644, lng: -73.989793},
@@ -1114,13 +1253,39 @@
               center: new google.maps.LatLng(40.748424, -73.984600)
         });
 
-        google.maps.event.addListener(bikePathTwo, 'mouseover', function(evt) {
+          google.maps.event.addListener(bikePathTwo, 'mouseover', function(evt) {
           infowindowBike.setContent(bikePathTwo.info);
           infowindowBike.setPosition(bikePathTwo.center);
           infowindowBike.open(map);
         });
 
+        var bikePathOne = new google.maps.Polyline({
+              path: [
+                {lat: 40.732920, lng: -73.983821},
+                {lat: 40.732790, lng: -73.987619},
+                {lat: 40.735771, lng: -73.994692}
+              ],
+              strokeOpacity: 0,
+              icons: [{
+                icon: bikeDash,
+                offset: '0',
+                repeat: '20px'
+              }],
+              map: map,
+              info: 'crap i forgot my portfolio',
+              center: new google.maps.LatLng(40.732920, -73.983821)
+        });
+
+        google.maps.event.addListener(bikePathOne, 'mouseover', function(evt) {
+          infowindowBike.setContent(bikePathOne.info);
+          infowindowBike.setPosition(bikePathOne.center);
+          infowindowBike.open(map);
+        });
+
         //ERROR can't create array for bike Path
+        bikePathOne.setMap(map);
+        animateBike(bikePathOne);
+
         bikePathTwo.setMap(map);
         animateBike(bikePathTwo);
         // setInterval() to change the offset of the symbol at fixed intervals.
@@ -1132,6 +1297,10 @@
               var iconsTwo = bikePathTwo.get('icons');
               iconsTwo[0].offset = (count / 2) + '%';
               bikePathTwo.set('icons', iconsTwo);
+
+              var iconsOne = bikePathOne.get('icons');
+              iconsOne[0].offset = (count / 2) + '%';
+              bikePathOne.set('icons', iconsOne);
           }, 80);
         };
 
