@@ -204,7 +204,24 @@
         });
 
       }
-      //initiate Map
+
+
+      var populationmap = {
+        eastvillage: {
+          center: {lat: 40.725932, lng: -73.979407},
+          population: 10,
+          name: "East Village",
+          info: "stuff for infowindow"
+        },
+        washington: {
+          center: {lat: 40.730876, lng: -73.996917},
+          population: 30,
+          name: "Washington Sq Park",
+          info: "stuff for infowindow"          
+        }
+      };
+
+      //create map
       function initMap() {
         // (day)standard map
         var newYork = {lat: 40.7128, lng: 74.0060};
@@ -288,9 +305,8 @@
             }
           ],
 
+        });
 
-      });
-      
       //nightmode styled map
       var styledMapType = new google.maps.StyledMapType(
         [ 
@@ -660,7 +676,87 @@
         //setting style map in mapTypes
         map.mapTypes.set('styled_map', styledMapType);
         map.setMapTypeId('styled_map');
+        map.mapTypes.set('roadmap');
+        map.setMapTypeId('roadmap');
         infoWindow = new google.maps.InfoWindow;
+
+        for (var city in populationmap) {
+          // Add the circle for this city to the map.
+          var cityCircle = new google.maps.Circle({
+            strokeColor: 'teal',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: 'pink',
+            fillOpacity: 0.35,
+            map: map,
+            center: populationmap[city].center,
+            radius: Math.sqrt(populationmap[city].population) * 100
+          });
+
+          //QUESTION ERROR! wouldn't get rid when zoomed in
+          // google.maps.event.addListener(map, 'zoom_changed', function() {
+          //     var zoom = map.getZoom();
+          //     // iterate over markers and call setVisible
+          //     for (i = 0; i < populationmap.length; i++) {
+          //         cityCircle.setVisible(zoom <= 15);
+
+          //     }
+          // });
+
+        }
+      
+
+
+
+      //ERROR create cirlces according to population data
+        // //create bound
+        // var triangleCoords = [
+        //   {lat: 40.732177, lng: -73.998654},
+        //   {lat: 40.730811, lng: -73.995522},
+        //   {lat: 40.729645, lng: -73.996590},
+        //   {lat: 40.731096, lng: -73.999640}
+        // ];
+
+        // //creating invisible polygon as the bound
+        // var bermudaTriangle = new google.maps.Polygon({paths: triangleCoords});
+
+
+        // function populationC(e) {
+        // var resultColor =
+        //       google.maps.geometry.poly.containsLocation(e.latLng, bermudaTriangle) ?
+        //       'blue' :
+        //       'red';
+
+        //   var resultPath =
+        //       google.maps.geometry.poly.containsLocation(e.latLng, bermudaTriangle) ?
+        //       // A triangle.
+        //       "m 0 -1 l 1 2 -2 0 z" :
+        //       google.maps.SymbolPath.CIRCLE;
+
+        // //QUESTION! for the amount of population stated in population map, add a circle within the radius
+        // for (populationmap.population) {
+        //   new google.maps.Marker({
+        //     position: e.latLng,
+        //     map: map,
+        //     icon: {
+        //       path: resultPath,
+        //       fillColor: resultColor,
+        //       fillOpacity: .2,
+        //       strokeColor: 'white',
+        //       strokeWeight: .5,
+        //       scale: 10
+        //     }
+        //   });
+        // };
+
+
+
+
+
+
+
+
+
 
 
 
@@ -700,10 +796,34 @@
             var zoom = map.getZoom();
             // iterate over markers and call setVisible
             for (i = 0; i < locations.length; i++) {
-                markers[i].setVisible(zoom >= 15);
-
+                markers[i].setVisible(zoom <= 15);
             }
+            //ERROR doesn't work for other markers?
+            // for (k = 0; k < locationsFlag.length; i++) {
+            //       markersFlag.setVisible(zoom <= 15);
+
+            // }
         });
+
+                /* Change markers on zoom */
+        // google.maps.event.addListener(map, 'zoom_changed', function() {
+        //     var zoom = map.getZoom();
+        //     for (k = 0; k < locationsFlag.length; i++) {
+        //           markersFlag.setVisible(zoom >= 16);
+
+        //     }
+        // });
+
+                  // google.maps.event.addListener(map, 'zoom_changed', function() {
+          //     var zoom = map.getZoom();
+          //     // iterate over markers and call setVisible
+          //     for (i = 0; i < populationmap.length; i++) {
+          //         cityCircle.setVisible(zoom <= 15);
+
+          //     }
+          // });
+
+
 
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -722,7 +842,7 @@
           handleLocationError(false, infoWindow, map.getCenter());
         }
 
-
+      //people discoveries icons
         //src svg
         var pplTom = 'jpeg/ppl_1.svg';
         var pplSusan = 'jpeg/ppl_2.svg';
@@ -772,7 +892,6 @@
           '<p><b>She often drops by Dainobu to get chicken teriyaki with rice.</b>'
           ;
 
-
         var infoArray = [
           contentStringTommy, contentStringJim, contentStringKatie, contentStringSusan
         ];
@@ -791,7 +910,7 @@
                 zIndex: 10
             }); 
             /* Open marker on mouseover */
-            google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
                 infowindowArray.setContent(locations[i][0]);
                 infowindowArray.open(map, marker);
@@ -802,8 +921,7 @@
 
 
 
-
-      //housing the quotes ((infowindow))
+        //housing the quotes ((infowindow))
         var infowindowTommy = new google.maps.InfoWindow({
           content: contentStringTommy,
           maxWidth: 200
@@ -826,31 +944,84 @@
 
 
 
-        // //carDots styling
-        // for (var location in carDots) {
-        //   // adding the carCircle
-        //   var carCircle = new google.maps.Circle({
-        //     strokeColor: 'navy',
-        //     strokeOpacity: 1,
-        //     strokeWeight: 2,
-        //     fillColor: 'navy',
-        //     fillOpacity: 1,
-        //     map: map,
-        //     center: carDots[location].center,
-        //     radius: 5
-        //   });
-        // }
+
+        var flag = 'jpeg/flag_small.svg';
+        var markerFlag, k;
+        var markerFlags = [];
+        var locationsFlag = [
+          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">craving something healthy but also comforting?</h1></div>', 40.753184, -73.985548, flag],
+          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">did somebody say mac & cheese?</h1></div>', 40.741126, -73.979632, flag],
+        ]
+
+        var contentFlagOne =
+        '<div id="content"><h2 id="Heading" class="Heading">craving something healthy but also comforting?</h1></div>';
+        
+        var contentFlagTwo =
+        '<div id="content"><h2 id="Heading" class="Heading">did somebody say mac & cheese?</h1></div>';
+
+        var infoArrayFlag = [
+            contentFlagTwo, contentFlagOne
+          ];
+        var infowindowArrayFlag = new google.maps.InfoWindow({
+              content: infoArrayFlag
+          });
 
 
+        for (k = 0; k < locationsFlag.length; k++) {  
+              markerFlag = new google.maps.Marker({
+                  position: new google.maps.LatLng(locationsFlag[k][1], locationsFlag[k][2]), 
+                  map: map,
+                  visible: true, 
+                  icon: locationsFlag[k][3],
+                  zIndex: 9
+              }); 
+              /* Open marker on mouseover */
+              google.maps.event.addListener(markerFlag, 'mouseover', (function(markerFlag, k) {
+              return function() {
+                  infowindowArrayFlag.setContent(locationsFlag[k][0]);
+                  infowindowArrayFlag.open(map, markerFlag);
+
+              }
+              })(markerFlag, k));
+              markerFlags.push(markerFlag); // save all markers
+        }
+
+          // /* Change markers on zoom */
+          // google.maps.event.addListener(map, 'zoom_changed', function() {
+          //     var zoom = map.getZoom();
+          //     // iterate over markers and call setVisible
+          //     for (i = 0; i < locationsFlag.length; i++) {
+          //         markersFlag[i].setVisible(zoom >= 14);
+          //     }
+          // });
+
+
+          //housing the quotes ((infowindow))
+          var infowindowFlagOne = new google.maps.InfoWindow({
+            content: contentFlagOne,
+            maxWidth: 100
+          });
+          var infowindowFlagTwo = new google.maps.InfoWindow({
+            content: contentFlagTwo,
+            maxWidth: 100
+          });
+
+
+
+
+
+
+
+        var infowindowCar = new google.maps.InfoWindow;
       // Define the symbol of the animating car
         var carSymbol = {
           path: google.maps.SymbolPath.CIRCLE,
           scale: 6,
-          info: 'are you kidding me?',
+          
           //ERROR: what is the center of the symbol?
           // center: carSymbol.center,
           //placement center
-          center: new google.maps.LatLng(40.743383, -73.986180),
+          
           strokeColor: 'purple'
         };
 
@@ -875,18 +1046,28 @@
           strokeColor: 'navy',
           strokeOpacity: 1.0,
           strokeWeight: 3,
+          center: new google.maps.LatLng(40.743383, -73.986180),
+          info: 'are you kidding me?',
           icons: [{
             icon: carSymbol,
             offset: '100%'
           }]
         });
 
-        google.maps.event.addListener(carPath, 'mouseover', function(carSymbol) {
-              console.log('mouseover!')
-              infowindow.setContent(carSymbol.info);
-              infowindow.setPosition(carPath.center);
-              infowindow.open(map);
-            });
+        google.maps.event.addListener(carPath, 'mouseover', function(evt) {
+              infowindowCar.setContent(carPath.info);
+              infowindowCar.setPosition(carPath.center);
+              infowindowCar.open(map);
+               console.log('mouseover!')
+        });
+
+        //ERROR: infowindow doesn't follow carSymbol!
+        // google.maps.event.addListener(carPath, 'mouseover', function(carSymbol) {
+        //       console.log('mouseover!')
+        //       infowindow.setContent(carSymbol.info);
+        //       infowindow.setPosition(carPath.center);
+        //       infowindow.open(map);
+        //     });
 
         carPath.setMap(map);
         animateCar(carPath);
@@ -904,14 +1085,14 @@
         }
 
 
+
+        var infowindowBike = new google.maps.InfoWindow;
         //BIKEEEE
         var bikeDash = {
                   path: 'M 0,-1 0,1',
                   strokeOpacity: 1,
                   scale: 4
                 };
-
-        var infowindow = new google.maps.InfoWindow();
         // Construct the circle for each value in citymap.
           // Note: We scale the area of the circle based on the population.
           
@@ -931,32 +1112,43 @@
               map: map,
               info: 'what the f* do you think you"re doing?',
               center: new google.maps.LatLng(40.748424, -73.984600)
-            });
+        });
 
-            google.maps.event.addListener(bikePathTwo, 'mouseover', function(evt) {
-              infowindow.setContent(bikePathTwo.info);
-              infowindow.setPosition(bikePathTwo.center);
-              infowindow.open(map);
-            });
+        google.maps.event.addListener(bikePathTwo, 'mouseover', function(evt) {
+          infowindowBike.setContent(bikePathTwo.info);
+          infowindowBike.setPosition(bikePathTwo.center);
+          infowindowBike.open(map);
+        });
 
-            //ERROR can't create array for bike Path
-            bikePathTwo.setMap(map);
-            animateBike(bikePathTwo);
-            // setInterval() to change the offset of the symbol at fixed intervals.
-            function animateBike(line) {
-                var count = 0;
-                window.setInterval(function() {
-                  count = (count + 1) % 200;
+        //ERROR can't create array for bike Path
+        bikePathTwo.setMap(map);
+        animateBike(bikePathTwo);
+        // setInterval() to change the offset of the symbol at fixed intervals.
+        function animateBike(line) {
+            var count = 0;
+            window.setInterval(function() {
+              count = (count + 1) % 200;
 
-                  var iconsTwo = bikePathTwo.get('icons');
-                  iconsTwo[0].offset = (count / 2) + '%';
-                  bikePathTwo.set('icons', iconsTwo);
-              }, 80);
-            };
-
-
+              var iconsTwo = bikePathTwo.get('icons');
+              iconsTwo[0].offset = (count / 2) + '%';
+              bikePathTwo.set('icons', iconsTwo);
+          }, 80);
+        };
 
 
+//Quotes
+        // var carQuotes = [
+        //   ['<div style="width: 200px;">come on! MOVE IT.</div>'],
+        //   ['<div style="width: 200px;">if you aint moving woman, im going to hit you.</div>']
+        //   ],
+        //   counter = 0,
+        //   timer = setInterval(function(){
+        //           codeAddress(carQuotes[counter]);
+        //           counter++
+        //           if (counter === carQuotes.length) {
+        //                 clearInterval(timer);
+        //           }
+        //     },5000);
 
         //ERROR generate random placement and quantity of trees
         var trees = 'jpeg/tree_1.svg';
@@ -967,19 +1159,13 @@
         // var lat = y_min + (Math.random() * (y_max - y_min));
         // var lng = x_min + (Math.random() * (x_max - x_min));
 
-      }
-
-
+    }
 
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRjjJm4QxHyNT9Ji7CUsCDA94jo_XZvco&callback=initMap">
     </script>
 
-
-<!--     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
-    </script> -->
     
 </body>
 </html>

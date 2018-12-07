@@ -719,13 +719,10 @@
 
         //src svg
         var pplTom = 'jpeg/ppl_1.svg';
-        var pplSusan = 'jpeg/ppl_2.svg';
+        var pplSusan = 'jpeg/people_1.png';
         var pplJim = 'jpeg/ppl_3.svg';
         var pplKatie = 'jpeg/ppl_4.svg';
 
-        // //ERROR random
-        // var pplRandomArray = ['jpeg/ppl_1.svg', 'jpeg/ppl_2.svg', 'jpeg/ppl_3.svg', 'jpeg/ppl_4.svg'];
-        // var randomPpl = Math.floor(Math.random() * (pplRandomArray.length+1));
 
         //placing the people svg
         var marker, i;
@@ -945,6 +942,16 @@
         //     radius: 5
         //   });
         // }
+
+
+          // /* Change markers on zoom */
+          // google.maps.event.addListener(map, 'zoom_changed', function() {
+          //     var zoom = map.getZoom();
+          //     // iterate over markers and call setVisible
+          //     for (i = 0; i < locationsFlag.length; i++) {
+          //         markersFlag[i].setVisible(zoom >= 14);
+          //     }
+          // });
 
 
       // Define the symbol ('CIRCLE')
