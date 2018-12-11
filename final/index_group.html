@@ -25,10 +25,8 @@
 </head>
 <body>
   <div id="map">
-
     
   </div>
-    <div id="mapHk"></div>
     <script>
 
       // PLACEMENT carDots on the map
@@ -70,11 +68,10 @@
 
       // pull map out & styling
       var map, infoWindow;
-      // var mapHk;
 
       // BUTTON: fly to HK
       var hongKong = {lat: 22.288049, lng: 114.172271};
-      function CenterControl(controlDiv, mapHk) {
+      function CenterControl(controlDiv, map) {
         // CSS for the control border
         var controlUI = document.createElement('div');
         controlUI.style.backgroundColor = '#fff';
@@ -102,9 +99,10 @@
 
         // setup the click event listeners: switch visualization
         controlUI.addEventListener('click', function() {
-          mapHk.setCenter(hongKong);
+          map.setCenter(hongKong);
         });
-      };
+
+      }
 
       // BUTTON: fly back to NY
       var newYorkCity = {lat: 40.749759, lng: -73.991830};
@@ -170,7 +168,7 @@
 
         // setup the click event listeners: switch visualization
         controlUI.addEventListener('click', function() {
-          map.setZoom(17);
+          map.setZoom(16);
         });
 
       }
@@ -209,7 +207,6 @@
       }
 
 
-      // POPULATION CIRCLES
       var populationmap = {
         eastvillage: {
           center: {lat: 40.725932, lng: -73.979407},
@@ -255,7 +252,7 @@
         }
       };
 
-      // CREATE MAP
+      //create map
       function initMap() {
         // (day)standard map
         var newYork = {lat: 40.749759, lng: -73.991830};
@@ -343,18 +340,17 @@
 
 
 
-       // BOUNDS for New York
+       // Bounds for New York
        var allowedBounds = new google.maps.LatLngBounds(
          new google.maps.LatLng(40.731695, -74.029834), 
-         new google.maps.LatLng(40.803189, -73.926703)
-        );
+         new google.maps.LatLng(40.803189, -73.926703));
 
        // Listen for the dragend event
-       // ERROR gets center of new york when out of new york
        google.maps.event.addListener(map, 'dragend', function() {
          if (allowedBounds.contains(map.getCenter())) return;
 
          // Out of bounds - Move the map back within the bounds
+
          var c = map.getCenter(),
              x = c.lng(),
              y = c.lat(),
@@ -370,8 +366,6 @@
 
          map.setCenter(new google.maps.LatLng(y, x));
        });
-
-
 
 
 
@@ -776,29 +770,83 @@
       
 
 
-      // CONTROLS: 
-        // create div control logo
+
+      //ERROR create cirlces according to population data
+        // //create bound
+        // var triangleCoords = [
+        //   {lat: 40.732177, lng: -73.998654},
+        //   {lat: 40.730811, lng: -73.995522},
+        //   {lat: 40.729645, lng: -73.996590},
+        //   {lat: 40.731096, lng: -73.999640}
+        // ];
+
+        // //creating invisible polygon as the bound
+        // var bermudaTriangle = new google.maps.Polygon({paths: triangleCoords});
+
+
+        // function populationC(e) {
+        // var resultColor =
+        //       google.maps.geometry.poly.containsLocation(e.latLng, bermudaTriangle) ?
+        //       'blue' :
+        //       'red';
+
+        //   var resultPath =
+        //       google.maps.geometry.poly.containsLocation(e.latLng, bermudaTriangle) ?
+        //       // A triangle.
+        //       "m 0 -1 l 1 2 -2 0 z" :
+        //       google.maps.SymbolPath.CIRCLE;
+
+        // //QUESTION! for the amount of population stated in population map, add a circle within the radius
+        // for (populationmap.population) {
+        //   new google.maps.Marker({
+        //     position: e.latLng,
+        //     map: map,
+        //     icon: {
+        //       path: resultPath,
+        //       fillColor: resultColor,
+        //       fillOpacity: .2,
+        //       strokeColor: 'white',
+        //       strokeWeight: .5,
+        //       scale: 10
+        //     }
+        //   });
+        // };
+
+
+
+
+
+
+
+
+
+
+
+
+        // Create DIV control logo
         var centerControlDiv = document.createElement('div');
         var centerControl = new CenterControl(centerControlDiv, map);
 
         centerControlDiv.index = 1;
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(centerControlDiv);
 
-        // create div for back to NY
+        //Create DIV for back to NY
         var centerNyControlDiv = document.createElement('div');
         var centerNyControl = new CenterNyControl(centerNyControlDiv, map);
 
         centerNyControlDiv.index = 1
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(centerNyControlDiv)
 
-        // create zoom buttons (ZOOM IN)
+
+
+        //create zoom buttons (ZOOM IN)
         var zoomCloseDiv = document.createElement('div');
         var zoomClose = new zoomControl(zoomCloseDiv, map);
 
         zoomCloseDiv.index = 1
         map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(zoomCloseDiv);
 
-        // create zoom buttons (ZOOM OUT)
+        //create zoom buttons (ZOOM OUT)
         var zoomFarDiv = document.createElement('div');
         var zoomFar = new zoomControlMinus(zoomFarDiv, map);
 
@@ -813,40 +861,15 @@
                 markers[i].setVisible(zoom <= 15);
             }
 
+
             console.log(markerFlags)
 
-            //ERROR gives error when click zoom in put when hover over flag marker, zooms in 
-            // for (k = 0; k < locationsFlag.length; k++) {
-            //       markerFlags[i].setVisible(true);
-            // }
+            //ERROR doesn't work for other markers?
+            for (k = 0; k < locationsFlag.length; i++) {
+                  markerFlags[i].setVisible(zoom >= 15);
+
+            }
         });
-
-
-
-
-
-      // ERROR this didn't work 
-       // google.maps.event.addListener(map, 'zoom_changed', function(){ 
-       //  for (i = 0; i < locations.length; i++) {
-       //    if (map.getZoom() > 16) { 
-       //            $.each(marker, function(i, markers){ 
-       //                    if (markers[i].getVisible() == false){ 
-       //                            markers[i].setVisible(true); 
-       //                    } 
-       //            }); 
-       //    } else { 
-       //            $.each(marker, function(i, markers){ 
-       //                    if (markers[i].getVisible() == true){ 
-       //                            markers[i].setVisible(false); 
-       //                    } 
-       //            }); 
-       //    } 
-       //  };
-       //     }); 
-
-
-
-
 
                 /* Change markers on zoom */
         // google.maps.event.addListener(map, 'zoom_changed', function() {
@@ -867,14 +890,14 @@
           // });
 
 
-      // PEOPLE STORIES
-        // pull src
+      //people discoveries icons
+        //src svg
         var pplTom = 'jpeg/ppl_2.svg';
         var pplSusan = 'jpeg/people_3.svg';
         var pplJim = 'jpeg/people_4.svg';
         var pplKatie = 'jpeg/people_1.svg';
 
-        // create markers and pair it with infowindow content
+        //create markers and pair it with infowindow content
         var marker, i;
         var markers = [];
         var locations = [
@@ -953,7 +976,7 @@
         ];
         var infowindowArray = new google.maps.InfoWindow();
 
-       // get the markers from the array 
+        /* Get the markers from the array */
         for (i = 0; i < locations.length; i++) {  
             marker = new google.maps.Marker({
                 position: new google.maps.LatLng(locations[i][1], locations[i][2]), 
@@ -962,7 +985,7 @@
                 icon: locations[i][3],
                 zIndex: 10
             }); 
-            // open marker on mouseover
+            /* Open marker on mouseover */
             google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
                 infowindowArray.setContent(locations[i][0]);
@@ -973,7 +996,8 @@
         }
 
 
-        // housing the quotes ((infowindow))
+
+        //housing the quotes ((infowindow))
         var infowindowTommy = new google.maps.InfoWindow({
           content: contentStringTommy,
           maxWidth: 200
@@ -1005,35 +1029,31 @@
           ['<div style="width: 200px;"><h3 id="Heading" class="Heading">did somebody say mac & cheese?</h1></div>', 40.741126, -73.979632, flag, 'https://thesmithrestaurant.com/'],
            ['<div style="width: 200px;"><h3 id="Heading" class="Heading">pho real?</h1></div>', 40.761996, -73.991368, flag, 'https://www.obaony.com/'],
           ['<div style="width: 200px;"><h3 id="Heading" class="Heading">hazelnut + chocolate is the best combo</h1></div>', 40.737116, -73.991678, flag, 'https://www.yelp.com/biz/nutella-cafe-new-york-3'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">are you ready for a sugar rush?</h1></div>', 40.740012, -74.007478, flag, 'http://sugarfactory.com'],
+          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">hazelnut + chocolate is the best combo</h1></div>', 40.740012, -74.007478, flag, 'http://sugarfactory.com'],
         ]
 
+        var contentFlagOne =
+        '<div id="content"><h2 id="Heading" class="Heading">craving something healthy but also comforting?</h1></div>' ;
+        
+        var contentFlagTwo =
+        '<div id="content"><h2 id="Heading" class="Heading">did somebody say mac & cheese?</h1></div>';
 
+        var infoArrayFlag = [
+            contentFlagTwo, contentFlagOne
+          ];
+        var infowindowArrayFlag = new google.maps.InfoWindow({
+              content: infoArrayFlag
+          });
 
         // placing flags
         for (k = 0; k < locationsFlag.length; k++) {  
               markerFlag = new google.maps.Marker({
                   position: new google.maps.LatLng(locationsFlag[k][1], locationsFlag[k][2]), 
                   map: map,
-                  visible: true, 
+                  visible: false, 
                   icon: locationsFlag[k][3],
                   zIndex: 9
               }); 
-
-              var contentFlagOne =
-              '<div id="content"><h2 id="Heading" class="Heading">craving something healthy but also comforting?</h1></div>' ;
-              
-              var contentFlagTwo =
-              '<div id="content"><h2 id="Heading" class="Heading">did somebody say mac & cheese?</h1></div>';
-
-              var infoArrayFlag = [
-                  contentFlagTwo, contentFlagOne
-                ];
-              var infowindowArrayFlag = new google.maps.InfoWindow({
-                    content: infoArrayFlag[k],
-                    maxWidth: 200
-                });
-
               /* Open marker on mouseover */
               google.maps.event.addListener(markerFlag, 'mouseover', (function(markerFlag, k) {
               return function() {
@@ -1042,24 +1062,14 @@
 
               }
               })(markerFlag, k));
-
-              // click redirect to restaurant link
-              google.maps.event.addListener(markerFlag, 'click', (function(markerFlag, k) {
-                  return function() {
-                      window.location.href = locationsFlag[k][4];
+              
+               google.maps.event.addListener(markerFlag, 'click', (function(markerFlag, k) {
+              return function() {
+                  window.location.href = locationsFlag[k][4];
 
               }
               })(markerFlag, k));
               markerFlags.push(markerFlag); // save all markers
-
-              // var infowindowFlagOne = new google.maps.InfoWindow({
-              //   content: infowindowArrayFlag,
-              //   maxWidth: 100
-              // });
-              // var infowindowFlagTwo = new google.maps.InfoWindow({
-              //   content: contentFlagTwo,
-              //   maxWidth: 100
-              // });
         }
 
           // /* Change markers on zoom */
@@ -1073,25 +1083,34 @@
 
 
           //housing the quotes ((infowindow))
+          var infowindowFlagOne = new google.maps.InfoWindow({
+            content: contentFlagOne,
+            maxWidth: 100
+          });
+          var infowindowFlagTwo = new google.maps.InfoWindow({
+            content: contentFlagTwo,
+            maxWidth: 100
+          });
 
 
 
 
 
-        // CARS
-        var carPath, j;
-        var carPaths = [];
+
+        // car paths
         var infowindowCar = new google.maps.InfoWindow;
-        // sefine the symbol of the animating car
+      // Define the symbol of the animating car
         var carSymbol = {
           path: google.maps.SymbolPath.CIRCLE,
           scale: 6,
           
           //ERROR: what is the center of the symbol?
-          //center: carSymbol.center,
+          // center: carSymbol.center,
+          //placement center
           
           strokeColor: 'purple'
         };
+
 
         //create path of cars
         var carHomeToABC = [
@@ -1115,47 +1134,54 @@
           {lat: 40.755540, lng: -73.981721}
         ];
 
-        var carArray = [
-          carHomeToABC, carMad
-        ];
 
-        var carQuotes = [
-          'are you kidding me?', 'dude we are going to be late!'
-        ];
+        var carPath = new google.maps.Polyline({
+          path: carHomeToABC,
+          geodesic: true,
+          strokeColor: 'navy',
+          strokeOpacity: 1.0,
+          strokeWeight: 3,
+          center: new google.maps.LatLng(40.743383, -73.986180),
+          info: 'are you kidding me?',
+          icons: [{
+            icon: carSymbol,
+            offset: '100%'
+          }]
+        });
 
-        var carCenter = [
-          {lat: 40.743383, lng: -73.986180},
-          {lat: 40.753441, lng:-73.988836}
-        ];
-
-        for (j = 0; j < carArray.length; j++) {  
-              carPath = new google.maps.Polyline({
-                path: carArray[j], 
-                geodesic: true,
-                strokeColor: 'navy',
-                strokeOpacity: 1.0,
-                strokeWeight: 3,
-                center: carCenter[j],
-                info: carQuotes[j],
-                icons: [{
-                  icon: carSymbol,
-                  offset: '100%'
-                }]
-              }); 
-
-        google.maps.event.addListener(carPath, 'mouseover', (function(carPath, j) {
-        return function() {
-              infowindowCar.setContent(carQuotes[j]);
-              infowindowCar.setPosition(carCenter[j]);
-              infowindowCar.open(map, carPath);
+        google.maps.event.addListener(carPath, 'mouseover', function(evt) {
+              infowindowCar.setContent(carPath.info);
+              infowindowCar.setPosition(carPath.center);
+              infowindowCar.open(map);
                console.log('mouseover!')
-        };
-        })(carPath, j));
-        carPaths.push(carPath);
+        });
 
         carPath.setMap(map);
         animateCar(carPath);
 
+        var carPathTwo = new google.maps.Polyline({
+          path: carMad,
+          geodesic: true,
+          strokeColor: 'navy',
+          strokeOpacity: 1.0,
+          strokeWeight: 3,
+          center: new google.maps.LatLng(40.753441, -73.988836),
+          info: 'dude we are going to be late!',
+          icons: [{
+            icon: carSymbol,
+            offset: '100%'
+          }]
+        });
+
+        google.maps.event.addListener(carPathTwo, 'mouseover', function(evt) {
+              infowindowCar.setContent(carPathTwo.info);
+              infowindowCar.setPosition(carPathTwo.center);
+              infowindowCar.open(map);
+               console.log('mouseover!')
+        });
+
+        carPathTwo.setMap(map);
+        animateCar(carPathTwo);
 
         //ERROR: infowindow doesn't follow carSymbol!
         // google.maps.event.addListener(carPath, 'mouseover', function(carSymbol) {
@@ -1166,7 +1192,8 @@
         //     });
 
 
-        // setInterval() to change symbol at fixed intervals
+
+        // setInterval() to change the offset of the symbol at fixed intervals.
         function animateCar(line) {
             var count = 0;
             window.setInterval(function() {
@@ -1175,20 +1202,22 @@
               var icons = carPath.get('icons');
               icons[0].offset = (count / 2) + '%';
               carPath.set('icons', icons);
+             
+              var iconsTwo = carPathTwo.get('icons');
+              iconsTwo[0].offset = (count / 2) + '%';
+              carPathTwo.set('icons', iconsTwo);
+          }, 80);
+        }
 
-            }, 80);
-          };
-        };
 
-        // BIKE
+
         var infowindowBike = new google.maps.InfoWindow;
-
+        //BIKEEEE
         var bikeDash = {
                   path: 'M 0,-1 0,1',
                   strokeOpacity: 1,
                   scale: 4
                 };
-
         // Construct the circle for each value in citymap
         var bikePathTwo = new google.maps.Polyline({
               path: [
@@ -1237,7 +1266,6 @@
           infowindowBike.open(map);
         });
 
-
         //ERROR can't create array for bike Path
         bikePathOne.setMap(map);
         animateBike(bikePathOne);
@@ -1261,138 +1289,30 @@
         };
 
 
-
+//Quotes
+        // var carQuotes = [
+        //   ['<div style="width: 200px;">come on! MOVE IT.</div>'],
+        //   ['<div style="width: 200px;">if you aint moving woman, im going to hit you.</div>']
+        //   ],
+        //   counter = 0,
+        //   timer = setInterval(function(){
+        //           codeAddress(carQuotes[counter]);
+        //           counter++
+        //           if (counter === carQuotes.length) {
+        //                 clearInterval(timer);
+        //           }
+        //     },5000);
 
         //ERROR generate random placement and quantity of trees
         var trees = 'jpeg/tree_1.svg';
+
+        //constraint with long and lat
 
         //math random trees
         // var lat = y_min + (Math.random() * (y_max - y_min));
         // var lng = x_min + (Math.random() * (x_max - x_min));
 
-    };
-
-
-
-
-  //ERROR to create HK Map
-    //       // CREATE HK MAP
-    //   function initMapHk() {
-    //     // (day)standard map
-    //     var hongKong = {lat: 22.288049, lng: 114.172271};
-    //     mapHk = new google.maps.Map(document.getElementById('mapHk'), {
-    //       center: hongKong,
-    //       zoom: 15,
-    //       gestureHandling: 'cooperative',
-    //       streetViewControl: false,
-    //       mapTypeControl: true,
-    //       fullscreenControl: false,
-    //       zoomControl: false,
-    //       mapTypeControlOptions: {
-    //         style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-    //         mapTypeIds: ['roadmap', 'styled_map']
-    //       },
-    //       styles: [
-    //         {
-    //             "featureType": "administrative",
-    //             "elementType": "labels.text.fill",
-    //             "stylers": [
-    //                 { "color": "#444444" }
-    //             ]
-    //         },
-    //         {
-    //             "featureType": "landscape",
-    //             "elementType": "all",
-    //             "stylers": [
-    //                 { "color": "#f2f2f2" }
-    //             ]
-    //         },
-    //         {
-    //             "featureType": "poi",
-    //             "elementType": "all",
-    //             "stylers": [
-    //                 { "visibility": "off" }
-    //             ]
-    //         },
-    //         {
-    //             "featureType": "road",
-    //             "elementType": "all",
-    //             "stylers": [
-    //                 { "saturation": -100 },
-    //                 { "lightness": 45 }
-    //             ]
-    //         },
-    //         {
-    //             "featureType": "road.highway",
-    //             "elementType": "all",
-    //             "stylers": [
-    //                 { "visibility": "simplified" }
-    //             ]
-    //         },
-    //         {
-    //             "featureType": "road.highway",
-    //             "elementType": "geometry.fill",
-    //             "stylers": [
-    //                 { "color": "#ffffff" }
-    //             ]
-    //         },
-    //         {
-    //             "featureType": "road.arterial",
-    //             "elementType": "labels.icon",
-    //             "stylers": [
-    //                 { "visibility": "off" }
-    //             ]
-    //         },
-    //         {
-    //             "featureType": "transit",
-    //             "elementType": "all",
-    //             "stylers": [
-    //                 { "visibility": "off" }
-    //             ]
-    //         },
-    //         {
-    //             "featureType": "water",
-    //             "elementType": "all",
-    //             "stylers": [
-    //                 { "color": "#dde6e8" },
-    //                 { "visibility": "on" }
-    //             ]
-    //         }
-    //       ],
-
-    //     });
-    //   // BOUNDS for Hong Kong
-    //    var allowedBoundsHk = new google.maps.LatLngBounds(
-    //      new google.maps.LatLng(22.272029, 114.117223), 
-    //      new google.maps.LatLng(22.320659, 114.243900)
-    //      );
-
-    //    // Listen for the dragend event
-    //    google.maps.event.addListener(mapHk, 'dragend', function() {
-    //      if (allowedBoundsHk.contains(mapHk.getCenter())) return;
-
-    //      // Out of bounds - Move the map back within the bounds
-    //      var c = mapHk.getCenter(),
-    //          x = c.lng(),
-    //          y = c.lat(),
-    //          maxX = allowedBoundsHk.getNorthEast().lng(),
-    //          maxY = allowedBoundsHk.getNorthEast().lat(),
-    //          minX = allowedBoundsHk.getSouthWest().lng(),
-    //          minY = allowedBoundsHk.getSouthWest().lat();
-
-    //      if (x < minX) x = minX;
-    //      if (x > maxX) x = maxX;
-    //      if (y < minY) y = minY;
-    //      if (y > maxY) y = maxY;
-
-    //      mapHk.setCenter(new google.maps.LatLng(y, x));
-    //    });
-      
-    // }
-
-
-
-       
+    }
 
     </script>
     <script async defer
