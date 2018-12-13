@@ -1191,8 +1191,6 @@
         //       infowindow.open(map);
         //     });
 
-
-
         // setInterval() to change the offset of the symbol at fixed intervals.
         function animateCar(line) {
             var count = 0;
@@ -1313,6 +1311,110 @@
         // var lng = x_min + (Math.random() * (x_max - x_min));
 
     }
+
+
+    // CARS
+        var carPath, j;
+        var carPaths = [];
+        var infowindowCar = new google.maps.InfoWindow;
+        // sefine the symbol of the animating car
+        var carSymbol = {
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 6,
+          
+          //ERROR: what is the center of the symbol?
+          //center: carSymbol.center,
+          
+          strokeColor: 'purple'
+        };
+
+        //create path of cars
+        var carHomeToABC = [
+          {lat: 40.741865, lng: -73.986307},
+          {lat: 40.742158, lng: -73.987052},
+          {lat: 40.743383, lng: -73.986180},
+          {lat: 40.743383, lng: -73.986180},
+          {lat: 40.744075, lng: -73.987755},
+          {lat: 40.742387, lng: -73.988957},
+          {lat: 40.739182, lng: -73.989752},
+          {lat: 40.738344, lng: -73.987789},
+          {lat: 40.737772, lng: -73.988212},
+          {lat: 40.738248, lng: -73.989372}
+        ];
+
+        var carMad = [
+          {lat: 40.750474, lng: -73.999122},
+          {lat: 40.748016, lng: -73.992853},
+          {lat: 40.753441, lng: -73.988836},
+          {lat: 40.757276, lng: -73.986091},
+          {lat: 40.755540, lng: -73.981721}
+        ];
+
+        var carArray = [
+          carHomeToABC, carMad
+        ];
+
+        var carQuotes = [
+          'are you kidding me?', 'dude we are going to be late!'
+        ];
+
+        var carCenter = [
+          {lat: 40.743383, lng: -73.986180},
+          {lat: 40.753441, lng:-73.988836}
+        ];
+
+        for (j = 0; j < carArray.length; j++) {  
+              carPath = new google.maps.Polyline({
+                path: carArray[j], 
+                geodesic: true,
+                strokeColor: 'navy',
+                strokeOpacity: 1.0,
+                strokeWeight: 3,
+                center: carCenter[j],
+                info: carQuotes[j],
+                icons: [{
+                  icon: carSymbol,
+                  offset: '100%'
+                }]
+              }); 
+
+          google.maps.event.addListener(carPath, 'mouseover', (function(carPath, j) {
+            return function() {
+                  infowindowCar.setContent(carQuotes[j]);
+                  infowindowCar.setPosition(carCenter[j]);
+                  infowindowCar.open(map, carPath);
+                   console.log('mouseover!')
+            };
+          })(carPath, j));
+
+          carPaths.push(carPath);
+
+          carPath.setMap(map);
+          animateCar(carPath);
+
+
+        //ERROR: infowindow doesn't follow carSymbol!
+        // google.maps.event.addListener(carPath, 'mouseover', function(carSymbol) {
+        //       console.log('mouseover!')
+        //       infowindow.setContent(carSymbol.info);
+        //       infowindow.setPosition(carPath.center);
+        //       infowindow.open(map);
+        //     });
+
+
+        // setInterval() to change symbol at fixed intervals
+        function animateCar(line) {
+            var count = 0;
+            window.setInterval(function() {
+              count = (count + 1) % 200;
+
+              var icons = carPath.get('icons');
+              icons[0].offset = (count / 2) + '%';
+              carPath.set('icons', icons);
+
+            }, 80);
+        };
+      };
 
     </script>
     <script async defer
