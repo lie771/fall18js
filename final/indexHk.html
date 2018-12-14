@@ -716,13 +716,14 @@
         for (var city in populationmapHk) {
           // Add the circle for this city to the map.
           var cityCircle = new google.maps.Circle({
-            strokeColor: 'teal',
+            strokeColor: '#7fc0c4',
             strokeOpacity: 0.8,
-            strokeWeight: 3,
+            strokeWeight: 2.5,
             fillColor: 'pink',
-            fillOpacity: 0.35,
+            fillOpacity: 0.10,
             map: map,
             visible: true,
+            zIndex: 3,
             center: populationmapHk[city].center,
             radius: Math.sqrt(populationmapHk[city].population) * 100
           });
@@ -792,18 +793,34 @@
         var pplBag = 'jpeg/ppl_6.svg';
         var pplHandStand = 'jpeg/ppl_5.svg';
 
+        var pplGarbage = 'jpeg/ppl_16.svg';
+        var pplTankBluePants = 'jpeg/ppl_17.svg';
+        var pplTaiChi = 'jpeg/ppl_18.svg';
+        var pplFishing = 'jpeg/ppl_19.svg';
+        var pplConstruction = 'jpeg/ppl_20.svg';
+        var pplHalfNaked = 'jpeg/ppl_21.svg';
+        var pplFat = 'jpeg/ppl_22.svg';
+        var pplTreeHug = 'jpeg/ppl_23.svg';
+        var pplCouple = 'jpeg/ppl_24.svg';
+        var pplSitLookUp = 'jpeg/ppl_25.svg';
+
         // create markers and pair it with infowindow content
         var marker, i;
         var markers = [];
         var locations = [
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Tommy</h1>He stands by Taco Bell greeting customers, wishing them a good day andsimultaneously hoping to receive some spare change.</div></b>', 40.735495, -73.993906, pplTom],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Susan</h1>She often drops by Dainobu to get chicken teriyaki with rice.</b></div>', 40.737076, -73.995618, pplSusan],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Jim</h1>He comes to Union Square every day and practice his skateboard tricks, giving everyone around him a heart attack.</b>', 40.736381, -73.990427, pplJim],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hi to Katie!</h1>She wakes up at 5:40am every morning to do her morning strestch next to her blossom tree.</b></div>', 40.747259, -73.979892, pplKatie],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Stephanie</h1>She often take trips to Chinatown for food adventures.</b>', 40.717564, -73.998614, pplJim],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hello to Rachel</h1>She pops by and meets up with Stephanie for dessert.</b>', 40.720401, -73.995322, pplSusan],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Leo.</h1>He lives above one of the oldest Duane Reede store, watching the dogs by his window.</b>', 40.727300, -73.980021, pplTom],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Isabelle here!</h1>People adore her and her laugh. You will be able to spot her from a mile away.</b>', 40.730138, -74.005331, pplKatie],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hello to the love birds!</h1>They spend hours walking around the mall and give each other nose kisses.</div></b>', 22.339051, 114.173859, pplCouple],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Lok Hee</h1>He hates humiditiy, but he gotta do his job.</b></div>', 22.331127, 114.162947, pplHalfNaked],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Hei Hei</h1>She comes to the park admiring the trees and plantations in the park</b>', 22.325679, 114.166659, pplTreeHug],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hi to Cheuk Shan!</h1>He comes to Mong Kok everyday for his fishballs and siu mai.</b></div>', 40.747259, -73.979892, pplFat],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Isabelle</h1>She has two cats, ones named Melvin the other Good Boy.</b>', 22.279844, 114.147502, pplSitLookUp],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hello to Tommy</h1>Despite the weather, Tommy fishes near the harbour.</b>', 22.294215, 114.175778, pplFishing],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Leo.</h1>He stays at home most of the time, but when he does, he goes out for food.</b>', 22.404687, 114.210649, pplOrangeWave],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Macy here!</h1>She sits at the park every morning at 5 am for meditation </b>', 22.313129, 114.183234, pplBench],
+
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Ronald</h1>He welcomes everyone who out of his store with a hug</b>', 22.278286, 114.159486, pplOrangeArmOpen],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hello to Ah Shing</h1>She joins Leung Gor  after her morning meditation for some tai chi.</b>', 22.336300, 114.152149, pplTaiChi],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Leung Gor.</h1>He comes to the park every morning with a BBQ pork bun or a pineapple bun to fuel his tai chi workout</b>', 22.336611, 114.151664, pplYellowStretch],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Dan here!</h1>He sits by the construction trucks, waiting for time to pass by.</b>', 22.302745, 114.172453, pplConstruction]
 
         ];
 
@@ -921,11 +938,12 @@
         var markerFlag, k;
         var markerFlags = [];
         var locationsFlag = [
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">craving something healthy but also comforting?</h1></div>', 40.753184, -73.985548, flag, 'https://www.jean-georges.com/restaurants/united-states/new-york/abc-kitchen'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">did somebody say mac & cheese?</h1></div>', 40.741126, -73.979632, flag, 'https://thesmithrestaurant.com/'],
-           ['<div style="width: 200px;"><h3 id="Heading" class="Heading">pho real?</h1></div>', 40.761996, -73.991368, flag, 'https://www.obaony.com/'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">hazelnut + chocolate is the best combo</h1></div>', 40.737116, -73.991678, flag, 'https://www.yelp.com/biz/nutella-cafe-new-york-3'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">are you ready for a sugar rush?</h1></div>', 40.740012, -74.007478, flag, 'http://sugarfactory.com'],
+          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">whats better than affordable, well-made dim sum?</h1></div>', 22.329212, 114.166270, flag, 'https://www.openrice.com/en/hongkong/r-tim-ho-wan-the-dim-sum-specialists-sham-shui-po-hong-kong-style-dim-sum-r45662'],
+          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">spanish tapas with a modern twist</h1></div>', 22.276193, 114.170827, flag, 'https://www.openrice.com/en/hongkong/r-22-ships-wan-chai-spanish-r114231'],
+           ['<div style="width: 200px;"><h3 id="Heading" class="Heading">poke bowls, fusion donburis and inventive cookie ice cream sandwich.</h1></div>', 22.281866, 114.185467, flag, 'https://www.openrice.com/en/hongkong/r-elephant-grounds-causeway-bay-western-dessert-r474138'],
+          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">you wouldnt even know it is vegan. instagrammable and comforting</h1></div>', 22.284125, 114.150707, flag, 'https://www.openrice.com/en/hongkong/r-grassroots-pantry-central-international-vegetarian-r462010'],
+          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">meatball the size of your palm? handmade pasta? im down. </h1></div>', 22.280597, 114.155135, flag, 'https://www.openrice.com/en/hongkong/r-carbone-hong-kong-central-italian-r187521'],
+          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">craving japanese western fusion maki roll? </h1></div>', 22.299616, 114.179799, flag, 'https://www.openrice.com/en/hongkong/r-nobu-intercontinental-hong-kong-tsim-sha-tsui-japanese-fine-dining-r16938']
         ]
 
 
@@ -963,7 +981,7 @@
 
           }
           })(markerFlag, k));
-console.log(markerFlags) 
+
           // click redirect to restaurant link
           google.maps.event.addListener(markerFlag, 'click', (function(markerFlag, k){
               return function() {
@@ -992,45 +1010,97 @@ console.log(markerFlags)
         };
 
         //create path of cars
-        var carHomeToABC = [
-          {lat: 40.741865, lng: -73.986307},
-          {lat: 40.742158, lng: -73.987052},
-          {lat: 40.743383, lng: -73.986180},
-          {lat: 40.743383, lng: -73.986180},
-          {lat: 40.744075, lng: -73.987755},
-          {lat: 40.742387, lng: -73.988957},
-          {lat: 40.739182, lng: -73.989752},
-          {lat: 40.738344, lng: -73.987789},
-          {lat: 40.737772, lng: -73.988212},
-          {lat: 40.738248, lng: -73.989372}
+        var carSw = [
+          {lat: 22.286160, lng: 114.150509},
+          {lat: 22.285766, lng: 114.151863},
+          {lat: 22.285094, lng: 114.153191},
+          {lat: 22.283725, lng: 114.154921},
+          {lat: 22.283112, lng: 114.154426},
+          {lat: 22.282447, lng: 114.154953},
+          {lat: 22.282545, lng: 114.153048},
+          {lat: 22.282148, lng: 114.152586},
+          {lat: 22.281422, lng: 114.153463},
+          {lat: 22.280934, lng: 114.153265},
+          {lat: 22.280702, lng: 114.153780}
         ];
 
-        var carMad = [
-          {lat: 40.750474, lng: -73.999122},
-          {lat: 40.748016, lng: -73.992853},
-          {lat: 40.753441, lng: -73.988836},
-          {lat: 40.757276, lng: -73.986091},
-          {lat: 40.755540, lng: -73.981721}
+        var carWanchai = [
+          {lat: 22.274062, lng: 114.176801},
+          {lat: 22.274559, lng: 114.177736},
+          {lat: 22.275055, lng: 114.177835},
+          {lat: 22.274761, lng: 114.175708},
+          {lat: 22.274467, lng: 114.175251},
+          {lat: 22.274411, lng: 114.174070},
+          {lat: 22.275394, lng: 114.174027},
+          {lat: 22.276658, lng: 114.175002},
+          {lat: 22.278032, lng: 114.177170},
+          {lat: 22.278293, lng: 114.178113}
+        ];
+
+        var carYmt= [
+          {lat: 22.306692, lng: 114.173925},
+          {lat: 22.305488, lng: 114.171787},
+          {lat: 22.300443, lng: 114.172035},
+          {lat: 22.300644, lng: 114.173212},
+          {lat: 22.298409, lng: 114.173801},
+          {lat: 22.297954, lng: 114.174518},
+          {lat: 22.296917, lng: 114.174551},
+          {lat: 22.296856, lng: 114.174024}
+        ];
+
+        var carOversea = [
+          {lat: 22.303891, lng: 114.183994},
+          {lat: 22.304192, lng: 114.181233},
+          {lat: 22.300637, lng: 114.180557},
+          {lat: 22.281895, lng: 114.183194},
+          {lat: 22.280750, lng: 114.183640},
+          {lat: 22.280636, lng: 114.182700},
+          {lat: 22.278764, lng: 114.177898}
+        ];
+
+        var carHomeToFesti= [
+          {lat: 22.342445, lng: 114.164870},
+          {lat: 22.339961, lng: 114.165296},
+          {lat: 22.339915, lng: 114.166852},
+          {lat: 22.339335, lng: 114.170942},
+          {lat: 22.339520, lng: 114.171846},
+          {lat: 22.338375, lng: 114.172383},
+          {lat: 22.336732, lng: 114.174426}
+        ];
+
+        var carMk= [
+          {lat: 22.325163, lng: 114.170514},
+          {lat: 22.324419, lng: 114.170693},
+          {lat: 22.324254, lng: 114.170157},
+          {lat: 22.322322, lng: 114.170514},
+          {lat: 22.322107, lng: 114.169443},
+          {lat: 22.319530, lng: 114.170032},
+          {lat: 22.320537, lng: 114.175782},
+          {lat: 22.324972, lng: 114.185707},
+          {lat: 22.326988, lng: 114.185243}
         ];
 
         var carArray = [
-          carHomeToABC, carMad
+          carSw, carWanchai, carYmt, carOversea, carHomeToFesti, carMk
         ];
 
         var carQuotes = [
-          'are you kidding me?', 'dude we are going to be late!'
+          'Good Morning Lucy, how are you?', 'did you pick up the laundry yesterday', 'yao mo gao cho!', 'Move please! Gosh the traffic is horrible.', 'okay, im 6 minutes away!', 'a jie, nei yud ding yew han ma?'
         ];
 
         var carCenter = [
-          {lat: 40.743383, lng: -73.986180},
-          {lat: 40.753441, lng:-73.988836}
+          {lat: 22.283112, lng: 114.154426},
+          {lat: 22.274467, lng: 114.175251},
+          {lat: 22.298409, lng: 114.173801},
+          {lat: 22.300637, lng: 114.180557},
+          {lat: 22.339335, lng: 114.170942}
         ];
 
         for (j = 0; j < carArray.length; j++) {  
           carPath = new google.maps.Polyline({
             path: carArray[j], 
             geodesic: true,
-            strokeColor: 'navy',
+            strokeColor: '#778bc6',
             strokeOpacity: 1.0,
             strokeWeight: 3,
             center: carCenter[j],
@@ -1061,7 +1131,7 @@ console.log(markerFlags)
                 if ( typeIdChangedInCode ) {
                     for(var i = 0; i < carPaths.length; i++){
                       carPaths[i].setOptions({
-                          strokeColor: 'yellow'
+                          strokeColor: '#f9f0cc'
                       });           
                     }
                     for(var i = 0; i < markerFlags.length; i++){
@@ -1071,7 +1141,7 @@ console.log(markerFlags)
                     }
                     for(var i = 0; i < bikePaths.length; i++){
                         bikePaths[i].setOptions({
-                            strokeColor: 'orange'
+                            strokeColor: '#d8f9cc'
                         }); 
                     }  
                 }
@@ -1121,16 +1191,21 @@ console.log(markerFlags)
         };
 
         var bikeOne = [
-          {lat: 40.750644, lng: -73.989793},
-          {lat: 40.748424, lng: -73.984600},
-          {lat: 40.747721, lng: -73.984977},
-          {lat: 40.746446, lng: -73.981729}
+          {lat: 22.283997, lng: 114.127543},
+          {lat: 22.284464, lng: 114.129058},
+          {lat: 22.285915, lng: 114.130807},
+          {lat: 22.284797, lng: 114.132015},
+          {lat: 22.286583, lng: 114.132737},
+          {lat: 22.285732, lng: 114.136776}
         ];
 
         var bikeTwo = [
-          {lat: 40.732920, lng: -73.983821},
-          {lat: 40.732790, lng: -73.987619},
-          {lat: 40.735771, lng: -73.994692}
+          {lat: 22.283997, lng: 114.127543},
+          {lat: 22.284464, lng: 114.129058},
+          {lat: 22.285915, lng: 114.130807},
+          {lat: 22.284797, lng: 114.132015},
+          {lat: 22.286583, lng: 114.132737},
+          {lat: 22.285732, lng: 114.136776}
         ];
 
         var bikeArray = [
@@ -1138,7 +1213,7 @@ console.log(markerFlags)
         ];
 
         var bikeQuotes = [
-          'what the f* do you think you"re doing?', 'crap i forgot my portfolio'
+          'its such a nice day out! though its humid', 'oh crap, i forgot my chemistry paper.'
         ];
 
         var bikeCenter = [
