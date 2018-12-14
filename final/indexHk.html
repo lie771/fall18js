@@ -16,7 +16,7 @@
         margin: 0;
         padding: 0;
       }
-
+      
       @media only screen and (max-width: 600px) {
         body {
           background-color: lightblue;
@@ -765,23 +765,6 @@
 
         zoomFarDiv.index = 1
         map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(zoomFarDiv);
-
-        // function resizeFunction(x) {
-        //   if (x.matches) { // If media query matches
-        //     controlUI.style.marginBottom = '22px';
-        //     controlUI.style.marginRight = '10px';
-        //     controlUI.style.marginTop = '50px';
-        //   } else {
-        // controlUI.style.marginBottom = '22px';
-        // controlUI.style.marginRight = '10px';
-        // controlUI.style.marginTop = '10px';
-        //   }
-        // }
-
-        var x = window.matchMedia("(max-width: 700px)")
-        myFunction(x) // Call listener function at run time
-        x.addListener(resizeFunction) // Attach listener function on state changes
-
 
         /* Change markers on zoom */
         google.maps.event.addListener(map, 'zoom_changed', function() {
