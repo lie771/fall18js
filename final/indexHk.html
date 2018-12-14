@@ -27,25 +27,9 @@
   <div id="map">
 
     
-  </div>
-    <div id="mapHk"></div>
+  </div><!-- 
+    <div id="mapHk"></div> -->
     <script>
-
-      // PLACEMENT carDots on the map
-      var people = {
-        unionS: {
-          center: {lat: 40.736381, lng: -73.990427}
-        },
-        madisonP: {
-          center: {lat: 40.741828, lng: -73.988131}
-        },
-        gramercyP: {
-          center: {lat: 40.737644, lng: -73.985737}
-        },
-        hanD: {
-          center: {lat: 40.732473, lng: -73.988287}
-        }
-      };
 
       // pull map out & styling
       var map, infoWindow;
@@ -81,11 +65,11 @@
 
         // setup the click event listeners: switch visualization
         controlUI.addEventListener('click', function() {
-          window.location.href = '/indexHk.html';
+          window.location.href = './indexHk.html';
         });
       };
 
-    
+
       // BUTTON: fly back to NY
       // var newYorkCity = {lat: 40.749759, lng: -73.991830};
       function CenterNyControl(controlDiv, map) {
@@ -111,7 +95,7 @@
         controlText.style.lineHeight = '38px';
         controlText.style.paddingLeft = '5px';
         controlText.style.paddingRight = '5px';
-        controlText.innerHTML = '...and back';
+        controlText.innerHTML = 'New York';
         controlUI.appendChild(controlText);
 
         // setup the click event listeners: switch visualization
@@ -188,143 +172,58 @@
 
       }
 
-
       // POPULATION CIRCLES
-      var populationmap = {
-        eastvillage: {
-          center: {lat: 40.725932, lng: -73.979407},
+      var populationmapHk = {
+        ifc: {
+          center: {lat: 22.285597, lng: 114.158312},
           population: 5,
-          name: "East Village",
+          name: "ifc",
           info: "less populated"
         },
-        washington: {
-          center: {lat: 40.730876, lng: -73.996917},
-          population: 5,
-          name: "Washington Sq Park",
+        festi: {
+          center: {lat: 22.337490, lng: 114.174694},
+          population: 15,
+          name: "festi",
           info: "very populated"          
         },
-        tribeca: {
-          center: {lat: 40.719288, lng: -74.008322},
-          population: 13,
-          name: "Tribeca",
+        lkf: {
+          center: {lat: 22.281064, lng: 114.155597},
+          population: 20,
+          name: "lkf",
           info: "moderately populated"
         },
-        rockefeller: {
-          center: {lat: 40.758303, lng: -73.979980},
-          population: 30,
-          name: "Rock",
+        cwb: {
+          center: {lat: 22.278773, lng: 114.182630},
+          population: 10,
+          name: "cwb",
           info: "extremely populated"          
         },
-        stuy: {
-          center: {lat: 40.731478, lng: -73.977853},
-          population: 11,
-          name: "Stuyvesant",
+        mk: {
+          center: {lat: 22.319158, lng: 114.167907},
+          population: 13,
+          name: "mk",
           info: "moderately populated"          
         },
-        kips: {
-          center: {lat: 40.750450, lng: -73.972180},
-          population: 2,
-          name: "Kips Bay",
+        admiralty: {
+          center: {lat: 22.279796, lng: 114.1646},
+          population: 20,
+          name: "admiralty",
           info: "less populated"
         },
-        chelsea: {
-          center: {lat: 40.744369, lng: -74.000054},
+        tst: {
+          center: {lat: 22.297623, lng: 114.169452},
           population: 13,
-          name: "Chelsea",
+          name: "tst",
           info: "extremely populated"
-        },
-        lowerchina: {
-          center: {lat: 40.715784, lng: -73.983521},
-          population: 3
-        },
-        les: {
-          center: {lat: 40.706632, lng: -74.007640},
-          population: 6
-        },
-        westvill: {
-          center: {lat: 40.735469, lng: -74.003608},
-          population: 8
-        },
-        lenox: {
-          center: {lat: 40.771138, lng: -73.961642},
-          population: 15
-        },
-        korea: {
-          center: {lat: 40.748041, lng: -73.987815},
-          population: 10
-        },
-        gramercy: {
-          center: {lat: 40.738488, lng: -73.985772},
-          population: 6
-        },
-        china: {
-          center: {lat: 40.716450, lng: -73.997273},
-          population: 30
-        },
-        uws: {
-          center: {lat: 40.788699, lng: -73.974731},
-          population:8
-        },
-        ues: {
-          center: {lat: 40.785380, lng: -73.952247},
-          population: 5
-        },
-        harlem1: {
-          center: {lat: 40.809875, lng: -73.938350},
-          population: 2
-        },
-        morning: {
-          center: {lat: 40.809667, lng: -73.958551},
-          population: 6
-        },
-        harlem3: {
-          center: {lat: 40.819829, lng:  -73.954200},
-          population: 3
-        },
-        randel: {
-          center: {lat: 40.785783, lng: -73.927219},
-          population: 1
-        },
-        dumbo: {
-          center: {lat: 40.701823, lng: -73.987807},
-          population: 30
-        },
-        prospect: {
-          center: {lat: 40.679496, lng:  -73.967436},
-          population: 10
-        },
-        wills: {
-          center: {lat: 40.708819, lng: -73.952677},
-          population: 15
-        },
-        green: {
-          center: {lat: 40.726379, lng: -73.940380},
-          population: 7
-        },
-        bushwick: {
-          center: {lat: 40.695616, lng:  -73.918638},
-          population: 16
-        },
-        harlem2: {
-          center: {lat: 40.814293, lng:  -73.941756},
-          population: 1
-        },
-        hoboken: {
-          center: {lat: 40.748192, lng:  -74.036795},
-          population: 7
-        },
-        unioncity: {
-          center: {lat: 40.774814, lng:  -74.026239},
-          population: 10
-        },
+        }
       };
 
+      // var hongKong = {lat: 22.288049, lng: 114.172271};
       // CREATE MAP
-      function initMap() {
+      function initMapHk() {
         // (day)standard map
-        var newYork = {lat: 40.749759, lng: -73.991830};
         map = new google.maps.Map(document.getElementById('map'), {
-          center: newYork,
+          center: {lat: 22.288049, lng: 114.172271},
           zoom: 14,
           gestureHandling: 'cooperative',
           streetViewControl: false,
@@ -405,41 +304,39 @@
 
         });
 
+        // console.log(map.getCenter());
 
 
-       // BOUNDS for New York
-       var allowedBounds = new google.maps.LatLngBounds(
-         new google.maps.LatLng(40.703935, -74.026497), 
-         new google.maps.LatLng(40.830695, -73.831468)
-        );
+         // BOUNDS for Hong Kong
+         var allowedBounds = new google.maps.LatLngBounds(
+           new google.maps.LatLng(22.250583, 114.146952), 
+           new google.maps.LatLng(22.399905, 114.220205)
+          );
 
-       // Listen for the dragend event
-       // ERROR gets center of new york when out of new york
-       google.maps.event.addListener(map, 'dragend', function() {
-         if (allowedBounds.contains(map.getCenter())) return;
+         // Listen for the dragend event
+         google.maps.event.addListener(map, 'dragend', function() {
+           if (allowedBounds.contains(map.getCenter())) return;
 
-         // Out of bounds - Move the map back within the bounds
-         var c = map.getCenter(),
-             x = c.lng(),
-             y = c.lat(),
-             maxX = allowedBounds.getNorthEast().lng(),
-             maxY = allowedBounds.getNorthEast().lat(),
-             minX = allowedBounds.getSouthWest().lng(),
-             minY = allowedBounds.getSouthWest().lat();
+           // Out of bounds - Move the map back within the bounds
+           var c = map.getCenter(),
+               x = c.lng(),
+               y = c.lat(),
+               maxX = allowedBounds.getNorthEast().lng(),
+               maxY = allowedBounds.getNorthEast().lat(),
+               minX = allowedBounds.getSouthWest().lng(),
+               minY = allowedBounds.getSouthWest().lat();
 
-         if (x < minX) x = minX;
-         if (x > maxX) x = maxX;
-         if (y < minY) y = minY;
-         if (y > maxY) y = maxY;
+           if (x < minX) x = minX;
+           if (x > maxX) x = maxX;
+           if (y < minY) y = minY;
+           if (y > maxY) y = maxY;
 
-         map.setCenter(new google.maps.LatLng(y, x));
-       });
+           map.setCenter(new google.maps.LatLng(y, x));
+         });
 
+         console.log(map.getCenter())
 
-
-
-
-
+         
       //nightmode styled map
       var styledMapType = new google.maps.StyledMapType(
         [ 
@@ -816,19 +713,18 @@
         infoWindow = new google.maps.InfoWindow;
 
 
-        for (var city in populationmap) {
+        for (var city in populationmapHk) {
           // Add the circle for this city to the map.
           var cityCircle = new google.maps.Circle({
-            strokeColor: '#7fc0c4',
+            strokeColor: 'teal',
             strokeOpacity: 0.8,
-            strokeWeight: 2.5,
+            strokeWeight: 3,
             fillColor: 'pink',
-            fillOpacity: 0.10,
+            fillOpacity: 0.35,
             map: map,
             visible: true,
-            zIndex: 3,
-            center: populationmap[city].center,
-            radius: Math.sqrt(populationmap[city].population) * 100
+            center: populationmapHk[city].center,
+            radius: Math.sqrt(populationmapHk[city].population) * 100
           });
 
 
@@ -875,12 +771,7 @@
             for (k = 0; k < locationsFlag.length; k++) {
                   markerFlags[k].setVisible(zoom >= 14);
             }
-            for(var i = 0; i < carPaths.length; i++){
-              markers[i].setOptions({
-                 strokeWidth: 1
-              });          
-            }
-             
+
         });
 
 
@@ -905,24 +796,14 @@
         var marker, i;
         var markers = [];
         var locations = [
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Tommy</h1>He stands by Taco Bell greeting customers, wishing them a good day andsimultaneously hoping to receive some spare change.</div></b>', 40.735495, -73.993906, pplOrangeArmOpen],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Tommy</h1>He stands by Taco Bell greeting customers, wishing them a good day andsimultaneously hoping to receive some spare change.</div></b>', 40.735495, -73.993906, pplTom],
             ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Susan</h1>She often drops by Dainobu to get chicken teriyaki with rice.</b></div>', 40.737076, -73.995618, pplSusan],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Jim</h1>He comes to Union Square every day and practice his skateboard tricks, giving everyone around him a heart attack.</b>', 40.736381, -73.990427, pplPinkSkate],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hi to Katie!</h1>She wakes up at 5:40am every morning to do her morning strestch next to her blossom tree.</b></div>', 40.747259, -73.979892, pplTankYellowPants],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Rachel</h1>She pops by and meets up with Stephanie for dessert..</b>', 40.717564, -73.998614, pplTankYellowPants],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hello to Stephanie</h1>She often take trips to Chinatown for food adventures.</b>', 40.720401, -73.995322, pplPurpleDress],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Leo.</h1>He lives above one of the oldest Duane Reede store, watching the dogs by his window.</b>', 40.727300, -73.980021, pplOrangeArmOpen],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Isabelle here!</h1>People adore her and her laugh. You will be able to spot her from a mile away.</b>', 40.730138, -74.005331, pplTankYellowPants],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hello to John!</h1>He loves to to go to Chinatown to get inspiration for his artwork</b>', 40.713667, -74.004362, pplOrangeWave],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Ray!</h1>He skateboards along the west coast.</b>', 40.760544, -73.994910, pplPinkSkate],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Mak is here!</h1>He walks around Midtown, shopping for the best deal... in Midtown?</b>', 40.765650, -73.980153, pplOrangeWave],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Harry here!</h1>After work, he gets his heart rate going after 8 hours of sitting.</b>', 40.747976, -73.973228, pplJumpRope],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hello to Ella!</h1>He walks around Midtown, shopping for the best deal... in Midtown?</b>', 40.768163, -73.965525, pplBag],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Peter here!</h1>He runs for 3 miles a day, hoping to beat his record from the day before.</b>', 40.766824, -73.973043, pplHandStand],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Lucy here!</h1>She brings her handmade dumplings and sits by the park to watch dogs play.</b>', 40.776765, -73.966382, pplBench],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Dylan</h1>He takes a stroll around upper east side enjoying his retirement</b>', 40.787744, -73.947040, pplPurpleArmOpen],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Enoch here!</h1>He brings his soccer ball out at 3 in the afternoon, waiting for more friends to join.</b>', 40.797341, -73.959600, pplSoccer],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Meredith</h1>Living in a calm neighborhood, she picks leaves and flowers off the floor</b>', 40.798088, -73.973376, pplPickFlower],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Jim</h1>He comes to Union Square every day and practice his skateboard tricks, giving everyone around him a heart attack.</b>', 40.736381, -73.990427, pplJim],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hi to Katie!</h1>She wakes up at 5:40am every morning to do her morning strestch next to her blossom tree.</b></div>', 40.747259, -73.979892, pplKatie],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Stephanie</h1>She often take trips to Chinatown for food adventures.</b>', 40.717564, -73.998614, pplJim],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hello to Rachel</h1>She pops by and meets up with Stephanie for dessert.</b>', 40.720401, -73.995322, pplSusan],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Leo.</h1>He lives above one of the oldest Duane Reede store, watching the dogs by his window.</b>', 40.727300, -73.980021, pplTom],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Isabelle here!</h1>People adore her and her laugh. You will be able to spot her from a mile away.</b>', 40.730138, -74.005331, pplKatie],
 
         ];
 
@@ -967,7 +848,7 @@
           '<p><b>She often take trips to Chinatown for food adventures.</b>'
           ;
 
-        var contentStringRachel = '<div id="content">'+
+       var contentStringRachel = '<div id="content">'+
           '<div id="quote">'+
           '</div>'+
           '<h1 id="Heading" class="Heading">Say hello to Rachel!</h1>'+
@@ -986,9 +867,8 @@
           ;
 
         var infoArray = [
-          contentStringTommy, contentStringSusan, contentStringJim, contentStringKatie, contentStringSteph,  contentStringRachel, contentStringLeo, contentStringIs
+          contentStringTommy, contentStringJim, contentStringKatie, contentStringSusan, contentStringRachel, contentStringSteph, contentStringLeo, contentStringIs
         ];
-
         var infowindowArray = new google.maps.InfoWindow();
 
        // get the markers from the array 
@@ -1041,27 +921,11 @@
         var markerFlag, k;
         var markerFlags = [];
         var locationsFlag = [
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">craving something healthy but also comforting?</h1></div>', 40.753184, -73.985548, flag, 'https://www.yelp.com/biz/abc-kitchen-new-york'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">did somebody say mac & cheese?</h1></div>', 40.741126, -73.979632, flag, 'https://www.yelp.com/biz/the-smith-new-york-7?osq=the+smith'],
+          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">craving something healthy but also comforting?</h1></div>', 40.753184, -73.985548, flag, 'https://www.jean-georges.com/restaurants/united-states/new-york/abc-kitchen'],
+          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">did somebody say mac & cheese?</h1></div>', 40.741126, -73.979632, flag, 'https://thesmithrestaurant.com/'],
            ['<div style="width: 200px;"><h3 id="Heading" class="Heading">pho real?</h1></div>', 40.761996, -73.991368, flag, 'https://www.obaony.com/'],
           ['<div style="width: 200px;"><h3 id="Heading" class="Heading">hazelnut + chocolate is the best combo</h1></div>', 40.737116, -73.991678, flag, 'https://www.yelp.com/biz/nutella-cafe-new-york-3'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">are you ready for a sugar rush?</h1></div>', 40.740012, -74.007478, flag, 'https://www.yelp.com/biz/sugar-factory-new-york-7?osq=Sugar+Factory+American+Brasserie'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading"> Vietnamese? Thai? Malaysia? Take your pick!</h1></div>', 40.760897, -73.991509, flag, 'https://www.yelp.com/biz/obao-new-york-3'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading"> Who doesnt like an elevated handmade pasta dish with a modern twist?</h1></div>', 40.734051, -74.005120, flag, 'https://www.yelp.com/biz/l-artusi-new-york?osq=l%27atrusi'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading"> need somewhere quick to indulge a big warm bowl of hearty pho?</h1></div>', 40.729823, -74.000657, flag, 'https://www.yelp.com/biz/saigon-shack-new-york'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading"> Donut? Croissant? Why not both</h1></div>', 40.725408, -74.002878, flag, 'https://www.yelp.com/biz/dominique-ansel-bakery-new-york'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading"> Everything egg!</h1></div>', 40.720570, -73.995368, flag, 'https://www.yelp.com/biz/egg-shop-new-york-3?osq=egg+shop'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading"> Healthy + comfort. Is that possible?</h1></div>', 40.706192, -74.007266, flag, 'https://www.yelp.com/biz/dig-inn-new-york-23?osq=Dig+Inn'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading"> lobster dumplings, edamame dumplings, black cod ... how does it sound?</h1></div>', 40.762777, -73.971326, flag, 'https://www.yelp.com/biz/tao-uptown-new-york'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading"> Crepe layered cake made to perfection!</h1></div>', 40.775773, -73.960757, flag, 'https://www.yelp.com/biz/lady-m-cake-boutique-new-york'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading"> You will never go wrong with a traditional eggs benedict drenched in hollandaise </h1></div>', 40.785063, -73.955755, flag, 'https://www.yelp.com/biz/sarabeths-east-new-york-2?osq=sarabeth'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading"> Who doesnt love a palm size one inch high gooey, chewy chocolate chip cookie??</h1></div>', 40.805295, -73.955238, flag, 'https://www.yelp.com/biz/levain-bakery-new-york-3?osq=Levain+Bakery'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading"> 3 star michelin frenchchef! that speaks for itself.</h1></div>', 40.769287, -73.981574, flag, 'https://www.yelp.com/biz/jean-georges-new-york-2'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading"> Another location for a gooey, comforting cookie. Straight from the oven, pair it with milk, indulge it! </h1></div>', 40.780234, -73.980411, flag, 'https://www.yelp.com/biz/levain-bakery-new-york?osq=levain'],
-
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading"> Southern soul food? Fried chicken and waffle? What are you waiting for? </h1></div>', 40.803043, -73.950309, flag, 'https://www.yelp.com/biz/amy-ruths-new-york'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading"> Elevated, American food fused Mexican, cooked from the heart and soul.</h1></div>', 40.808328, -73.944832, flag, 'https://www.yelp.com/biz/red-rooster-harlem-new-york-3'],
-          ['<div style="width: 200px;"><h3 id="Heading" class="Heading"> 3 star michelin frenchchef! that speaks for itself.</h1></div>', 40.769287, -73.981574, flag, 'https://www.yelp.com/biz/jean-georges-new-york-2'],
+          ['<div style="width: 200px;"><h3 id="Heading" class="Heading">are you ready for a sugar rush?</h1></div>', 40.740012, -74.007478, flag, 'http://sugarfactory.com'],
         ]
 
 
@@ -1099,7 +963,7 @@
 
           }
           })(markerFlag, k));
-
+console.log(markerFlags) 
           // click redirect to restaurant link
           google.maps.event.addListener(markerFlag, 'click', (function(markerFlag, k){
               return function() {
@@ -1149,85 +1013,24 @@
           {lat: 40.755540, lng: -73.981721}
         ];
 
-         var carItaly = [
-          {lat: 40.719594, lng: -73.998145},
-          {lat: 40.719428, lng: -73.997325},
-          {lat: 40.720568, lng: -73.996860},
-          {lat: 40.719428, lng: -73.994453},
-          {lat: 40.725771, lng: -73.992073},
-          {lat: 40.726579, lng: -73.994125}
-        ];
-
-        var carSoho = [
-          {lat: 40.721879, lng: -73.993446},
-          {lat: 40.722367, lng: -73.993264},
-          {lat: 40.723841, lng: -73.996974},
-          {lat: 40.721417, lng: -73.999052},
-          {lat: 40.719542, lng: -74.000635}
-        ];
-
-        var chinaTown = [
-          {lat: 40.711880, lng: -73.998712},
-          {lat: 40.712086,lng:  -73.996910},
-          {lat: 40.714041, lng: -73.997512},
-          {lat: 40.716258, lng: -73.996098},
-          {lat: 40.717129, lng: -73.998713},
-          {lat: 40.719914, lng: -74.002608},
-          {lat: 40.721263, lng: -74.001459}
-        ];
-
-        var abcToMid = [
-          {lat: 40.722880, lng: -73.979794},
-          {lat: 40.731041, lng:  -73.973903},
-          {lat: 40.735585, lng: -73.975048},
-          {lat: 40.736801, lng: -73.978524},
-          {lat: 40.753234, lng: -73.966685},
-          {lat: 40.758876, lng: -73.979898}
-        ];
-
-        var brookToMan = [
-          {lat: 40.711609, lng: -73.957601},
-          {lat: 40.710326, lng: -73.958351},
-          {lat: 40.710200, lng: -73.960761},
-          {lat: 40.717790, lng: -73.985695},
-          {lat: 40.720288, lng: -73.984526},
-          {lat: 40.722802, lng: -73.993007},
-          {lat: 40.727645, lng: -73.991356},
-          {lat: 40.745721, lng: -73.978149},
-          {lat: 40.748248, lng: -73.984526}
-        ];
-
-        var uwsToMid = [
-          {lat: 40.798561, lng: -73.965618},
-          {lat: 40.797944, lng: -73.963816},
-          {lat: 40.767854, lng: -73.985832},
-          {lat: 40.766294, lng: -73.981927}
-        ];
-
         var carArray = [
-          carHomeToABC, carMad, carItaly, carSoho, chinaTown, abcToMid, brookToMan, uwsToMid
+          carHomeToABC, carMad
         ];
 
         var carQuotes = [
-          'are you kidding me?', 'dude we are going to be late!', 'f* you woman', 'you are in the way!', 'Trap, TrapMoneyBenny. This shit got me in my feelings. Gotta be real with it, yup', 'lately, ive been, ive been losing sleep, dreaming about the things we could be...', 'i hate commuting...', 'b*, you wanna die?'
+          'are you kidding me?', 'dude we are going to be late!'
         ];
 
         var carCenter = [
           {lat: 40.743383, lng: -73.986180},
-          {lat: 40.753441, lng:-73.988836},
-          {lat: 40.724354, lng:-73.992539},
-          {lat: 40.721417, lng: -73.999052},
-          {lat: 40.717129, lng: -73.998713},
-          {lat: 40.753234, lng: -73.966685},
-          {lat: 40.720288, lng: -73.984526}
-
+          {lat: 40.753441, lng:-73.988836}
         ];
 
         for (j = 0; j < carArray.length; j++) {  
           carPath = new google.maps.Polyline({
             path: carArray[j], 
             geodesic: true,
-            strokeColor: '#778bc6',
+            strokeColor: 'navy',
             strokeOpacity: 1.0,
             strokeWeight: 3,
             center: carCenter[j],
@@ -1258,7 +1061,7 @@
                 if ( typeIdChangedInCode ) {
                     for(var i = 0; i < carPaths.length; i++){
                       carPaths[i].setOptions({
-                          strokeColor: '#f9f0cc'
+                          strokeColor: 'yellow'
                       });           
                     }
                     for(var i = 0; i < markerFlags.length; i++){
@@ -1268,7 +1071,7 @@
                     }
                     for(var i = 0; i < bikePaths.length; i++){
                         bikePaths[i].setOptions({
-                            strokeColor: '#d8f9cc'
+                            strokeColor: 'orange'
                         }); 
                     }  
                 }
@@ -1287,21 +1090,10 @@
                         bikePaths[i].setOptions({
                             strokeColor: 'white'
                         }); 
-                    } 
-
+                    }  
                 }
                 else{}
           } );
-
-
-        //ERROR: infowindow doesn't follow carSymbol!
-        // google.maps.event.addListener(carPath, 'mouseover', function(carSymbol) {
-        //       console.log('mouseover!')
-        //       infowindow.setContent(carSymbol.info);
-        //       infowindow.setPosition(carPath.center);
-        //       infowindow.open(map);
-        //     });
-
 
         // setInterval() to change symbol at fixed intervals
           function animateCar(carPath) {
@@ -1341,63 +1133,17 @@
           {lat: 40.735771, lng: -73.994692}
         ];
 
-        var bikeThree = [
-          {lat: 40.732489, lng: -74.005523},
-          {lat: 40.728322, lng: -74.003003},
-          {lat: 40.722939, lng: -74.005142},
-          {lat: 40.722389, lng: -74.003767},
-          {lat: 40.721318, lng: -74.004645},
-          {lat: 40.720420, lng: -74.003385},
-          {lat: 40.713040, lng: -74.009495}
-        ];
-
-        var bikeFour = [
-          {lat: 40.807193, lng: -73.960792},
-          {lat: 40.800572, lng: -73.965809},
-          {lat: 40.798042, lng: -73.960120},
-          {lat: 40.792334, lng: -73.964230},
-          {lat: 40.790571, lng: -73.960725},
-          {lat: 40.788630, lng: -73.955278},
-          {lat: 40.786259, lng: -73.956977}
-        ];
-
-        var bikeFive = [
-          {lat: 40.777852, lng: -73.945714},
-          {lat: 40.771366, lng: -73.950478},
-          {lat: 40.772351, lng: -73.952778},
-          {lat: 40.765209, lng: -73.957877},
-          {lat: 40.767001, ng: -73.962109}
-        ];
-
-        var bikeSix = [
-          {lat:40.711182, lng: -73.953662},
-          {lat: 40.710003, lng: -73.950982},
-          {lat: 40.706616, lng: -73.950420},
-          {lat: 40.707770, lng: -73.939069}
-        ];
-
-        var bikeSeven = [
-          {lat: 40.701132, lng: -73.953999},
-          {lat: 40.703316, lng: -73.950724},
-          {lat: 40.706593, lng: -73.954392},
-          {lat: 40.707526, lng: -73.961377}
-        ];
-
         var bikeArray = [
-          bikeOne, bikeTwo, bikeThree, bikeFour, bikeFive, bikeSix, bikeSeven
+          bikeOne, bikeTwo
         ];
 
         var bikeQuotes = [
-          'what the f* do you think you"re doing?', 'crap i forgot my portfolio','did i get my briefcase? oh crap, i forgot to get my drycleaning.', 'honey, would you mind picking up the kids this afternoon?', 'yo kid, you want me to run over your feet?', 'MOVE'
+          'what the f* do you think you"re doing?', 'crap i forgot my portfolio'
         ];
 
         var bikeCenter = [
           {lat:40.748424, lng: -73.984600},
           {lat:40.732533, lng: -73.985357},
-          {lat: 40.721318, lng: -74.004645},
-          {lat: 40.788630, lng: -73.955278},
-          {lat: 40.772351, lng: -73.952778},
-          {lat: 40.706593, lng: -73.954392}
         ];
 
         for (l = 0; l < bikeArray.length; l++) {
@@ -1413,18 +1159,6 @@
             info: bikeQuotes[l],
             center: bikeCenter[l]
           });
-
-          //don't need (unless click to get )
-          // google.maps.event.addListener(bikePath, 'click', (function(bikePath, l) {
-          //     return function() {
-          //           infowindowBike.setContent(bikeQuotes[l]);
-          //           infowindowBike.setPosition(bikeCenter[l]);
-          //           infowindowBike.open(map, bikePath);
-
-          //   };
-          // })
-          // (bikePath, l)
-          // );
 
 
           bikePath.setMap(map);
@@ -1460,14 +1194,9 @@
       };
     }
 
-
-
-
-       
-
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRjjJm4QxHyNT9Ji7CUsCDA94jo_XZvco&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRjjJm4QxHyNT9Ji7CUsCDA94jo_XZvco&callback=initMapHk">
     </script>
 
     

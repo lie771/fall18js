@@ -342,8 +342,8 @@
 
        // Bounds for New York
        var allowedBounds = new google.maps.LatLngBounds(
-         new google.maps.LatLng(40.731695, -74.029834), 
-         new google.maps.LatLng(40.803189, -73.926703));
+         new google.maps.LatLng(22.281337, 114.135894), 
+         new google.maps.LatLng(22.312384, 114.251986));
 
        // Listen for the dragend event
        google.maps.event.addListener(map, 'dragend', function() {
@@ -1401,7 +1401,29 @@
         //       infowindow.open(map);
         //     });
 
+          //when maptypeid is changed
+          // google.maps.event.addListener( map, 'maptypeid_changed', function(evnt) { 
+          //       if ( typeIdChangedInCode ) {
+          //         carPath.setOptions({
+          //             strokeColor: 'yellow'
+          //         }); 
+          //         markerFlag.setOptions({
+          //             icon: flagStyled
+          //         });
+          //         bikePath.setOptions({
+          //             strokeColor: 'orange'
+          //         }); 
+                    
+          //         typeIdChangedInCode = false;
+          //       }
+          //       else {
+          //         // markerFlag.setOptions({
+          //         //     icon: flag
+          //         // });
+          //       }
+          // } );
 
+          
         // setInterval() to change symbol at fixed intervals
         function animateCar(line) {
             var count = 0;
@@ -1415,6 +1437,8 @@
             }, 80);
         };
       };
+
+
 
     </script>
     <script async defer
