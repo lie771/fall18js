@@ -190,6 +190,44 @@
 
       }
 
+      function keyControl(controlDiv, map) {
+        // CSS for the control border
+        var controlUI = document.createElement('div');
+        controlUI.style.backgroundColor = '#fff';
+        controlUI.style.border = '2px solid #fff';
+        controlUI.style.borderRadius = '3px';
+        // controlUI.style.opacity = '0.1'
+        controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+        controlUI.style.cursor = 'pointer';
+        controlUI.style.marginBottom = '30px';
+        controlUI.style.marginRight = '5px';
+
+        controlUI.style.textAlign = 'center';
+        controlUI.title = 'Click to recenter the map';
+        controlDiv.appendChild(controlUI);
+
+        // css style for the control interior.
+        var controlText = document.createElement('div');
+        controlText.style.color = 'rgb(25,25,25)';
+        controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+        controlText.style.fontSize = '15px';
+        controlText.style.lineHeight = '38px';
+        controlText.style.paddingLeft = '10px';
+        controlText.style.paddingRight = '10px';
+        controlText.innerHTML = 'Key';
+        controlUI.appendChild(controlText);
+
+        // setup the click event listeners: switch visualization
+        
+        controlUI.addEventListener('mouseover', function() {
+          //hello
+          var dImage = document.getElementById('div_tag');
+          this.innerHTML = '<img src="jpeg/key_2.png">';
+          // map.setZoom(15);
+        });
+
+      }
+
 
       // POPULATION CIRCLES
       var populationmap = {
@@ -864,6 +902,12 @@
 
         zoomFarDiv.index = 1
         map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(zoomFarDiv);
+
+        var keyDiv = document.createElement('div');
+        var key = new keyControl(keyDiv, map);
+
+        keyDiv.index = 1
+        map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(keyDiv);
 
         /* Change markers on zoom */
         google.maps.event.addListener(map, 'zoom_changed', function() {
