@@ -17,6 +17,7 @@
       position: relative;
       width:500px;
       height:auto;
+      padding-bottom:50px;
       opacity: 1;
       right:0px;
     }
@@ -29,24 +30,34 @@
       position: absolute;
       width:60vw;
       height:50%;
+
       left:50%;
       top:50%;
       text-align: center;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -55%);
     }
     .projectname{
       position: absolute;
-      font-family: museosans-500;
+      font-family: museosans-500;/*
+            padding-bottom:30px;*/
       position: relative;
       margin-top:5vw;
     }
+    nav{
+      /*color:gray;*/
+    }
     a{
-      font-size:1.5em; 
+      font-size:1em; 
       color:gray;
       opacity: 1;
     }
     a:hover{
       opacity: 0.3;
+    }
+    .projImg{
+      width:10%;
+      height:auto;
+      padding-top:10px;
     }
 
   </style>
@@ -62,10 +73,13 @@
         <a href="connect.html" class="connect nav">CONNECT</a>
     <div class="content">
         <div class="projectname"><a href="pattern.html">PATTERN</a></div>
+        <img class ="projImg" src="./img/favicon_pattern.png">
         <br>
         <div class="projectname"><a href="instrument.html">INSTRUMENT</a></div>
+        <img class ="projImg" src="./img/favicon_instrument.png">
         <br>
         <div class="projectname"><a href="final.html">FINAL</a></div>
+        <img class ="projImg" src="./img/favicon_final.png">
     </div>
   </div>
 

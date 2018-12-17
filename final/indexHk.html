@@ -4,7 +4,7 @@
   <title>HK n' Back</title>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
-
+  <link rel="icon" href="./jpeg/favicon_final.png" type="image/x-icon" />
   <style type="text/css">
     
       #map {
@@ -22,6 +22,11 @@
           background-color: lightblue;
         }
       }
+      .key{
+        position: fixed;
+        bottom:10px;
+        left:10px;
+      }
 
 
   </style>
@@ -30,11 +35,8 @@
 
 </head>
 <body>
+   
   <div id="map">
-
-    
-  </div><!-- 
-    <div id="mapHk"></div> -->
     <script>
 
       // pull map out & styling
@@ -77,7 +79,6 @@
 
 
       // BUTTON: fly back to NY
-      // var newYorkCity = {lat: 40.749759, lng: -73.991830};
       function CenterNyControl(controlDiv, map) {
         // CSS for the control border
         var controlUI = document.createElement('div');
@@ -178,6 +179,44 @@
 
       }
 
+        function keyControl(controlDiv, map) {
+        // CSS for the control border
+        var controlUI = document.createElement('div');
+        controlUI.style.backgroundColor = '#fff';
+        controlUI.style.border = '2px solid #fff';
+        controlUI.style.borderRadius = '3px';
+        // controlUI.style.opacity = '0.1'
+        controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+        controlUI.style.cursor = 'pointer';
+        controlUI.style.marginBottom = '30px';
+        controlUI.style.marginRight = '5px';
+
+        controlUI.style.textAlign = 'center';
+        controlUI.title = 'Click to recenter the map';
+        controlDiv.appendChild(controlUI);
+
+        // css style for the control interior.
+        var controlText = document.createElement('div');
+        controlText.style.color = 'rgb(25,25,25)';
+        controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+        controlText.style.fontSize = '15px';
+        controlText.style.lineHeight = '38px';
+        controlText.style.paddingLeft = '10px';
+        controlText.style.paddingRight = '10px';
+        controlText.innerHTML = 'Key';
+        controlUI.appendChild(controlText);
+
+        // setup the click event listeners: switch visualization
+        
+        controlUI.addEventListener('mouseover', function() {
+          //hello
+          var dImage = document.getElementById('div_tag');
+          this.innerHTML = '<img src="jpeg/key_2.png">';
+          // map.setZoom(15);
+        });
+
+      }
+
       // POPULATION CIRCLES
       var populationmapHk = {
         ifc: {
@@ -229,7 +268,7 @@
       function initMapHk() {
         // (day)standard map
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 22.288049, lng: 114.172271},
+          center: {lat: 22.301913, lng: 114.172423},
           zoom: 14,
           gestureHandling: 'cooperative',
           streetViewControl: false,
@@ -252,7 +291,9 @@
                 "featureType": "landscape",
                 "elementType": "all",
                 "stylers": [
-                    { "color": "#f2f2f2" }
+                    { "color": "#f9dbe7"},
+                    { "saturation": -50 }
+                    
                 ]
             },
             {
@@ -302,7 +343,7 @@
                 "featureType": "water",
                 "elementType": "all",
                 "stylers": [
-                    { "color": "#dde6e8" },
+                    { "color": "#9cb7b6" },
                     { "visibility": "on" }
                 ]
             }
@@ -766,6 +807,12 @@
         zoomFarDiv.index = 1
         map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(zoomFarDiv);
 
+        var keyDiv = document.createElement('div');
+        var key = new keyControl(keyDiv, map);
+
+        keyDiv.index = 1
+        map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(keyDiv);
+
         /* Change markers on zoom */
         google.maps.event.addListener(map, 'zoom_changed', function() {
             var zoom = map.getZoom();
@@ -817,7 +864,7 @@
             ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hello to the love birds!</h1>They spend hours walking around the mall and give each other nose kisses.</div></b>', 22.339051, 114.173859, pplCouple],
             ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Lok Hee</h1>He hates humiditiy, but he gotta do his job.</b></div>', 22.331127, 114.162947, pplHalfNaked],
             ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Hei Hei</h1>She comes to the park admiring the trees and plantations in the park</b>', 22.325679, 114.166659, pplTreeHug],
-            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hi to Cheuk Shan!</h1>He comes to Mong Kok everyday for his fishballs and siu mai.</b></div>', 40.747259, -73.979892, pplFat],
+            ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hi to Cheuk Shan!</h1>He comes to Mong Kok everyday for his fishballs and siu mai.</b></div>', 40.747259, 114.166659, pplFat],
             ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Isabelle</h1>She has two cats, ones named Melvin the other Good Boy.</b>', 22.279844, 114.147502, pplSitLookUp],
             ['<div style="width: 200px;"><h1 id="Heading" class="Heading">Say hello to Tommy</h1>Despite the weather, Tommy fishes near the harbour.</b>', 22.294215, 114.175778, pplFishing],
             ['<div style="width: 200px;"><h1 id="Heading" class="Heading">This is Leo.</h1>He stays at home most of the time, but when he does, he goes out for food.</b>', 22.404687, 114.210649, pplOrangeWave],
@@ -1206,25 +1253,33 @@
         ];
 
         var bikeTwo = [
-          {lat: 22.283997, lng: 114.127543},
-          {lat: 22.284464, lng: 114.129058},
-          {lat: 22.285915, lng: 114.130807},
-          {lat: 22.284797, lng: 114.132015},
-          {lat: 22.286583, lng: 114.132737},
-          {lat: 22.285732, lng: 114.136776}
+          {lat: 22.327858, lng: 114.190978},
+          {lat: 22.325004, lng: 114.174005},
+          {lat: 22.326669, lng: 114.174740},
+          {lat: 22.326566, lng: 114.166106}
+        ];
+
+        var bikeThree = [
+          {lat: 22.305891, lng: 114.167018},
+          {lat: 22.305545, lng: 114.169207},
+          {lat: 22.308731, lng: 114.170142},
+          {lat: 22.308447, lng: 114.171369},
+          {lat: 22.310602, lng: 114.171223},
+          {lat: 22.318362, lng: 114.169686}
         ];
 
         var bikeArray = [
-          bikeOne, bikeTwo
+          bikeOne, bikeTwo, bikeThree
         ];
 
         var bikeQuotes = [
-          'its such a nice day out! though its humid', 'oh crap, i forgot my chemistry paper.'
+          'ill be there in ten minutes!', 'why did i decide to take this route...', 'WOMAN! gosh, these people with their suitcases.'
         ];
 
         var bikeCenter = [
-          {lat:40.748424, lng: -73.984600},
-          {lat:40.732533, lng: -73.985357},
+          {lat: 22.284797, lng: 114.132015},
+          {lat: 22.325004, lng: 114.174005},
+          {lat: 22.308447, lng: 114.171369}
         ];
 
         for (l = 0; l < bikeArray.length; l++) {
@@ -1268,11 +1323,9 @@
           }, 80);
         };
 
-
-        // ERROR generate random placement and quantity of trees
-        var trees = 'jpeg/tree_1.svg';
-
       };
+
+
     }
 
     </script>
